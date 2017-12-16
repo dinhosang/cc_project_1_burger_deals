@@ -4,7 +4,7 @@ require('pg')
 class SqlRunner
 
 
-  def run(sql, values = [])
+  def self.run(sql, values = [])
     begin
       db = PG.connect(dbname: 'burger_deals', host: 'localhost')
       db.prepare("run", sql)
