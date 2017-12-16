@@ -1,11 +1,11 @@
-DROP TABLE IF EXISTS deals_eatories_burgers;
+DROP TABLE IF EXISTS deals_eatories_burgers_prices;
 DROP TABLE IF EXISTS deals;
 DROP TABLE IF EXISTS burgers;
 DROP TABLE IF EXISTS eatories;
 DROP TABLE IF EXISTS deal_types;
 DROP TABLE IF EXISTS days;
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
+-- DROP SCHEMA public CASCADE;
+-- CREATE SCHEMA public;
 
 
 CREATE TABLE burgers (
@@ -37,11 +37,12 @@ CREATE TABLE deals (
   day_id INT2 REFERENCES days(id)
 );
 
-CREATE TABLE deals_eatories_burgers (
+CREATE TABLE deals_eatories_burgers_prices (
   id SERIAL2 PRIMARY KEY,
   deal_id INT2 REFERENCES deals(id) ON DELETE CASCADE,
   burger_id INT2 REFERENCES burgers(id) ON DELETE CASCADE NOT NULL,
-  eatory_id INT2 REFERENCES eatories(id) ON DELETE CASCADE NOT NULL
+  eatory_id INT2 REFERENCES eatories(id) ON DELETE CASCADE NOT NULL,
+  price INT2
 );
 
 

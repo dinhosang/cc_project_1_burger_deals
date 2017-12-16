@@ -11,7 +11,6 @@ class Deal
     @label = options_hash['label']
     @day_id = options_hash['day_id'].to_i
     @value = options_hash['value'] if options_hash['value']
-    @eatery_id = options_hash['eatery_id'].to_i
     # shouldn't need both if statements, should only
     # require id or name, will rework once sure which
     # I will use more often - probably id
@@ -30,11 +29,11 @@ class Deal
 
   def save
     sql = "
-          INSERT INTO deals (type_id, label, value, eatory_id, day_id)
-          VALUES ($1, $2, $3, $4, $5)
+          INSERT INTO deals (type_id, label, value, day_id)
+          VALUES ($1, $2, $3, $4)
           RETURNING id;
           "
-    values = [@type_id, @label, @value, @eatory_id, @day_id]
+    values = [@type_id, @label, @value, @day_id]
     id_hash = SqlRunner.run(sql, values).first
     @id = id_hash['id'].to_i
   end

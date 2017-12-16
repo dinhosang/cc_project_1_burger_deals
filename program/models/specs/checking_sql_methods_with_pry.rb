@@ -1,6 +1,8 @@
 require('pry-byebug')
 require_relative('../burger')
 require_relative('../eatory')
+require_relative('../deal')
+
 
 burger1 = Burger.new({'type' => 'beef burger'})
 burger2 = Burger.new({'type' => 'cheese burger', 'name' => 'Big Cheese'})
@@ -10,6 +12,10 @@ eatory1 = Eatory.new({"name" => "Jawsome Burgers"})
 eatory2 = Eatory.new({"name" => "Bricks"})
 eatory3 = Eatory.new({"name" => "Dinner's #here"})
 
+deal1 = Deal.new({'type_id' => '1', 'label' => 'Get the Cheapest for FREE!', 'day_id' => '1'})
+deal2 = Deal.new({'type_id' => '3', 'value' => '£5.00', 'label' => 'Get £5 off your meal!', 'day_id' => '3'})
+deal3 = Deal.new({'type_id' => '2', 'value' => '1/4', 'label' => 'Enjoy 25% off all day Friday!', 'day_id' => '5'})
+
 
 burger1.save
 burger2.save
@@ -17,6 +23,9 @@ burger3.save
 eatory1.save
 eatory2.save
 eatory3.save
+deal1.save
+deal2.save
+deal3.save
 
 # binding.pry
 
@@ -29,7 +38,11 @@ burger2.update
 burger3.update
 eatory3.update
 
-eatory1.add_stock([burger1, burger3])
+eatory1.add_stock([{"burger" => burger1, "price" => '350'}, {"burger" => burger3, 'price' => '500'}])
+
+binding.pry
+
+adding = eatory1.add_deal(deal1, [burger2, burger3])
 
 binding.pry
 
