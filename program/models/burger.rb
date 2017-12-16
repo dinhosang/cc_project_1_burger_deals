@@ -7,8 +7,8 @@ class Burger
   attr_accessor :type, :name
 
   def initialize(options_hash)
-    @type = options_hash['type']
     @id = options_hash['id'].to_i if options_hash['id']
+    @type = options_hash['type']
     @name = options_hash['name']
     @price = options_hash['price'] if options_hash['price']
   end
@@ -21,6 +21,11 @@ class Burger
     price_pennies_array.unshift('£')
     price_currency = price_pennies_array.join
     return price_currency
+  end
+
+
+  def price_int
+    return @price.to_i
   end
 
 

@@ -31,6 +31,13 @@ class TestBurger < MiniTest::Test
   end
 
 
+  def test_check_price_as_int
+    expected = 350
+    actual = @burger1.price_int
+    assert_equal(expected, actual)
+  end
+
+
   def test_check_name
     expected = "The Greatest"
     actual = @burger1.name
