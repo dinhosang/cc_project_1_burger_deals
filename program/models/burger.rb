@@ -47,4 +47,46 @@ class Burger
   end
 
 
+  def delete
+    sql = "
+    DELETE FROM burgers
+    WHERE id = $1;
+    "
+    SqlRunner.run(sql, [@id])
+  end
+
+
+  def Burger.find(id)
+    sql = "
+    SELECT * FROM burgers
+    WHERE id = $1;
+    "
+    burger_hash = SqlRunner.run(sql, [id]).first
+    if burger_hash
+      return Burger.new(burger_hash)
+    end
+    return false
+  end
+
+
+  def Burger.find_all
+    sql = "SELECT * FROM burgers;"
+    burger_hashes = SqlRunner.run(sql)
+    return mapper_aid(burger_hashes)
+  end
+
+
+  def self.mapper_aid(burger_hashes)
+    burgers = []
+    burger_hashes.each do |hash|
+      burger = Burger.new(hash)
+      burgers.push(burger)
+    end
+    if burgers != []
+      return burgers
+    end
+    return false
+  end
+
+
 end

@@ -32,9 +32,9 @@ CREATE TABLE deals (
 
 CREATE TABLE deals_eatories_burgers (
   id SERIAL2 PRIMARY KEY,
-  deal_id SERIAL2 REFERENCES deals(id),
-  burger_id SERIAL2 REFERENCES burgers(id),
-  eatory_id SERIAL2 REFERENCES eatories(id)
+  deal_id SERIAL2 REFERENCES deals(id) ON DELETE CASCADE,
+  burger_id SERIAL2 REFERENCES burgers(id) ON DELETE CASCADE,
+  eatory_id SERIAL2 REFERENCES eatories(id) ON DELETE CASCADE
 );
 
 

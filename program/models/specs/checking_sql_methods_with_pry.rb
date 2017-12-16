@@ -16,5 +16,13 @@ burger3.name = "Best Burger"
 burger2.update
 burger3.update
 
+burger1.delete
+
+# binding.pry
+# burger2.delete
+# burger3.delete
+# burgers = Burger.find_all
+
+
 binding.pry
 nil
