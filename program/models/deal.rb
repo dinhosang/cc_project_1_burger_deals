@@ -1,5 +1,7 @@
-require_relative('../db/sqlrunner')
 require('pry-byebug')
+require_relative('eatory')
+require_relative('../db/sqlrunner')
+
 
 class Deal
 
@@ -69,6 +71,8 @@ class Deal
     elsif type == "monetary"
       calculation = calculate_monetary_saving(burgers_arr)
     end
+    saving_amount_int = calculation[:original_int] - calculation[:new_int]
+    calculation[:saving_int] = saving_amount_int
     return calculation
   end
 
@@ -133,6 +137,24 @@ class Deal
   end
 
 
+  def Deal.active_deals_by_day(day_id)
+    active_deals_array = []
+    eatories = Eatory.find_all
+    if eatories != []
+      for eatory in eatories
+        details_array = eatory.detail_all_deals_by_day(day_id)
+        if details_array
+          active_deals_array.push({"eatory" => eatory, 'active_deals' => details_array})
+        end
+      end
+      if active_deals_array != []
+        return active_deals_array
+      end
+    end
+    return nil
+  end
+
+
   def Deal.find(id)
     sql = "
     SELECT * FROM deals
@@ -142,7 +164,7 @@ class Deal
     if deal_hash
       return Deal.new(deal_hash)
     end
-    return false
+    return nil
   end
 
 
@@ -160,7 +182,7 @@ class Deal
     if deals != []
       return deals
     end
-    return false
+    return nil
   end
 
 

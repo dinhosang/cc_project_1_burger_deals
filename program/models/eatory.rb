@@ -159,6 +159,24 @@ class Eatory
     "
     deal_hashes = SqlRunner.run(sql, [@id])
     deals = Deal.mapper_aid(deal_hashes)
+    return deals
+  end
+
+
+  def find_deals_by_day(day_id)
+    sql ="
+    SELECT DISTINCT deals.id, deals.label,
+    deals.day_id, deals.value, deals.type_id
+    FROM deals
+    INNER JOIN deals_eatories_burgers_prices ON
+    deals_eatories_burgers_prices.deal_id = deals.id
+    AND deals_eatories_burgers_prices.eatory_id
+    = $1 AND deals.day_id = $2;
+    "
+    values = [@id, day_id]
+    deal_hashes = SqlRunner.run(sql, values)
+    deals = Deal.mapper_aid(deal_hashes)
+    return deals
   end
 
 
@@ -183,14 +201,30 @@ class Eatory
   def detail_all_deals
     all_details = []
     deals = find_deals
-
-    for deal in deals
-      burgers = find_burgers_in_deal(deal)
-      all_details.push({'deal' => deal, 'burgers' => burgers})
+    if deals
+      for deal in deals
+        burgers = find_burgers_in_deal(deal)
+        all_details.push({'deal' => deal, 'burgers' => burgers})
+      end
+      return all_details
     end
-
-    return all_details
+    return deals
   end
+
+
+  def detail_all_deals_by_day(day_id)
+    all_details = []
+    deals = find_deals_by_day(day_id)
+    if deals
+      for deal in deals
+        burgers = find_burgers_in_deal(deal)
+        all_details.push({'deal' => deal, 'burgers' => burgers})
+      end
+      return all_details
+    end
+    return deals
+  end
+
 
 
   def remove_burger_from_deal(deal, burger)
@@ -222,17 +256,18 @@ class Eatory
     WHERE id = $1;
     "
     eatory_hash = SqlRunner.run(sql, [id]).first
-    if eatory_hash
+    if eatory_hash != []
       return Eatory.new(eatory_hash)
     end
-    return false
+    return nil
   end
 
 
   def Eatory.find_all
     sql = "SELECT * FROM eatories;"
     eatory_hashes = SqlRunner.run(sql)
-    return mapper_aid(eatory_hashes)
+    eatories = mapper_aid(eatory_hashes)
+    return eatories
   end
 
 
@@ -245,7 +280,7 @@ class Eatory
     if eatories != []
       return eatories
     end
-    return false
+    return nil
   end
 
 

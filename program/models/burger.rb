@@ -70,7 +70,7 @@ class Burger
     if burger_hash
       return Burger.new(burger_hash)
     end
-    return false
+    return nil
   end
 
 
@@ -90,7 +90,7 @@ class Burger
     if burgers != []
       return burgers
     end
-    return false
+    return nil
   end
 
 
