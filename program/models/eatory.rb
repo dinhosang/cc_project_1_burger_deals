@@ -131,6 +131,11 @@ class Eatory
   end
 
 
+  def show_burger_price_currency(id)
+    
+  end
+
+
   def add_deal(deal, burgers_array)
     sql = "
     INSERT INTO deals_eatories_burgers_prices

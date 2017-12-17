@@ -54,7 +54,7 @@ class TestDeal < MiniTest::Test
 
 
   def test_calculate_cheapest_free__success
-    expected = {original_int: 2023, new_int: 1423}
+    expected = {original_int: 2023, new_int: 1423, saving_int: 600}
     actual = @deal1.calculate(@burgers)
     assert_equal(expected, actual)
   end
@@ -70,24 +70,24 @@ class TestDeal < MiniTest::Test
 
 
   def test_calculate_monetary_saving
-    expected1 = {original_int: 2023, new_int: 1523}
+    expected1 = {original_int: 2023, new_int: 1523, saving_int: 500}
     actual1 = @deal2.calculate(@burgers)
     assert_equal(expected1, actual1)
 
     @deal2.value = '£4.23'
-    expected2 = {original_int: 2023, new_int: 1600}
+    expected2 = {original_int: 2023, new_int: 1600, saving_int: 423}
     actual2 = @deal2.calculate(@burgers)
     assert_equal(expected2, actual2)
   end
 
 
   def test_calculate_percentage_saving
-    expected1 = {original_int: 2023, new_int: 1517}
+    expected1 = {original_int: 2023, new_int: 1517, saving_int: 506}
     actual1 = @deal3.calculate(@burgers)
     assert_equal(expected1, actual1)
 
     @deal3.value = '1/3'
-    expected2 = {original_int: 2023, new_int: 1349}
+    expected2 = {original_int: 2023, new_int: 1349, saving_int: 674}
     actual2 = @deal3.calculate(@burgers)
     assert_equal(expected2, actual2)
   end
