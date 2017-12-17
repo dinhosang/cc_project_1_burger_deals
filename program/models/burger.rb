@@ -9,7 +9,7 @@ class Burger
   def initialize(options_hash)
     @id = options_hash['id'].to_i if options_hash['id']
     @type = options_hash['type']
-    @name = options_hash['name']
+    @name = options_hash['name'] if options_hash['name']
     @price = options_hash['price'] if options_hash['price']
   end
 

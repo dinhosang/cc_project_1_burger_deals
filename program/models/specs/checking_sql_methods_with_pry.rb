@@ -44,6 +44,8 @@ eatory1.add_deal(deal1, [burger2, burger3])
 
 eatory1.change_price({"burger" => burger1, "price" => '250'})
 
+burgers_in_eatory1 = eatory1.all_burgers
+
 binding.pry
 
 removing = eatory1.remove_stock([burger2, burger3])

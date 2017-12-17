@@ -133,4 +133,35 @@ class Deal
   end
 
 
+  def Deal.find(id)
+    sql = "
+    SELECT * FROM deals
+    WHERE id = $1;
+    "
+    deal_hash = SqlRunner.run(sql, [id]).first
+    if deal_hash
+      return Deal.new(deal_hash)
+    end
+    return false
+  end
+
+
+  def Deal.find_all
+    sql = "SELECT * FROM deals;"
+    deal_hashes = SqlRunner.run(sql)
+    return mapper_aid(deal_hashes)
+  end
+
+
+  def self.mapper_aid(deal_hashes)
+    deals = deal_hashes.map do |deal_hash|
+      Deal.new(deal_hash)
+    end
+    if deals != []
+      return deals
+    end
+    return false
+  end
+
+
 end

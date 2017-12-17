@@ -1,5 +1,6 @@
 require_relative('../db/sqlrunner')
-
+require_relative('burger')
+require_relative('deal')
 
 class Eatory
 
@@ -9,6 +10,37 @@ class Eatory
   def initialize(options_hash)
     @id = options_hash['id'].to_i if options_hash['id']
     @name = options_hash['name']
+  end
+
+
+  def save
+    sql = "
+          INSERT INTO eatories (name)
+          VALUES ($1)
+          RETURNING id;
+          "
+    id_hash = SqlRunner.run(sql, [@name]).first
+    @id = id_hash['id'].to_i
+  end
+
+
+  def update
+    sql = "
+          UPDATE eatories
+          SET name = $1
+          WHERE id = $2;
+          "
+    values = [@name, @id]
+    SqlRunner.run(sql, values)
+  end
+
+
+  def delete
+    sql = "
+    DELETE FROM eatories
+    WHERE id = $1;
+    "
+    SqlRunner.run(sql, [@id])
   end
 
 
@@ -43,6 +75,22 @@ class Eatory
   end
 
 
+  def all_burgers
+    sql = "
+    SELECT DISTINCT burgers.id,
+    burgers.type, burgers.name,
+    deals_eatories_burgers_prices.price
+    FROM burgers
+    INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.burger_id
+    = burgers.id
+    AND deals_eatories_burgers_prices.eatory_id = $1;
+    "
+    burger_hashes = SqlRunner.run(sql, [@id])
+    burgers_array = Burger.mapper_aid(burger_hashes)
+    return burgers_array
+  end
+
+
   def change_price( burger_price_hash )
     burger = burger_price_hash['burger']
     price = burger_price_hash['price'].to_i
@@ -67,9 +115,6 @@ class Eatory
       end
     end
   end
-## remove burger from stock
-# remove deals
-# modify prices
 
 
   def check_burger_price(id)
@@ -102,6 +147,52 @@ class Eatory
   end
 
 
+  def find_deals
+    sql ="
+    SELECT DISTINCT deals.id, deals.label,
+    deals.day_id, deals.value, deals.type_id
+    FROM deals
+    INNER JOIN deals_eatories_burgers_prices ON
+    deals_eatories_burgers_prices.deal_id = deals.id
+    AND deals_eatories_burgers_prices.eatory_id
+    = $1;
+    "
+    deal_hashes = SqlRunner.run(sql, [@id])
+    deals = Deal.mapper_aid(deal_hashes)
+  end
+
+
+  def find_burgers_in_deal(deal)
+    sql = "
+    SELECT DISTINCT burgers.id,
+    burgers.type, burgers.name,
+    deals_eatories_burgers_prices.price
+    FROM burgers
+    INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.burger_id
+    = burgers.id
+    AND deals_eatories_burgers_prices.eatory_id = $1
+    AND deals_eatories_burgers_prices.deal_id
+    = $2;
+    "
+    values = [@id, deal.id]
+    burger_hashes = SqlRunner.run(sql, values)
+    return Burger.mapper_aid(burger_hashes)
+  end
+
+
+  def detail_all_deals
+    all_details = []
+    deals = find_deals
+
+    for deal in deals
+      burgers = find_burgers_in_deal(deal)
+      all_details.push({'deal' => deal, 'burgers' => burgers})
+    end
+
+    return all_details
+  end
+
+
   def remove_burger_from_deal(deal, burger)
     sql = "
     DELETE FROM deals_eatories_burgers_prices
@@ -122,37 +213,6 @@ class Eatory
     "
     values = [deal.id, @id]
     SqlRunner.run(sql, values)
-  end
-
-
-  def save
-    sql = "
-          INSERT INTO eatories (name)
-          VALUES ($1)
-          RETURNING id;
-          "
-    id_hash = SqlRunner.run(sql, [@name]).first
-    @id = id_hash['id'].to_i
-  end
-
-
-  def update
-    sql = "
-          UPDATE eatories
-          SET name = $1
-          WHERE id = $2;
-          "
-    values = [@name, @id]
-    SqlRunner.run(sql, values)
-  end
-
-
-  def delete
-    sql = "
-    DELETE FROM eatories
-    WHERE id = $1;
-    "
-    SqlRunner.run(sql, [@id])
   end
 
 
