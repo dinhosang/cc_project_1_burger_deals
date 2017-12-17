@@ -29,6 +29,12 @@ class Deal
   end
 
 
+  def value_string
+    return "Cheapest Item is Free" if @type_id == 1
+    return "#{@value} off order total when spending over £10"
+  end
+
+
   def save
     sql = "
           INSERT INTO deals (type_id, label, value, day_id)
@@ -172,6 +178,17 @@ class Deal
     sql = "SELECT * FROM deals;"
     deal_hashes = SqlRunner.run(sql)
     return mapper_aid(deal_hashes)
+  end
+
+
+  def Deal.find_by_burger(id)
+  sql = "
+  SELECT DISTINCT deals.id, deals.type_id, deals.label, deals.value, deals.day_id
+  FROM deals INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.deal_id = deals.id
+  WHERE deals_eatories_burgers_prices.burger_id = $1;
+  "
+  deal_hashes = SqlRunner.run(sql, [id])
+  return mapper_aid(deal_hashes)
   end
 
 

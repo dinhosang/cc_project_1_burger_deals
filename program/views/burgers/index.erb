@@ -1,0 +1,20 @@
+<h2 class="index_objects">List of All Burgers</h2>
+<article>
+  <% for burger in @burgers %>
+    <section class="object_section">
+      <section>
+        <div>
+          <% if burger.name != "" %>
+            <p>"<%= burger.name %>"</p>
+            <% end %>
+          <p><em><%= burger.type %></em></p>
+        </div>
+      </section>
+      <section>
+        <ul>
+          <li> <a href="/burgers/<%= burger.id %>">More Details</a></li>
+        </ul>
+      </section>
+    </section>
+  <% end %>
+</article>

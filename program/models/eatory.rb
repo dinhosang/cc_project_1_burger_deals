@@ -132,7 +132,12 @@ class Eatory
 
 
   def show_burger_price_currency(id)
-    
+    price_int = check_burger_price(id).to_s
+    price_arr = price_int.split("")
+    price_arr.unshift("£")
+    price_arr.insert(-3,'.')
+    price_currency = price_arr.join()
+    return price_currency
   end
 
 
@@ -179,6 +184,23 @@ class Eatory
     = $1 AND deals.day_id = $2;
     "
     values = [@id, day_id]
+    deal_hashes = SqlRunner.run(sql, values)
+    deals = Deal.mapper_aid(deal_hashes)
+    return deals
+  end
+
+
+  def find_deals_by_burger(burger_id)
+    sql ="
+    SELECT DISTINCT deals.id, deals.label,
+    deals.day_id, deals.value, deals.type_id
+    FROM deals
+    INNER JOIN deals_eatories_burgers_prices ON
+    deals_eatories_burgers_prices.deal_id = deals.id
+    AND deals_eatories_burgers_prices.eatory_id
+    = $1 AND deals_eatories_burgers_prices.burger_id = $2;
+    "
+    values = [@id, burger_id]
     deal_hashes = SqlRunner.run(sql, values)
     deals = Deal.mapper_aid(deal_hashes)
     return deals
@@ -265,6 +287,29 @@ class Eatory
       return Eatory.new(eatory_hash)
     end
     return nil
+  end
+
+
+  def Eatory.find_by_burger(id)
+    sql = "
+    SELECT DISTINCT eatories.id, eatories.name
+    FROM eatories INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.eatory_id = eatories.id WHERE deals_eatories_burgers_prices.burger_id = $1;
+    "
+    eatory_hashes = SqlRunner.run(sql, [id])
+    return mapper_aid(eatory_hashes)
+  end
+
+
+  def Eatory.find_by_burger_deal(options)
+    sql = "
+    SELECT eatories.id, eatories.name
+    FROM eatories INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.eatory_id = eatories.id WHERE deals_eatories_burgers_prices.burger_id = $1 AND deals_eatories_burgers_prices.deal_id = $2;
+    "
+    burger_id = options['burger'].to_i
+    deal_id = options['deal'].to_i
+    values = [burger_id, deal_id]
+    eatory_hashes = SqlRunner.run(sql, values)
+    return mapper_aid(eatory_hashes)
   end
 
 
