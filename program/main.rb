@@ -8,3 +8,9 @@ require_relative('controllers/eatories_controller.rb')
 get('/') do
   erb(:index)
 end
+
+
+not_found do
+  status 404
+  erb(:in_progress)
+end

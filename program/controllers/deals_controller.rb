@@ -1,3 +1,3 @@
 require('sinatra')
 require('sinatra/contrib/all')
-require_relative('../models/deals')
+require_relative('../models/deal')

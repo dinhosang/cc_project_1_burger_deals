@@ -1,0 +1,68 @@
+body {
+  width: 95vw;
+  margin: auto;
+  font-size: 100%;
+}
+
+header {
+  background-color: rgb(197, 233, 110);
+  position: fixed;
+  padding-bottom: 2px;
+  width: 95vw;
+  height: 15vh;
+}
+
+.banner {
+  /*background-color: rgb(254, 110, 179);*/
+  height: 40%;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.nav_bars {
+  height: 60%;
+}
+
+.nav_bars ul {
+  height: 100%;
+  display: flex;
+}
+
+.nav_bars li {
+  /*margin: auto;
+  /*height: 100%;*/
+  width: 23.75vw;
+  border: solid;
+  border-width: 1px;
+}
+
+#admin_bar {
+  /*background-color: rgb(141, 153, 48);*/
+  padding: 0px;
+  height: 50%;
+}
+#search_bar {
+  /*background-color: rgb(139, 254, 110);*/
+  height: 46%;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.header_space_holder {
+  height: 15.5vh;
+  border-style: hidden;
+}
+
+main {
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+  min-height: 77vh;
+  border: solid;
+  border-width: 1px;
+}
+
+footer {
+  margin: 0.25vh 0vw;
+  height: 5vh;
+  border:solid;
+}
