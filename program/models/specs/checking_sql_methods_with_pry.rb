@@ -40,13 +40,17 @@ eatory3.update
 
 eatory1.add_stock([{"burger" => burger1, "price" => '350'}, {"burger" => burger3, 'price' => '500'}])
 
+eatory1.add_deal(deal1, [burger2, burger3])
+
+eatory1.change_price({"burger" => burger1, "price" => '250'})
+
 binding.pry
 
-adding = eatory1.add_deal(deal1, [burger2, burger3])
+removing = eatory1.remove_stock([burger2, burger3])
 
 binding.pry
 
-burger1.delete
+# burger1.delete
 eatory2.delete
 
 

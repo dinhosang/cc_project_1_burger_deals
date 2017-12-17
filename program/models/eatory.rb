@@ -43,6 +43,35 @@ class Eatory
   end
 
 
+  def change_price( burger_price_hash )
+    burger = burger_price_hash['burger']
+    price = burger_price_hash['price'].to_i
+    sql = "
+    UPDATE deals_eatories_burgers_prices
+    SET price = $1 WHERE burger_id = $2 AND eatory_id = $3;
+    "
+    values = [price, burger.id, @id]
+    SqlRunner.run(sql, values)
+  end
+
+
+  def remove_stock(burgers_arr)
+    sql = "
+    DELETE FROM deals_eatories_burgers_prices
+    WHERE burger_id = $1 AND eatory_id = $2;
+    "
+    for burger in burgers_arr
+      if burger_instock?(burger.id)
+        values = [burger.id, @id]
+        SqlRunner.run(sql, values)
+      end
+    end
+  end
+## remove burger from stock
+# remove deals
+# modify prices
+
+
   def check_burger_price(id)
     if burger_instock?(id)
       sql = "
@@ -70,6 +99,29 @@ class Eatory
         SqlRunner.run(sql, values)
       end
     end
+  end
+
+
+  def remove_burger_from_deal(deal, burger)
+    sql = "
+    DELETE FROM deals_eatories_burgers_prices
+    WHERE deal_id = $1
+    AND burger_id = $2
+    AND eatory_id = $3;
+    "
+    values = [deal.id, burger.id, @id]
+    SqlRunner.run(sql, values)
+  end
+
+
+  def remove_deal(deal)
+    sql = "
+    DELETE FROM deals_eatories_burgers_prices
+    WHERE deal_id = $1
+    AND eatory_id = $2;
+    "
+    values = [deal.id, @id]
+    SqlRunner.run(sql, values)
   end
 
 
