@@ -1,0 +1,18 @@
+<header class="new_object_header">
+  <h2>New Deal Saved</h2>
+  <hr/>
+</header>
+<br/>
+<br/>
+<br/>
+<section class="new_object">
+  <hr/>
+  <p>Deal Label: <%= @deal.label %></p><br/>
+  <p>Deal Type: <%= @deal.type %></p><br/>
+  <p>Deal Value: <%= @deal.value %></p><br/>
+  <p>Day: <%= @deal.day %></p><br/>
+  <hr/>
+  <form class="" action="/deals/new" method="get">
+    <button type="submit" name="button">Return to Create New Deal</button>
+  </form>
+</section>

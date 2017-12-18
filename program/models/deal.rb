@@ -12,7 +12,6 @@ class Deal
     @id = options_hash['id'].to_i if options_hash['id']
     @label = options_hash['label']
     @day_id = options_hash['day_id'].to_i
-    @value = options_hash['value'] if options_hash['value']
     # shouldn't need both if statements, should only
     # require id or name, will rework once sure which
     # I will use more often - probably id
@@ -26,12 +25,15 @@ class Deal
     else
       @type = find_type(@type_id)
     end
+    if @type != 'cheapest'
+      @value = options_hash['value'] if options_hash['value']
+    end
   end
 
 
   def value_string
-    return "Cheapest Item is Free" if @type_id == 1
-    return "#{@value} off order total when spending over £10"
+    return "Cheapest item is free" if @type_id == 1
+    return "#{@value} off order when conditions are met"
   end
 
 
@@ -178,6 +180,35 @@ class Deal
     sql = "SELECT * FROM deals;"
     deal_hashes = SqlRunner.run(sql)
     return mapper_aid(deal_hashes)
+  end
+
+
+  def Deal.find_all_deal_types
+    sql = "SELECT * FROM deal_types"
+    deal_types_hashes = SqlRunner.run(sql)
+    return deal_types_hashes
+  end
+
+
+  def Deal.find_all_labels
+    sql = "SELECT DISTINCT label FROM deals;"
+    label_hashes = SqlRunner.run(sql)
+    labels = []
+    label_hashes.each do |hash|
+      labels.push(hash['label'])
+    end
+    return labels
+  end
+
+
+  def Deal.find_all_values
+    sql = "SELECT DISTINCT value FROM deals;"
+    value_hashes = SqlRunner.run(sql)
+    values = []
+    value_hashes.each do |hash|
+      values.push(hash['value'])
+    end
+    return values
   end
 
 

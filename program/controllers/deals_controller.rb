@@ -10,6 +10,22 @@ get('/deals') do
 end
 
 
+post('/deals') do
+  @deal = Deal.new('type_id' => params['type_id'], 'value' => params['value'], 'day_id' => params['day_id'], 'label' => params['label'])
+  @deal.save
+  erb(:"deals/create")
+end
+
+
+get('/deals/new') do
+  @deal_type_hashes = Deal.find_all_deal_types
+  @day_objects = Day.find_all
+  @deal_labels = Deal.find_all_labels
+  @deal_values = Deal.find_all_values
+  erb(:"deals/new")
+end
+
+
 get('/deals/:id') do
   id = params['id'].to_i
   @deal = Deal.find(id)
