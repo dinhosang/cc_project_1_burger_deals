@@ -1,0 +1,31 @@
+<article class="show_object">
+  <header>
+    <h2>List of Today's Deals</h2>
+  </header>
+  <section id="burgers_eatories_deals">
+    <section class="left">
+      <h2 class="index_objects"><%= @day.day %></h2>
+      <article>
+        <% for deal in @deals %>
+          <section class="object_section">
+            <section>
+              <div>
+                  <p><%= deal.label %></p>
+                  <p>Saving Type: <%= deal.value_string %></p>
+                  <p>Day Available: <%= deal.day %></p>
+              </div>
+            </section>
+            <section>
+              <ul>
+                <li> <a href="/deals/<%= deal.id %>">More Details</a></li>
+              </ul>
+            </section>
+          </section>
+        <% end %>
+      </article>
+    </section>
+    <section class="right">
+      Logged Deals
+    </section>
+  </section>
+</article>

@@ -26,6 +26,15 @@ class Day
   end
 
 
+  def Day.find_by_day(day)
+    sql = "
+    SELECT * from days WHERE day = $1;
+    "
+    day_hash = SqlRunner.run(sql, [day])[0]
+    return Day.new(day_hash)
+  end
+
+
   def Day.find_all_active
     sql = "
     SELECT DISTINCT days.id, days.day FROM days INNER JOIN
