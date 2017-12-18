@@ -8,28 +8,42 @@
   </head>
   <body>
     <header id="layout">
-        <div class="banner">
-          <a href="/">Home</a>
+      <div class="banner">
+        <a href="/">Home</a>
+      </div>
+      <nav class="nav_bar">
+        <div class="dropdown">
+          <button type="button" name="days" class="dropbtn">Days</button>
+          <div class="dropdown_content">
+            <a href="/days">Search Deals By Day</a>
+          </div>
         </div>
-        <div class="nav_bars">
-          <nav id="admin_bar">
-            <ul>
-              <li>Admin: </li>
-              <li> <a href="/deals">Deals</a></li>
-              <li><a href="/eatories">Eatories</a> </li>
-              <li><a href="/burgers">Burgers</a></li>
-            </ul>
-          </nav>
-          <nav id="search_bar">
-            <ul>
-              <li>Search By: </li>
-                <li> <a href="/days">Days</a></li>
-                <li><a href="/eatories">Eatories</a> </li>
-                <li><a href="/burgers">Burgers</a></li>
-                <li> <a href="/deals">Deals</a></li>
-            </ul>
-          </nav>
+
+        <div class="dropdown">
+          <button type="button" name="deals" class="dropbtn">Deals</button>
+          <div class="dropdown_content">
+            <a href="/deals">List All Deals</a>
+            <a href="/deals/new">Create New Deal</a>
+          </div>
         </div>
+
+        <div class="dropdown">
+          <button type="button" name="eatories" class="dropbtn">Eatories</button>
+          <div class="dropdown_content">
+            <a href="/eatories">List All Eatories</a>
+            <a href="/eatories/new">Create New Eatory</a>
+          </div>
+        </div>
+
+
+        <div class="dropdown">
+          <button type="button" name="burgers" class="dropbtn">Burgers</button>
+          <div class="dropdown_content">
+            <a href="/burgers">List All Burgers</a>
+            <a href="/burgers/new">Create New Burgers</a>
+          </div>
+        </div>
+      </nav>
     </header>
     <div class="header_space_holder">
     </div>
