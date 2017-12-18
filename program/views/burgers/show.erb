@@ -1,50 +1,68 @@
 <article class="show_object">
   <header>
+    <div class="header_left">
     <% if @burger.name != "" %>
       <h2>"<%= @burger.name %>"</h2>
+      <br/>
       <p><em><%= @burger.type %></em></p>
     <% else %>
       <h2><%= @burger.type %></h2>
     <% end %>
+    </div>
+    <div class="header_right">
+      <form class="" action="/burgers/<%= @burger.id %>/edit" method="get">
+        <button type="submit" name="button">Modify Details</button>
+      </form>
+    </div>
   </header>
   <section id="burgers_eatories_deals">
     <section class="left">
-      <h3>Active Deals</h3>
-      <hr/>
-      <% for deal in @deals %>
-        <section>
-          <div class="sub_left">
-          <h4><%= deal.label %></h4>
-          <p>Saving Type: <%= deal.value_string %></p>
-          <p>Day Available: <%= deal.day %></p>
-          </div>
-          <div class="sub_right">
-            <a href="/burgers/<%= @burger.id %>/deals/<%= deal.id %>">Details</a>
-          </div>
-        </section>
+      <% if @deals %>
+        <h3>Active Deals</h3>
         <hr/>
-      <% end %>
-    </section>
+        <% for deal in @deals %>
+          <section>
+            <div class="sub_left">
+            <h4><%= deal.label %></h4>
+            <p>Saving Type: <%= deal.value_string %></p>
+            <p>Day Available: <%= deal.day %></p>
+            </div>
+            <div class="sub_right">
+              <a href="/burgers/<%= @burger.id %>/deals/<%= deal.id %>">Details</a>
+            </div>
+          </section>
+          <hr/>
+        <% end %>
+        <% else %>
+        <h3>No Active Deals</h3>
+        <hr/>
+        <% end %>
+      </section>
     <section class="right">
-      <h3>Eatories</h3>
-      <hr/>
-      <% for eatory in @eatories %>
-        <section>
-          <div class="sub_upper">
-          <h4><%= eatory.name %></h4>
-          <br/>
-          <p>Deals Available:
-            <% if eatory.find_deals_by_burger(@burger.id) != nil %>
-              Yes
-            <% else %>
-              No
-            <% end %>
-          </p>
-          </div>
-          <div class="sub_lower">
-            <a href="/burgers/<%= @burger.id %>/eatories/<%= eatory.id %>">Details</a>
-          </div>
-        </section>
+      <% if @eatories %>
+        <h3>Eatories</h3>
+        <hr/>
+        <% for eatory in @eatories %>
+          <section>
+            <div class="sub_upper">
+            <h4><%= eatory.name %></h4>
+            <br/>
+            <p>Deals Available:
+              <% if eatory.find_deals_by_burger(@burger.id) != nil %>
+                Yes
+              <% else %>
+                No
+              <% end %>
+            </p>
+            </div>
+            <div class="sub_lower">
+              <a href="/burgers/<%= @burger.id %>/eatories/<%= eatory.id %>">Details</a>
+            </div>
+          </section>
+          <hr/>
+        <% end %>
+      <% else %>
+        <h3>Not Currently Sold</h3>
         <hr/>
       <% end %>
     </section>

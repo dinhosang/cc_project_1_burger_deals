@@ -81,6 +81,31 @@ class Burger
   end
 
 
+  def Burger.find_all_types
+    sql = "SELECT DISTINCT burgers.type FROM burgers;"
+    type_hashes = SqlRunner.run(sql)
+    types = []
+    type_hashes.each do |hash|
+      types.push(hash['type'])
+    end
+    return types
+  end
+
+
+  def Burger.find_all_names
+    sql = "
+    SELECT DISTINCT burgers.name FROM burgers
+    WHERE NOT burgers.name = '';
+    "
+    name_hashes = SqlRunner.run(sql)
+    names = []
+    name_hashes.each do |hash|
+      names.push(hash['name'])
+    end
+    return names
+  end
+
+
   def Burger.find_all_active
     sql = "
     SELECT DISTINCT b.* FROM burgers b INNER JOIN

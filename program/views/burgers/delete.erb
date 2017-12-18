@@ -1,0 +1,27 @@
+<header class="new_object_header">
+  <h2>Burger Successfully Deleted</h2>
+  <br/>
+</header>
+<hr/>
+<section class="new_object">
+  <h3>Old Burger Details</h3>
+  <hr/>
+<% if @burger.name != "" %>
+  <br/>
+  <p>Name: <%= @burger.name %></p>
+  <p>Type: <%= @burger.type %></p>
+  <br/>
+<% else %>
+  <br/>
+  <p>Type: <%= @burger.type %></p>
+  <br/>
+<% end %>
+<hr/>
+</section>
+<form class="return_button" action="/burgers" method="get">
+<div class="empty_container">
+</div>
+<button type="submit" name="button">Return to Burgers Index</button>
+<div class="empty_container">
+</div>
+</form>

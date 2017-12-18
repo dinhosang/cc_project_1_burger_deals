@@ -1,0 +1,69 @@
+<header class="edit_object_header">
+  <% if @burger.name != "" %>
+    <br/>
+    <p>Current Name: <%= @burger.name %></p>
+    <p>Current Type: <%= @burger.type %></p>
+  <% else %>
+    <br/>
+    <p>Current Type: <%= @burger.type %></p>
+  <% end %>
+</header>
+<hr/>
+<form class="edit_object" action="/burgers/<%= @burger.id %>" method="post">
+  <h2>Edit Name Only:</h2>
+  <br/>
+  <label for="optional_new_name">New Name (optional):<br/>
+  <input type="text" list="optional_new_name" name="name" placeholder="<%= @burger.name %>" autocomplete="off" /></label>
+  <datalist class="" id="optional_new_name">
+    <% for name in @burger_names %>
+      <option value="<%= name %>"><%= name %></option>
+    <% end %>
+  </datalist>
+  <button type="submit" name="">Save New Name</button>
+</form>
+<hr/>
+<form class="edit_object" action="/burgers/<%= @burger.id %>" method="post">
+  <h2>Edit Type Only:</h2>
+  <br/>
+  <label for="new_type">New Type: <br/>
+  <input type="text" list="new_type" name="type" placeholder="<%= @burger.type %>" autocomplete="off" /></label>
+  <datalist class="" id="new_type">
+    <% for type in @burger_types %>
+      <option value="<%= type %>"><%= type %></option>
+    <% end %>
+  </datalist>
+  <button type="submit" name="">Save New Type</button>
+</form>
+<hr/>
+<form class="edit_object" action="/burgers/<%= @burger.id %>" method="post">
+  <h2>Edit All Details</h2>
+  <br/>
+  <label for="optional_new_name">New Name (optional):<br/>
+  <input type="text" list="optional_new_name" name="name" placeholder="<%= @burger.name %>" autocomplete="off" /></label>
+  <datalist class="" id="optional_new_name">
+    <% for name in @burger_names %>
+      <option value="<%= name %>"><%= name %></option>
+    <% end %>
+  </datalist>
+  <br/>
+  <br/>
+  <label for="new_type">New Type: <br/>
+  <input type="text" list="new_type" name="type" placeholder="<%= @burger.type %>" autocomplete="off" /></label>
+  <datalist class="" id="new_type">
+    <% for type in @burger_types %>
+      <option value="<%= type %>"><%= type %></option>
+    <% end %>
+  </datalist>
+  <br/>
+  <br/>
+  <br/>
+  <button type="submit" name="">Save New Details</button>
+</form>
+<br/>
+<hr/>
+<br/>
+<form class="delete_object" action="/burgers/<%= @burger.id %>/delete" method="post">
+  <h2>Delete Burger</h2>
+  <br/>
+  <button type="submit" name="">Delete Burger</button>
+</form>

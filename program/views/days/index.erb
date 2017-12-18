@@ -1,17 +1,21 @@
-<h2 class="index_objects">List of All Days with Active Deals</h2>
-<article>
-  <% for day in @days %>
-    <section class="object_section">
-      <section>
-        <div>
-            <p><%= day.day %></p>
-        </div>
+<article class="show_object">
+  <header>
+    <h2 class="index_objects">List of All Days with Active Deals</h2>
+  </header>
+  <article>
+    <% for day in @days %>
+      <section class="object_section">
+        <section>
+          <div>
+              <p><%= day.day %></p>
+          </div>
+        </section>
+        <section>
+          <ul>
+            <li> <a href="/days/<%= day.id %>">More Details</a></li>
+          </ul>
+        </section>
       </section>
-      <section>
-        <ul>
-          <li> <a href="/days/<%= day.id %>">More Details</a></li>
-        </ul>
-      </section>
-    </section>
-  <% end %>
+    <% end %>
+  </article>
 </article>

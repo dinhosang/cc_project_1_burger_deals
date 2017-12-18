@@ -247,17 +247,15 @@ article {
 .show_object #burgers_eatories_deals .left section .sub_left {
   height: 100%;
   width: 75%;
-  border-right: solid 1px;
 }
 
 .show_object #burgers_eatories_deals .left section .sub_right {
   text-align: center;
   height: 100%;
   width: 25%;
-}
+  margin: 1%;
+  border-left: solid 1px;
 
-.show_object #burgers_eatories_deals .left section .sub_right {
-  margin-top: 8%;
 }
 
 .show_object #burgers_eatories_deals .right section .sub_upper {
@@ -305,7 +303,7 @@ article {
 }
 
 .new_object_header {
-  width: 40%;
+  width: 30%;
   margin: 1% auto;
   text-align: center;
 }
@@ -314,6 +312,111 @@ article {
   width: 60%;
   margin: 1% auto;
   text-align: center;
+}
+
+.edit_object_header {
+  width: 60%;
+  margin: 1% auto;
+  text-align: center;
+}
+
+.edit_object, .delete_object {
+  width: 60%;
+  margin: 1% auto;
+  text-align: center;
+
+}
+
+.edit_object h2, .delete_object h2 {
+  text-decoration: underline;
+}
+
+input::-webkit-input-placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+input::-moz-placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+input:hover::-webkit-input-placeholder, input:focus::-webkit-input-placeholder  {
+  color: transparent;
+}
+input:hover::-moz-placeholder,
+input:hover::-moz-placeholder {
+  color: transparent;
+}
+
+.edit_object input {
+  width: 80%;
+  text-align: center;
+}
+
+.edit_object button {
+  width: 40%;
+  height: 10%;
+  text-align: center;
+  border-style: groove;
+}
+
+.edit_object button:hover,
+.delete_object button:hover {
+  border-left-width: 3px;
+  border-right-width: 3px;
+  color: white;
+  background-color: #cccccc;
+}
+
+/*.delete_object {
+  width: 60%;
+  margin: 1% auto;
+  text-align: center;
+}*/
+
+.return_button {
+  display: flex;
+}
+
+.return_button .empty_container {
+  width: 30%;
+}
+
+.return_button button {
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 30%;
+  margin: 0 auto;
+}
+
+.delete_object button {
+  width: 40%;
+  height: 10%;
+  text-align: center;
+  border-style: groove;
+}
+
+.show_object .index_objects {
+  width: 50%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.show_object header {
+  display: flex;
+  /*width: 100%;*/
+  margin: 0 auto;
+}
+
+.show_object .header_left {
+  width: 70%;
+  border-right: solid 1px;
+}
+.show_object header .header_right{
+  width: 30%;
+  margin: 0 auto;
+  margin-top: 4%;
 }
 
 footer {
