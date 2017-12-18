@@ -1,20 +1,43 @@
-<h2 class="index_objects">List of All Burgers</h2>
-<article>
-  <% for burger in @burgers %>
-    <section class="object_section">
-      <section>
-        <div>
-          <% if burger.name != "" %>
-            <p>"<%= burger.name %>"</p>
-            <% end %>
-          <p><em><%= burger.type %></em></p>
-        </div>
-      </section>
-      <section>
-        <ul>
-          <li> <a href="/burgers/<%= burger.id %>">More Details</a></li>
-        </ul>
-      </section>
+<article class="show_object">
+  <header>
+    <h2 class="index_objects">List of All Burgers</h2>
+  </header>
+  <section id="burgers_eatories_deals">
+    <section class="left">
+      <h3>Burgers Currently Sold</h3>
+      <hr/>
+      <% for burger in @active_burgers %>
+          <section>
+            <div class="sub_left">
+              <% if burger.name != "" %>
+                <p>"<%= burger.name %>"</p>
+              <% end %>
+              <p><em><%= burger.type %></em></p>
+            </div>
+            <div class="sub_right">
+             <a href="/burgers/<%= burger.id %>">More Details</a>
+            </div>
+          </section>
+        <hr/>
+      <% end %>
     </section>
-  <% end %>
+    <section class="right">
+      <h3>Burgers Not Currently Sold</h3>
+      <hr/>
+      <% for burger in @inactive_burgers %>
+        <section>
+          <div class="sub_upper">
+            <% if burger.name != "" %>
+              <p>"<%= burger.name %>"</p>
+            <% end %>
+            <p><em><%= burger.type %></em></p>
+          </div>
+          <div class="sub_lower">
+
+          </div>
+        </section>
+        <hr/>
+      <% end %>
+    </section>
+  </section>
 </article>

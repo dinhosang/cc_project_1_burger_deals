@@ -53,8 +53,8 @@ body {
   width: 100%;
   height: 100%;
   border: solid 1px;
-  /*outline: none;
-  color: white;*/
+  /*outline: none;*/
+  /*color: white;*/
   /*background-color: rgb(201, 174, 197);*/
 }
 
@@ -241,7 +241,7 @@ article {
 }
 
 .show_object #burgers_eatories_deals .right section {
-  min-height: 15.5vh;
+  min-height: 5vh;
 }
 
 .show_object #burgers_eatories_deals .left section .sub_left {
@@ -271,9 +271,6 @@ article {
 
 .show_object #burgers_eatories_deals .right section .sub_lower {
   text-align: center;
-}
-
-.show_object #burgers_eatories_deals .right section .sub_lower {
   margin: 10% auto;
 }
 
@@ -289,6 +286,34 @@ article {
   margin-left: 0.25%;
   min-height: 67.5vh;
   border: solid 1px;
+}
+
+.create_burger {
+  min-height: 30vh;
+  border: solid 1px;
+  display: flex;
+}
+
+.create_burger .empty_container {
+  width: 20%;
+}
+
+.create_burger .create {
+  width: 60%;
+  margin:auto;
+
+}
+
+.new_object_header {
+  width: 40%;
+  margin: 1% auto;
+  text-align: center;
+}
+
+.new_object {
+  width: 60%;
+  margin: 1% auto;
+  text-align: center;
 }
 
 footer {

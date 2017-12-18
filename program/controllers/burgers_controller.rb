@@ -5,8 +5,22 @@ require_relative('../models/burger')
 
 
 get('/burgers') do
-  @burgers = Burger.find_all
+  @active_burgers = Burger.find_all_active
+  @inactive_burgers = Burger.find_all_inactive
   erb(:"burgers/index")
+end
+
+post('/burgers') do
+  name = params['name'] if params['name']
+  type = params['type']
+
+  @burger = Burger.new({'name' => name, 'type' => type})
+  @burger.save
+  erb(:"burgers/create")
+end
+
+get('/burgers/new') do
+  erb(:"burgers/new")
 end
 
 
@@ -18,6 +32,11 @@ get('/burgers/:id') do
   erb(:"burgers/show")
 end
 
+get('/burgers/:id/edit') do
+  id = params['id'].to_i
+  @burger = Burger.find(id)
+  erb(:"burgers/edit")
+end
 
 get('/burgers/:burger_id/deals/:deal_id') do
   burger_id = params['burger_id'].to_i

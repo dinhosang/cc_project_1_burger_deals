@@ -1,0 +1,21 @@
+<header class="new_object_header">
+  <h2>New Burger Saved</h2>
+  <hr/>
+</header>
+<br/>
+<br/>
+<br/>
+<section class="new_object">
+  <hr/>
+<% if @burger.name != "" %>
+  <br/>
+  <p>Name: <%= @burger.name %></p>
+  <p>Type: <%= @burger.type %></p>
+  <br/>
+<% else %>
+  <br/>
+  <p>Type: <%= @burger.type %></p>
+  <br/>
+<% end %>
+<hr/>
+</section>

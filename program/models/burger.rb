@@ -81,6 +81,30 @@ class Burger
   end
 
 
+  def Burger.find_all_active
+    sql = "
+    SELECT DISTINCT b.* FROM burgers b INNER JOIN
+    deals_eatories_burgers_prices active ON
+    active.burger_id = b.id WHERE active.eatory_id
+    IS NOT NULL ORDER BY b.type;
+    "
+    burger_hashes = SqlRunner.run(sql)
+    return mapper_aid(burger_hashes)
+  end
+
+
+  def Burger.find_all_inactive
+    sql = "
+    SELECT b.* FROM burgers b WHERE NOT EXISTS
+    (SELECT NULL
+    FROM deals_eatories_burgers_prices active
+    WHERE active.burger_id = b.id);
+    "
+    burger_hashes = SqlRunner.run(sql)
+    return mapper_aid(burger_hashes)
+  end
+
+
   def Burger.find_by_deal(deal_id)
     sql = "
     SELECT DISTINCT burgers.id,
