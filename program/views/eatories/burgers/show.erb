@@ -1,15 +1,15 @@
 <article class="show_object_object">
   <header>
     <div class="upper">
+      <h2><%= @eatory.name %></h2>
+    </div>
+    <div class="middle">
       <% if @burger.name != "" %>
         <h2>"<%= @burger.name %>"</h2>
         <p><em><%= @burger.type %></em></p>
       <% else %>
         <h2><%= @burger.type %></h2>
       <% end %>
-    </div>
-    <div class="middle">
-      <h2><%= @eatory.name %></h2>
       <br/>
       <p>Burger Price: <%= @eatory.show_burger_price_currency(@burger.id) %></p>
     </div>
@@ -33,11 +33,8 @@
       </section>
     <% end %>
     <div class="back_one">
-      <a href="/burgers/<%= @burger.id %>">Back to <% if @burger.name != "" %> "<%= @burger.name %>"
-        <% else %>
-          <%= @burger.type %>
-          <% end %>
-        Listing</a>
+      <a href="/eatories/<%= @eatory.id %>">Back to <%= @eatory.name %>
+        listing</a>
     </div>
   </section>
 </article>

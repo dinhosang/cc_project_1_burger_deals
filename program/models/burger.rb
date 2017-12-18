@@ -81,6 +81,22 @@ class Burger
   end
 
 
+  def Burger.find_by_deal(deal_id)
+    sql = "
+    SELECT DISTINCT burgers.id,
+    burgers.type, burgers.name,
+    deals_eatories_burgers_prices.price
+    FROM burgers
+    INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.burger_id
+    = burgers.id
+    WHERE deals_eatories_burgers_prices.deal_id
+    = $1;
+    "
+    burger_hashes = SqlRunner.run(sql, [deal_id])
+    return Burger.mapper_aid(burger_hashes)
+  end
+
+
   def self.mapper_aid(burger_hashes)
     burgers = []
     burger_hashes.each do |hash|

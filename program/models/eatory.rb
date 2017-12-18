@@ -207,7 +207,7 @@ class Eatory
   end
 
 
-  def find_burgers_in_deal(deal)
+  def find_burgers_by_deal(deal_id)
     sql = "
     SELECT DISTINCT burgers.id,
     burgers.type, burgers.name,
@@ -219,7 +219,7 @@ class Eatory
     AND deals_eatories_burgers_prices.deal_id
     = $2;
     "
-    values = [@id, deal.id]
+    values = [@id, deal_id]
     burger_hashes = SqlRunner.run(sql, values)
     return Burger.mapper_aid(burger_hashes)
   end
@@ -230,7 +230,7 @@ class Eatory
     deals = find_deals
     if deals
       for deal in deals
-        burgers = find_burgers_in_deal(deal)
+        burgers = find_burgers_by_deal(deal.id)
         all_details.push({'deal' => deal, 'burgers' => burgers})
       end
       return all_details
@@ -244,7 +244,7 @@ class Eatory
     deals = find_deals_by_day(day_id)
     if deals
       for deal in deals
-        burgers = find_burgers_in_deal(deal)
+        burgers = find_burgers_by_deal(deal.id)
         all_details.push({'deal' => deal, 'burgers' => burgers})
       end
       return all_details
@@ -294,6 +294,16 @@ class Eatory
     sql = "
     SELECT DISTINCT eatories.id, eatories.name
     FROM eatories INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.eatory_id = eatories.id WHERE deals_eatories_burgers_prices.burger_id = $1;
+    "
+    eatory_hashes = SqlRunner.run(sql, [id])
+    return mapper_aid(eatory_hashes)
+  end
+
+
+  def Eatory.find_by_deal(id)
+    sql = "
+    SELECT DISTINCT eatories.id, eatories.name
+    FROM eatories INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.eatory_id = eatories.id WHERE deals_eatories_burgers_prices.deal_id = $1;
     "
     eatory_hashes = SqlRunner.run(sql, [id])
     return mapper_aid(eatory_hashes)

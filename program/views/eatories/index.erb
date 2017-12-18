@@ -1,0 +1,17 @@
+<h2 class="index_objects">List of All Eatories</h2>
+<article>
+  <% for eatory in @eatories %>
+    <section class="object_section">
+      <section>
+        <div>
+            <p><%= eatory.name %></p>
+        </div>
+      </section>
+      <section>
+        <ul>
+          <li> <a href="/eatories/<%= eatory.id %>">More Details</a></li>
+        </ul>
+      </section>
+    </section>
+  <% end %>
+</article>

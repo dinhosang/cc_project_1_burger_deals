@@ -1,11 +1,6 @@
 <article class="show_object">
   <header>
-    <% if @burger.name != "" %>
-      <h2>"<%= @burger.name %>"</h2>
-      <p><em><%= @burger.type %></em></p>
-    <% else %>
-      <h2><%= @burger.type %></h2>
-    <% end %>
+      <h2><%= @eatory.name %></h2>
   </header>
   <section id="burgers_eatories_deals">
     <section class="left">
@@ -19,22 +14,27 @@
           <p>Day Available: <%= deal.day %></p>
           </div>
           <div class="sub_right">
-            <a href="/burgers/<%= @burger.id %>/deals/<%= deal.id %>">Details</a>
+            <a href="/eatories/<%= @eatory.id %>/deals/<%= deal.id %>">Details</a>
           </div>
         </section>
         <hr/>
       <% end %>
     </section>
     <section class="right">
-      <h3>Eatories</h3>
+      <h3>Burgers</h3>
       <hr/>
-      <% for eatory in @eatories %>
+      <% for burger in @burgers %>
         <section>
           <div class="sub_upper">
-          <h4><%= eatory.name %></h4>
+            <% if burger.name != "" %>
+              <h4>"<%= burger.name %>"</h4>
+              <p><em><%= burger.type %></em></p>
+            <% else %>
+              <h4><%= burger.type %></h4>
+            <% end %>
           <br/>
           <p>Deals Available:
-            <% if eatory.find_deals_by_burger(@burger.id) != nil %>
+            <% if @eatory.find_deals_by_burger(burger.id) != nil %>
               Yes
             <% else %>
               No
@@ -42,7 +42,7 @@
           </p>
           </div>
           <div class="sub_lower">
-            <a href="/burgers/<%= @burger.id %>/eatories/<%= eatory.id %>">Details</a>
+            <a href="/eatories/<%= @eatory.id %>/burgers/<%= burger.id %>">Details</a>
           </div>
         </section>
         <hr/>

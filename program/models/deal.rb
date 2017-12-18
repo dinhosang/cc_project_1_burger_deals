@@ -192,6 +192,16 @@ class Deal
   end
 
 
+  def Deal.find_all_active
+    sql = "
+    SELECT DISTINCT deals.id, deals.type_id, deals.label, deals.value, deals.day_id
+    FROM deals INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.deal_id = deals.id;
+    "
+    deal_hashes = SqlRunner.run(sql)
+    return mapper_aid(deal_hashes)
+  end
+
+
   def self.mapper_aid(deal_hashes)
     deals = deal_hashes.map do |deal_hash|
       Deal.new(deal_hash)

@@ -1,0 +1,34 @@
+<article class="show_object_object">
+  <header>
+    <div class="upper">
+      <h2><%= @deal.label %></h2>
+      <br/>
+      <p>Saving Type: <%= @deal.value_string %></p>
+      <p>Day Available: <%= @deal.day %></p>
+    </div>
+    <div class="middle">
+      <h2><%= @eatory.name %></h2>
+    </div>
+  </header>
+  <section id="burgers_eatories_deals">
+    <div class="lower">
+      <h2>Burgers</h2>
+    </div>
+    <% for burger in @burgers %>
+      <section class="object">
+        <% if burger.name != "" %>
+          <h2>"<%= burger.name %>"</h2>
+          <p><em><%= burger.type %></em></p>
+        <% else %>
+          <h2><%= burger.type %></h2>
+        <% end %>
+        <br/>
+        <p>Burger Price: <%= @eatory.show_burger_price_currency(burger.id) %></p>
+      </section>
+    <% end %>
+    <div class="back_one">
+      <a href="/deals/<%= @deal.id %>">Back to <% @deal.label %>
+        Listing</a>
+    </div>
+  </section>
+</article>

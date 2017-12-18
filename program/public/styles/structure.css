@@ -70,7 +70,7 @@ article {
   padding-top: 2%;
   text-align: center;
   border-bottom: solid 1px;
-  height: 6vh;
+  min-height: 3vh;
   display: flex
 }
 
@@ -92,7 +92,7 @@ article {
 }
 
 .show_object header {
-  height: 5vh;
+  min-height: 5vh;
   padding-top: 1.25vh;
   padding-bottom: 1.75vh;
   border: solid 1px;
@@ -197,11 +197,11 @@ article {
 
 .show_object #burgers_eatories_deals .left section {
   display: flex;
-  height: 15vh;
+  min-height: 8vh;
 }
 
 .show_object #burgers_eatories_deals .right section {
-  height: 15vh;
+  min-height: 15.5vh;
 }
 
 .show_object #burgers_eatories_deals .left section .sub_left {
@@ -217,7 +217,7 @@ article {
 }
 
 .show_object #burgers_eatories_deals .left section .sub_right {
-  margin-top: 5vh;
+  margin-top: 8%;
 }
 
 .show_object #burgers_eatories_deals .right section .sub_upper {
@@ -225,6 +225,7 @@ article {
   width: 80%;
   margin: 0 auto;
   text-align: center;
+  padding: 2%;
   border-bottom: solid 1px;
 }
 
