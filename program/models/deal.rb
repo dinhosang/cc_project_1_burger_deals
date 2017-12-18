@@ -143,22 +143,22 @@ class Deal
   end
 
 
-  def Deal.active_deals_by_day(day_id)
-    active_deals_array = []
-    eatories = Eatory.find_all
-    if eatories != []
-      for eatory in eatories
-        details_array = eatory.detail_all_deals_by_day(day_id)
-        if details_array
-          active_deals_array.push({"eatory" => eatory, 'active_deals' => details_array})
-        end
-      end
-      if active_deals_array != []
-        return active_deals_array
-      end
-    end
-    return nil
-  end
+  # def Deal.active_deals_by_day(day_id)
+  #   active_deals_array = []
+  #   eatories = Eatory.find_all
+  #   if eatories != []
+  #     for eatory in eatories
+  #       details_array = eatory.detail_all_deals_by_day(day_id)
+  #       if details_array
+  #         active_deals_array.push({"eatory" => eatory, 'active_deals' => details_array})
+  #       end
+  #     end
+  #     if active_deals_array != []
+  #       return active_deals_array
+  #     end
+  #   end
+  #   return nil
+  # end
 
 
   def Deal.find(id)
@@ -198,6 +198,17 @@ class Deal
     FROM deals INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.deal_id = deals.id;
     "
     deal_hashes = SqlRunner.run(sql)
+    return mapper_aid(deal_hashes)
+  end
+
+
+  def Deal.find_all_active_by_day(day_id)
+    sql = "
+    SELECT DISTINCT deals.id, deals.type_id, deals.label, deals.value, deals.day_id
+    FROM deals INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.deal_id = deals.id
+    WHERE deals.day_id = $1;
+    "
+    deal_hashes = SqlRunner.run(sql, [day_id])
     return mapper_aid(deal_hashes)
   end
 
