@@ -194,8 +194,22 @@ class Deal
 
   def Deal.find_all_active
     sql = "
-    SELECT DISTINCT deals.id, deals.type_id, deals.label, deals.value, deals.day_id
-    FROM deals INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.deal_id = deals.id;
+    SELECT DISTINCT d.* FROM deals d INNER JOIN
+    deals_eatories_burgers_prices active ON
+    active.deal_id = d.id WHERE active.deal_id
+    IS NOT NULL;
+    "
+    deal_hashes = SqlRunner.run(sql)
+    return mapper_aid(deal_hashes)
+  end
+
+
+  def Deal.find_all_inactive
+    sql = "
+    SELECT d.* FROM deals d WHERE NOT EXISTS
+    (SELECT NULL
+    FROM deals_eatories_burgers_prices active
+    WHERE active.deal_id = d.id);
     "
     deal_hashes = SqlRunner.run(sql)
     return mapper_aid(deal_hashes)

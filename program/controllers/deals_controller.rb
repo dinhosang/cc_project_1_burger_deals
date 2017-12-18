@@ -5,6 +5,7 @@ require_relative('../models/deal')
 
 get('/deals') do
   @deals = Deal.find_all_active
+  @inactive_deals = Deal.find_all_inactive
   erb(:"deals/index")
 end
 
