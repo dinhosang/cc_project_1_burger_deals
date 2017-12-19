@@ -6,7 +6,7 @@ require_relative('../db/sqlrunner')
 class Deal
 
   attr_reader :id
-  attr_accessor :label, :type, :value, :type_id
+  attr_accessor :label, :type, :value, :type_id, :day_id
 
   def initialize(options_hash)
     @id = options_hash['id'].to_i if options_hash['id']

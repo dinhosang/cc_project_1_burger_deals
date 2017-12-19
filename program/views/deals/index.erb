@@ -4,44 +4,54 @@
   </header>
   <section id="burgers_eatories_deals">
     <section class="left">
-      <h3>Active Deals</h3>
-      <hr/>
-      <% for deal in @deals %>
-          <section>
-            <div class="sub_left">
-                <p><%= deal.label %></p>
-                <p>Saving Type: <%= deal.value_string %></p>
-                <p>Day Available: <%= deal.day %></p>
-            </div>
-            <div class="sub_right">
-             <a href="/deals/<%= deal.id %>">More Details</a>
-             <br/>
-             <br/>
-             <a href="/deals/<%= deal.id %>/edit">Modify Deal</a>
-            </div>
-          </section>
+      <% if @deals %>
+        <h3>Active Deals</h3>
+        <hr/>
+        <% for deal in @deals %>
+            <section>
+              <div class="sub_left">
+                  <p><%= deal.label %></p>
+                  <p>Saving Type: <%= deal.value_string %></p>
+                  <p>Day Available: <%= deal.day %></p>
+              </div>
+              <div class="sub_right">
+               <a href="/deals/<%= deal.id %>">More Details</a>
+               <br/>
+               <br/>
+               <a href="/deals/<%= deal.id %>/edit">Modify Deal</a>
+              </div>
+            </section>
+          <hr/>
+        <% end %>
+      <% else %>
+        <h3>No Active Deals</h3>
         <hr/>
       <% end %>
     </section>
     <section class="right">
-      <h3>Inactive Deals</h3>
-      <hr/>
-      <% for deal in @inactive_deals %>
-        <section>
-          <div class="sub_upper">
-          <h4><%= deal.label %></h4>
-          <br/>
-          <p>Saving Type: <%= deal.value_string %></p>
-          <br/>
-          <p>Day Available: <%= deal.day %></p>
-          </div>
-          <div class="sub_lower">
-            <a href="/deals/<%= deal.id %>">More Details</a>
+      <% if @inactive_deals %>
+        <h3>Inactive Deals</h3>
+        <hr/>
+        <% for deal in @inactive_deals %>
+          <section>
+            <div class="sub_upper">
+            <h4><%= deal.label %></h4>
             <br/>
+            <p>Saving Type: <%= deal.value_string %></p>
             <br/>
-            <a href="/deals/<%= deal.id %>/edit">Modify Deal</a>
-          </div>
-        </section>
+            <p>Day Available: <%= deal.day %></p>
+            </div>
+            <div class="sub_lower">
+              <a href="/deals/<%= deal.id %>">More Details</a>
+              <br/>
+              <br/>
+              <a href="/deals/<%= deal.id %>/edit">Modify Deal</a>
+            </div>
+          </section>
+          <hr/>
+        <% end %>
+      <% else %>
+        <h3>No Inactive Deals</h3>
         <hr/>
       <% end %>
     </section>

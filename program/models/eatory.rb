@@ -324,7 +324,7 @@ class Eatory
 
 
   def Eatory.find_all
-    sql = "SELECT * FROM eatories;"
+    sql = "SELECT * FROM eatories ORDER BY name ASC;"
     eatory_hashes = SqlRunner.run(sql)
     eatories = mapper_aid(eatory_hashes)
     return eatories

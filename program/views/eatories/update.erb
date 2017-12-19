@@ -1,0 +1,41 @@
+<% if @changes == false %>
+  <header class="new_object_header">
+    <h2>No New Details Entered</h2>
+    <br/>
+    <hr/>
+    <h3>Eatory Details</h3>
+    <br/>
+    <p>Name: <%= @old_eatory.name %></p>
+  </header>
+<% else %>
+  <header class="new_object_header">
+    <h2>New Eatory Details Successfully Saved</h2>
+    <br/>
+  </header>
+  <hr/>
+  <section class="new_object">
+    <br/>
+    <h3>New Eatory Details</h3>
+    <hr/>
+    <p>Eatory Name: <%= @new_eatory.name %></p>
+    <hr/>
+  </section>
+  <br/>
+  <br/>
+  <br/>
+  <section class="new_object">
+    <h3>Old Eatory Details</h3>
+    <hr/>
+    <p>Eatory Name: <%= @old_eatory.name %></p>
+  <hr/>
+  </section>
+<% end %>
+<br/>
+<br/>
+<form class="return_button" action="/eatories/<%= @new_eatory.id %>" method="get">
+  <div class="empty_container">
+  </div>
+  <button type="submit" name="button">More Details</button>
+  <div class="empty_container">
+  </div>
+</form>

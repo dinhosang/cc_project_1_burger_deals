@@ -46,21 +46,30 @@ get('/burgers/:id/edit') do
 end
 
 post('/burgers/:id') do
-  @changes = true
+  @changes = false
   @old_burger = Burger.find(params['id'])
   @new_burger = Burger.find(params['id'])
   no_type = params['type'] == "" || params['type'] == nil
   no_name = params['name'] == "" || params['name'] == nil
-  if no_type && no_name
-    @changes = false
-  elsif no_type
-    @new_burger.name = params['name']
-  elsif no_name
-    @new_burger.type = params['type']
+
+  if !no_name
+    if params['name'] != @old_burger.name
+      @new_burger.name = params['name']
+      @changes = true
+    end
+  elsif !no_type
+    if params['type'] != @old_burger.type
+      @new_burger.type = params['type']
+      @changes = true
+    end
   else
-    @new_burger.name = params['name']
-    @new_burger.type = params['type']
+    if params['name'] != @old_burger.name && params['type'] != @old_burger.type
+      @new_burger.name = params['name']
+      @new_burger.type = params['type']
+      @changes = true
+    end
   end
+
   @new_burger.update if @changes
   erb(:"burgers/update")
 end

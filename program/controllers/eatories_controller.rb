@@ -18,6 +18,30 @@ get('/eatories/:id') do
 end
 
 
+post('/eatories/:id') do
+  @changes = false
+  id = params['id'].to_i
+  @old_eatory = Eatory.find(id)
+  @new_eatory = Eatory.find(id)
+  if params['name'] != ""
+    if params['name'] != @old_eatory.name
+      @new_eatory.name = params['name']
+      @changes = true
+    end
+  end
+
+  @new_eatory.update if @changes
+  
+  erb(:"eatories/update")
+end
+
+
+get('/eatories/:id/edit') do
+  @eatory = Eatory.find(params['id'])
+  erb(:"eatories/edit")
+end
+
+
 get('/eatories/:eatory_id/deals/:deal_id') do
   eatory_id = params['eatory_id'].to_i
   deal_id = params['deal_id'].to_i
