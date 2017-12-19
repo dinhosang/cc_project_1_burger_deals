@@ -6,7 +6,7 @@ require_relative('../db/sqlrunner')
 class Deal
 
   attr_reader :id
-  attr_accessor :label, :type, :value
+  attr_accessor :label, :type, :value, :type_id
 
   def initialize(options_hash)
     @id = options_hash['id'].to_i if options_hash['id']
@@ -18,12 +18,12 @@ class Deal
     if options_hash['type_id']
       @type_id = options_hash['type_id'].to_i
     else
-      @type_id = find_type_id(options_hash['type'])
+      @type_id = Deal.find_type_id(options_hash['type'])
     end
     if options_hash['type']
       @type = options_hash['type']
     else
-      @type = find_type(@type_id)
+      @type = Deal.find_type(@type_id)
     end
     if @type != 'cheapest'
       @value = options_hash['value'] if options_hash['value']
@@ -37,6 +37,22 @@ class Deal
   end
 
 
+  def update
+    sql = "
+    UPDATE deals SET (label, day_id, type_id, value) =
+    ($1, $2, $3, $4) WHERE id = $5;
+    "
+    values = [@label, @day_id, @type_id, @value, @id]
+    SqlRunner.run(sql, values)
+  end
+
+
+  def delete
+    sql = "DELETE FROM deals WHERE id = $1;"
+    SqlRunner.run(sql, [@id])
+  end
+
+
   def save
     sql = "
           INSERT INTO deals (type_id, label, value, day_id)
@@ -46,20 +62,6 @@ class Deal
     values = [@type_id, @label, @value, @day_id]
     id_hash = SqlRunner.run(sql, values).first
     @id = id_hash['id'].to_i
-  end
-
-
-  def find_type(id)
-    sql = "SELECT type FROM deal_types WHERE id = $1;"
-    type_hash = SqlRunner.run(sql, [id]).first
-    @type = type_hash['type']
-  end
-
-
-  def find_type_id(type)
-    sql = "SELECT id FROM deal_types WHERE type = $1;"
-    type_hash = SqlRunner.run(sql, [type]).first
-    @type_id = type_hash['id'].to_i
   end
 
 
@@ -136,6 +138,20 @@ class Deal
   end
 
 
+  def Deal.find_type(id)
+    sql = "SELECT type FROM deal_types WHERE id = $1;"
+    type_hash = SqlRunner.run(sql, [id]).first
+    return type_hash['type']
+  end
+
+
+  def Deal.find_type_id(type)
+    sql = "SELECT id FROM deal_types WHERE type = $1;"
+    type_hash = SqlRunner.run(sql, [type]).first
+    return type_hash['id'].to_i
+  end
+
+
   def Deal.total_int(burgers)
     total = 0
     for burger in burgers
@@ -177,7 +193,7 @@ class Deal
 
 
   def Deal.find_all
-    sql = "SELECT * FROM deals;"
+    sql = "SELECT * FROM deals ORDER BY type_id ASC;"
     deal_hashes = SqlRunner.run(sql)
     return mapper_aid(deal_hashes)
   end
@@ -216,7 +232,7 @@ class Deal
   sql = "
   SELECT DISTINCT deals.id, deals.type_id, deals.label, deals.value, deals.day_id
   FROM deals INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.deal_id = deals.id
-  WHERE deals_eatories_burgers_prices.burger_id = $1;
+  WHERE deals_eatories_burgers_prices.burger_id = $1 ORDER BY deals.type_id ASC;
   "
   deal_hashes = SqlRunner.run(sql, [id])
   return mapper_aid(deal_hashes)
@@ -228,7 +244,7 @@ class Deal
     SELECT DISTINCT d.* FROM deals d INNER JOIN
     deals_eatories_burgers_prices active ON
     active.deal_id = d.id WHERE active.deal_id
-    IS NOT NULL;
+    IS NOT NULL ORDER BY d.type_id ASC;
     "
     deal_hashes = SqlRunner.run(sql)
     return mapper_aid(deal_hashes)
@@ -240,7 +256,7 @@ class Deal
     SELECT d.* FROM deals d WHERE NOT EXISTS
     (SELECT NULL
     FROM deals_eatories_burgers_prices active
-    WHERE active.deal_id = d.id);
+    WHERE active.deal_id = d.id) ORDER BY d.type_id ASC;
     "
     deal_hashes = SqlRunner.run(sql)
     return mapper_aid(deal_hashes)
@@ -251,7 +267,7 @@ class Deal
     sql = "
     SELECT DISTINCT deals.id, deals.type_id, deals.label, deals.value, deals.day_id
     FROM deals INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.deal_id = deals.id
-    WHERE deals.day_id = $1;
+    WHERE deals.day_id = $1 ORDER BY deals.type_id ASC;
     "
     deal_hashes = SqlRunner.run(sql, [day_id])
     return mapper_aid(deal_hashes)

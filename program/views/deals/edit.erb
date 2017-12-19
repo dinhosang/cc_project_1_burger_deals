@@ -29,13 +29,13 @@
     <% for type in @deal_type_hashes %>
       <% if type['type'] == @deal.type %>
         <div class="radio_input">
-        <label for="deal_type_<% type['id'] %>"><%= type['type'] %></label>
-        <input type="radio" list="types" name="type_id" value="<%= type['id'] %>" id="deal_type_<%= type['id'] %>" checked/>
+        <label for="deal_type_<%= type['id'] %>"><%= type['type'] %></label>
+        <input type="radio" name="type_id" value="<%= type['id'] %>" id="deal_type_<%= type['id'] %>" checked/>
         </div>
       <% else %>
         <div class="radio_input">
-        <label for="deal_type_<% type['id'] %>"><%= type['type'] %></label>
-        <input type="radio" list="types" name="type_id" value="<%= type['id'] %>" id="deal_type_<%= type['id'] %>" />
+        <label for="deal_type_<%= type['id'] %>"><%= type['type'] %></label>
+        <input type="radio" name="type_id" value="<%= type['id'] %>" id="deal_type_<%= type['id'] %>" />
         </div>
       <% end %>
     <% end %>

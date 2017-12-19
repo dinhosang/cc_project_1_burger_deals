@@ -47,7 +47,42 @@ end
 
 
 post('/deals/:id') do
+  id = params['id'].to_i
+  type_id = params['type_id'].to_i
+  changes = false
+  @old_deal = Deal.find(id)
+  @new_deal = Deal.find(id)
+
+  if params['label'] != ""
+    @new_deal.label = params['label']
+    changes = true
+  end
+  if params['value'] != ""
+    @new_deal.value = params['value']
+    changes = true
+  end
+  if params['day_id'] != ""
+    @new_deal.day_id = params['day_id'].to_i
+    changes = true
+  end
+
+  @new_deal.type_id = type_id
+  @new_deal.type = Deal.find_type(type_id)
+
+  if @new_deal.type != @old_deal.type
+    changes = true
+  end
+
+  @new_deal.update
+
   erb(:"deals/update")
+end
+
+
+post('/deals/:id/delete') do
+  @deal = Deal.find(params['id'].to_i)
+  @deal.delete
+  erb(:"deals/delete")
 end
 
 

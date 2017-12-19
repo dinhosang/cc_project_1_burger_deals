@@ -1,0 +1,27 @@
+<header class="new_object_header">
+  <h2>Deal Successfully Deleted</h2>
+  <br/>
+</header>
+<hr/>
+<section class="new_object">
+  <h3>Old Deal Details</h3>
+  <hr/>
+  <br/>
+  <p>Deal Label: <%= @deal.label %></p>
+  <p>Deal Type: <%= @deal.type %></p>
+  <% if @deal.value != "" && @deal.value != nil %>
+    <p>Deal Value: <%= @deal.value %></p>
+  <% else %>
+    <p>Deal Value: n/a</p>
+  <% end %>
+  <p>Active Day: <%= @deal.day %></p>
+  <br/>
+<hr/>
+</section>
+<form class="return_button" action="/deals" method="get">
+<div class="empty_container">
+</div>
+<button type="submit" name="button">Return to Deals Index</button>
+<div class="empty_container">
+</div>
+</form>

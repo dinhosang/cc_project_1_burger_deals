@@ -299,7 +299,6 @@ article {
 .create_burger .create {
   width: 60%;
   margin:auto;
-
 }
 
 .new_object_header {
@@ -315,9 +314,10 @@ article {
 }
 
 .edit_object_header {
-  width: 60%;
+  width: 100%;
   margin: 1% auto;
   text-align: center;
+  /*display: flex;*/
 }
 
 .edit_object, .delete_object {
