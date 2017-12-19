@@ -1,0 +1,50 @@
+<% if @removed_burgers %>
+  <header class="new_object_header">
+    <br/>
+    <h2>Burgers Successfully Removed From Stock</h2>
+    <br/>
+  </header>
+  <hr/>
+  <section class="new_object">
+    <h3>Removed Burger Details</h3>
+    <hr/>
+    <% for burger in @removed_burgers %>
+      <% if @burger.name != "" %>
+        <br/>
+        <p>Name: <%= @burger.name %></p>
+        <p>Type: <%= @burger.type %></p>
+        <br/>
+      <% else %>
+        <br/>
+        <p>Type: <%= @burger.type %></p>
+        <br/>
+      <% end %>
+      <hr/>
+    <% end %>
+  </section>
+<% else %>
+  <header class="new_object_header">
+    <br/>
+    <h2>No Burgers Removed From Stock</h2>
+    <br/>
+    <hr/>
+  </header>
+<% end %>
+<br/>
+<br/>
+<form class="return_button" action="/eatories/<%= @eatory.id %>/burgers/edit" method="get">
+<div class="empty_container">
+</div>
+<button type="submit" name="button">Return to Modify Stock</button>
+<div class="empty_container">
+</div>
+</form>
+<br/>
+<br/>
+<form class="return_button" action="/eatories/<%= @eatory.id %>" method="get">
+<div class="empty_container">
+</div>
+<button type="submit" name="button">Return to Eatory View</button>
+<div class="empty_container">
+</div>
+</form>

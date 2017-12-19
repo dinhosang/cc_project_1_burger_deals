@@ -44,18 +44,40 @@ class Eatory
   end
 
 
-  def add_stock(burgers_prices_hashes_arr)
-    for burger_price_hash in burgers_prices_hashes_arr
-      burger = burger_price_hash['burger']
-      price_int = burger_price_hash['price'].to_i
-      sql = "
-      INSERT INTO deals_eatories_burgers_prices
-      (eatory_id, burger_id, price)
-      VALUES ($1, $2, $3)
-      "
-      values = [@id, burger.id, price_int]
-      SqlRunner.run(sql, values)
+  def add_stock(burgers_prices_hash)
+    potential_ids = burgers_prices_hash.keys
+    for potential_id in potential_ids
+      burger_id = potential_id.to_i
+      if burger_id != 0 && burgers_prices_hash[potential_id] != ""
+          price_int = burgers_prices_hash[potential_id].to_i
+          sql = "
+          INSERT INTO deals_eatories_burgers_prices
+          (eatory_id, burger_id, price)
+          VALUES ($1, $2, $3)
+          "
+          values = [@id, burger_id, price_int]
+          SqlRunner.run(sql, values)
+      end
     end
+  end
+
+
+  def remove_stock_and_return(burger_ids)
+    sql = "
+    DELETE FROM deals_eatories_burgers_prices
+    WHERE burger_id = $1 AND eatory_id = $2;
+    "
+    changes = []
+    keys = burger_ids.keys
+    for key in keys
+      if key.to_i != 0
+        burger_id = burger_ids[key].to_i
+        values = [burger_id, @id]
+        SqlRunner.run(sql, values)
+        changes.push(burger_id)
+      end
+    end
+    return changes
   end
 
 
@@ -77,13 +99,21 @@ class Eatory
 
   def all_burgers
     sql = "
-    SELECT DISTINCT burgers.id,
-    burgers.type, burgers.name,
-    deals_eatories_burgers_prices.price
-    FROM burgers
-    INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.burger_id
-    = burgers.id
-    AND deals_eatories_burgers_prices.eatory_id = $1;
+    SELECT DISTINCT b.*, active.eatory_id FROM deals_eatories_burgers_prices active FULL JOIN burgers b
+    ON b.id = active.burger_id
+    WHERE eatory_id = $1
+    ORDER BY id ASC;
+    "
+    burger_hashes = SqlRunner.run(sql, [@id])
+    burgers_array = Burger.mapper_aid(burger_hashes)
+    return burgers_array
+  end
+
+
+  def find_all_burgers_not_sold
+    sql = "
+    SELECT * FROM burgers WHERE burgers.id NOT IN
+    (SELECT DISTINCT b.id FROM deals_eatories_burgers_prices active FULL JOIN burgers b ON b.id = active.burger_id WHERE eatory_id = $1) ORDER BY id ASC;
     "
     burger_hashes = SqlRunner.run(sql, [@id])
     burgers_array = Burger.mapper_aid(burger_hashes)
@@ -102,19 +132,6 @@ class Eatory
     SqlRunner.run(sql, values)
   end
 
-
-  def remove_stock(burgers_arr)
-    sql = "
-    DELETE FROM deals_eatories_burgers_prices
-    WHERE burger_id = $1 AND eatory_id = $2;
-    "
-    for burger in burgers_arr
-      if burger_instock?(burger.id)
-        values = [burger.id, @id]
-        SqlRunner.run(sql, values)
-      end
-    end
-  end
 
 
   def check_burger_price(id)
@@ -351,6 +368,25 @@ class Eatory
     "
     eatory_hashes = SqlRunner.run(sql)
     return mapper_aid(eatory_hashes)
+  end
+
+
+  def Eatory.show_only_newly_added_stock(old_stock, current_stock)
+    changes = []
+    if old_stock != nil
+      for burger_current in current_stock
+        is_new = true
+        for burger_old in old_stock
+          if burger_current.id == burger_old.id
+            is_new = false
+            break
+          end
+        end
+        changes.push(burger_current) if is_new
+      end
+    return changes if changes != []
+    return false
+    end
   end
 
 

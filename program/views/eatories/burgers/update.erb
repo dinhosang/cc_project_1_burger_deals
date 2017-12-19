@@ -1,0 +1,73 @@
+<% if @changes == false %>
+  <header class="new_object_header">
+    <h2><%= @eatory.name %></h2>
+    <br/>
+    <hr/>
+    <h2>No New Burgers Added</h2>
+    <br/>
+    <hr/>
+  </header>
+<% elsif @changes == nil %>
+  <header class="new_object_header">
+    <h2><%= @eatory.name %></h2>
+    <br/>
+    <hr/>
+    <h2>No New Burgers Added</h2>
+    <br/>
+    <hr/>
+  </header>
+  <section class="new_object">
+    <br/>
+    <h3>Stock Details</h3>
+    <hr/>
+    <p>Currently No stock</p>
+    <hr/>
+  </section>
+<% else %>
+  <header class="new_object_header">
+    <h2><%= @eatory.name %></h2>
+    <br/>
+    <hr/>
+    <h2>New Stock Successfully Added</h2>
+    <br/>
+  </header>
+  <hr/>
+  <section class="new_object">
+    <br/>
+    <h3>New Stock Details</h3>
+    <hr/>
+    <% for burger in @changes %>
+      <% if burger.name != "" %>
+        <br/>
+        <p>Burger Name: <%= burger.name %></p>
+        <p>Burger Type: <%= burger.type %></p>
+        <br/>
+      <% else %>
+        <br/>
+        <p>Burger Type: <%= burger.type %></p>
+        <br/>
+      <% end %>
+    <hr/>
+    <% end %>
+  </section>
+<% end %>
+<br>
+<br>
+<br>
+<br>
+<br>
+<form class="return_button" action="/eatories/<%= @eatory.id %>/burgers/edit" method="get">
+  <div class="empty_container">
+  </div>
+  <button type="submit" name="button">Return to Modify Eatory Details</button>
+  <div class="empty_container">
+  </div>
+</form>
+<br/>
+<form class="return_button" action="/eatories/<%= @eatory.id %>" method="get">
+  <div class="empty_container">
+  </div>
+  <button type="submit" name="button">Return to View Eatory Details</button>
+  <div class="empty_container">
+  </div>
+</form>

@@ -6,13 +6,25 @@
     <div class="header_right">
       <form class="" action="/eatories/<%= @eatory.id %>/edit" method="get">
         <button type="submit" name="button">Modify Details</button>
+        </form>
     </div>
   </header>
   <section id="burgers_eatories_deals">
     <section class="left">
       <% if @deals %>
-        <h3>Active Deals</h3>
-        <hr/>
+        <!-- <article class="show_object"> -->
+          <header>
+            <div class="header_left">
+              <h3>Active Deals</h3>
+            </div>
+            <div class="header_right">
+              <form class="" action="/eatories/<%= @eatory.id %>/deals/edit" method="get">
+                <button type="submit" name="button">Modify Active Deals</button>
+              </form>
+            </div>
+          </header>
+          <hr/>
+        <!-- </article> -->
         <% for deal in @deals %>
           <section>
             <div class="sub_left">
@@ -27,13 +39,33 @@
           <hr/>
         <% end %>
       <% else %>
-        <h3>No Active Deals</h3>
-        <hr/>
+        <!-- <article class="show_object"> -->
+          <header>
+            <div class="header_left">
+              <h3>No Active Deals</h3>
+            </div>
+            <div class="header_right">
+              <form class="" action="/eatories/<%= @eatory.id %>/deals/edit" method="get">
+                <button type="submit" name="button">Modify Active Deals</button>
+              </form>
+            </div>
+          </header>
+          <hr/>
+        <!-- </article> -->
       <% end %>
     </section>
     <section class="right">
       <% if @burgers %>
-        <h3>Burgers</h3>
+        <header>
+          <div class="header_left">
+            <h3>Burgers</h3>
+          </div>
+          <div class="header_right">
+            <form class="" action="/eatories/<%= @eatory.id %>/burgers/edit" method="get">
+              <button type="submit" name="button">Modify Stock</button>
+            </form>
+          </div>
+        </header>
         <hr/>
         <% for burger in @burgers %>
           <section>
@@ -60,7 +92,16 @@
           <hr/>
         <% end %>
       <% else %>
-        <h3>No Active Burgers</h3>
+      <header>
+        <div class="header_left">
+          <h3>No Active Burgers</h3>
+        </div>
+        <div class="header_right">
+          <form class="" action="/eatories/<%= @eatory.id %>/burgers/edit" method="get">
+            <button type="submit" name="button">Modify Stock</button>
+          </form>
+        </div>
+      </header>
         <hr/>
       <% end %>
     </section>

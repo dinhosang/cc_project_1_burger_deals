@@ -42,9 +42,7 @@ post('/eatories/:id') do
       @changes = true
     end
   end
-
   @new_eatory.update if @changes
-
   erb(:"eatories/update")
 end
 
@@ -61,6 +59,20 @@ get('/eatories/:id/edit') do
   erb(:"eatories/edit")
 end
 
+get('/eatories/:id/deals/edit') do
+  erb(:"eatories/deals/edit")
+end
+
+
+post('/eatories/:id/deals/update') do
+  erb(:"eatories/deals/update")
+end
+
+
+get('/eatories/:id/deals/delete') do
+  erb(:"eatories/deals/delete")
+end
+
 
 get('/eatories/:eatory_id/deals/:deal_id') do
   eatory_id = params['eatory_id'].to_i
@@ -71,6 +83,41 @@ get('/eatories/:eatory_id/deals/:deal_id') do
   erb(:"eatories/deals/show")
 end
 
+
+get('/eatories/:id/burgers/edit') do
+  @eatory = Eatory.find(params['id'].to_i)
+  @unstocked_burgers = @eatory.find_all_burgers_not_sold
+  @stocked_burgers = @eatory.all_burgers
+  erb(:"eatories/burgers/edit")
+end
+
+
+post('/eatories/:id/burgers/update') do
+  @eatory = Eatory.find(params['id'].to_i)
+  old_stock = @eatory.all_burgers
+  @eatory.add_stock(params)
+  @current_stock = @eatory.all_burgers
+  if old_stock != nil && @current_stock != nil
+    @changes = Eatory.show_only_newly_added_stock(old_stock, @current_stock)
+  elsif @current_stock != nil
+    @changes = @current_stock
+  else
+    @changes = nil
+  end
+  erb(:"eatories/burgers/update")
+end
+
+
+post('/eatories/:id/burgers/delete') do
+  @eatory = Eatory.find(params['id'])
+  removed = @eatory.remove_stock_and_return(params)
+  if removed != []
+    @removed_burgers = Burger.find_several(removed)
+  else
+    @removed_burgers = false
+  end
+  erb(:"eatories/burgers/delete")
+end
 
 get('/eatories/:eatory_id/burgers/:burger_id') do
   eatory_id = params['eatory_id'].to_i

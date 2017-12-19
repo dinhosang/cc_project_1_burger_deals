@@ -1,0 +1,93 @@
+<header class="edit_object_header">
+  <h2><%= @eatory.name %></h2>
+</header>
+<hr/>
+<form class="edit_object_object" action="/eatories/<%= @eatory.id %>/burgers/update" method="post">
+  <h2>Add Burgers:</h2>
+  <br/>
+  <h3>Please only enter values for burgers to be added</h3>
+  <br/>
+  <br/>
+  <section class="unstocked_burgers">
+    <% if @unstocked_burgers %>
+      <% for burger in @unstocked_burgers %>
+        <div class="container_burger_label_and_price">
+          <div class="burger_label">
+            <label for="<%= burger.id %>">
+              <% if burger.name != "" && burger.name != nil %>
+                Name: <%=burger.name%><br/>Type: <%= burger.type %>
+              <% else %>
+                Type: <%= burger.type %>
+              <% end %>
+            </label>
+          </div>
+          <div class="price">
+              <label for="<%= burger.id %>">
+                Price in pence: </label>
+              <input type="number" name="<%= burger.id %>" placeholder="in pence" min="0" id="<%= burger.id %>"/>
+          </div>
+        </div>
+        <hr/>
+        <br/>
+      <% end %>
+    <% else %>
+      <p>No unstocked burgers on system</p>
+      <p>Please create a new burger to add more</p>
+    <% end %>
+  </section>
+  <br/>
+  <section class="return_button">
+    <div class="empty_container">
+    </div>
+    <button type="submit" name="">Save Newly Added Burgers</button>
+    <div class="empty_container">
+    </div>
+  </section>
+  <br/>
+</form>
+<br/>
+<hr/>
+<br/>
+<form class="edit_object_object" action="/eatories/<%= @eatory.id %>/burgers/delete" method="post">
+  <h2>Remove Burgers:</h2>
+  <br/>
+  <br/>
+  <section class="stocked_burgers">
+    <% if @stocked_burgers %>
+      <% for burger in @stocked_burgers %>
+        <input type="checkbox" name="<%= burger.id %>" value="<%= burger.id %>" id="checkbox_burger_<% burger.id %>" autocomplete="off">
+        <label for="checkbox_burger_<%= burger.id %>">
+          <% if burger.name != "" && burger.name != nil %>
+            Name: <%=burger.name%><br/>Type: <%= burger.type %>
+          <% else %>
+            Type: <%= burger.type %>
+          <% end %>
+        </label>
+        <hr/>
+        <br/>
+      <% end %>
+    <% else %>
+      <p>No stocked burgers on system</p>
+    <% end %>
+  </section>
+  <br/>
+  <br/>
+  <section class="return_button">
+    <div class="empty_container">
+    </div>
+    <button type="submit" name="">Remove Burgers From Stock</button>
+    <div class="empty_container">
+    </div>
+  </section>
+  <br/>
+  <br/>
+</form>
+<form class="return" action="/eatories/<%= @eatory.id %>" method="get">
+  <section class="return_button">
+    <div class="empty_container">
+    </div>
+    <button type="submit" name="">Return to Eatory <br/> Main View</button>
+    <div class="empty_container">
+    </div>
+  </section>
+</form>

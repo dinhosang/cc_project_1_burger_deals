@@ -2,17 +2,20 @@ body {
   width: 95vw;
   margin: auto;
   font-size: 100%;
+  max-width: 800px;
 }
 
 #layout {
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
   background-color: #FFF;
   position: fixed;
-  width: 95vw;
+  max-width: 800px;
   height: 8vh;
 }
 
 .header_space_holder {
-  height: 8vh;
+  height: 8.8vh;
   border-style: hidden;
 }
 
@@ -29,6 +32,7 @@ body {
   /*max-height: 60%;
   min-height: 3vh;*/
   width: 95vw;
+  max-width: 800px;
   display: flex;
 }
 
@@ -90,9 +94,13 @@ main {
   padding: 0.25%;
   margin-top: 0.4vh;
   margin-bottom: 0.4vh;
-  min-height: 77vh;
+  max-height: 83.8vh;
+  min-height: 83vh;
+  /*max-width: 800px;*/
+  margin: auto;
   border: solid;
   border-width: 1px;
+  overflow: scroll;
 }
 
 .index_objects {
@@ -427,6 +435,73 @@ input:hover::-moz-placeholder {
   width: 20%;
   margin: 0 auto;
 }
+
+.edit_object_object {
+  text-align: center;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.unstocked_burgers {
+  width: 90%;
+  padding-top: 5%;
+  border: solid 1px;
+  margin: 0 auto;
+}
+
+.stocked_burgers {
+  width: 90%;
+  padding-top: 5%;
+  border: solid 1px;
+  margin: 0 auto;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 1.5%;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0,0,0,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+.container_burger_label_and_price {
+  display: flex;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.unstocked_burgers .burger_label {
+  margin: 0 auto;
+  width: 40%;
+}
+
+.unstocked_burgers .price{
+  margin: 0 auto;
+  width: 50%;
+  height: 98%;
+}
+
+.unstocked_burgers .price .pounds {
+  padding-left: 0%;
+  width: 50%;
+}
+
+.unstocked_burgers .price input {
+  min-width: 20%;
+  max-width: 30%;
+  margin-right: 0;
+  margin-right: 0px;
+}
+.unstocked_burgers .price label {
+  width: 20%;
+  margin-right: 0;
+  margin-right: 0px;
+  height: 50%;
+}
+
 
 footer {
   margin: 0.25vh 0vw;

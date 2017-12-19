@@ -74,6 +74,15 @@ class Burger
   end
 
 
+  def Burger.find_several(ids)
+    burgers = []
+    for id in ids
+      burgers.push(find(id))
+    end
+    return burgers
+  end
+
+
   def Burger.find_all
     sql = "SELECT * FROM burgers;"
     burger_hashes = SqlRunner.run(sql)
