@@ -254,7 +254,7 @@ class Deal
   def Deal.find_all_inactive
     sql = "
     SELECT d.* FROM deals d WHERE NOT EXISTS
-    (SELECT NULL
+    (SELECT *
     FROM deals_eatories_burgers_prices active
     WHERE active.deal_id = d.id) ORDER BY d.type_id ASC;
     "

@@ -4,8 +4,21 @@ require_relative('../models/eatory')
 
 
 get('/eatories') do
-  @eatories = Eatory.find_all
+  @eatories = Eatory.find_all_active
+  @inactive_eatories = Eatory.find_all_inactive
   erb(:"eatories/index")
+end
+
+
+post('/eatories') do
+  @eatory = Eatory.new({'name' => params['name']})
+  @eatory.save
+  erb(:"eatories/create")
+end
+
+
+get('/eatories/new') do
+  erb(:"eatories/new")
 end
 
 
@@ -31,7 +44,7 @@ post('/eatories/:id') do
   end
 
   @new_eatory.update if @changes
-  
+
   erb(:"eatories/update")
 end
 

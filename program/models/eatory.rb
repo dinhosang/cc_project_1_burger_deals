@@ -331,6 +331,29 @@ class Eatory
   end
 
 
+  def Eatory.find_all_active
+    sql = "
+    SELECT DISTINCT e.* FROM eatories e INNER JOIN
+    deals_eatories_burgers_prices active ON
+    active.eatory_id = e.id WHERE active.burger_id
+    IS NOT NULL ORDER BY e.name ASC;
+    "
+    eatory_hashes = SqlRunner.run(sql)
+    return mapper_aid(eatory_hashes)
+  end
+
+
+  def Eatory.find_all_inactive
+    sql = "
+    SELECT DISTINCT e.* FROM eatories e WHERE NOT EXISTS
+    (SELECT * FROM deals_eatories_burgers_prices active
+    WHERE active.eatory_id = e.id) ORDER BY e.name ASC;
+    "
+    eatory_hashes = SqlRunner.run(sql)
+    return mapper_aid(eatory_hashes)
+  end
+
+
   def self.mapper_aid(eatory_hashes)
     eatories = []
     eatory_hashes.each do |hash|
