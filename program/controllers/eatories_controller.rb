@@ -49,6 +49,13 @@ post('/eatories/:id') do
 end
 
 
+post('/eatories/:id/delete') do
+  @eatory = Eatory.find(params['id'])
+  @eatory.delete
+  erb(:"eatories/delete")
+end
+
+
 get('/eatories/:id/edit') do
   @eatory = Eatory.find(params['id'])
   erb(:"eatories/edit")
