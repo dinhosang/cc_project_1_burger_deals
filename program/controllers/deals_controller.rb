@@ -35,6 +35,22 @@ get('/deals/:id') do
 end
 
 
+get('/deals/:id/edit') do
+  id = params['id'].to_i
+  @deal = Deal.find(id)
+  @deal_type_hashes = Deal.find_all_deal_types
+  @day_objects = Day.find_all
+  @deal_labels = Deal.find_all_labels
+  @deal_values = Deal.find_all_values
+  erb(:"deals/edit")
+end
+
+
+post('/deals/:id') do
+  erb(:"deals/update")
+end
+
+
 get('/deals/:deal_id/eatories/:eatory_id') do
   eatory_id = params['eatory_id'].to_i
   deal_id = params['deal_id'].to_i
