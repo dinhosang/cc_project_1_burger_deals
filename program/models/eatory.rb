@@ -81,21 +81,6 @@ class Eatory
   end
 
 
-  def burger_instock?(id)
-    sql = "
-    SELECT DISTINCT *
-    FROM deals_eatories_burgers_prices
-    WHERE burger_id = $1 AND eatory_id = $2;"
-    values = [id, @id]
-    result = SqlRunner.run(sql, values)
-    begin
-      result[0]
-    rescue
-      return false
-    end
-    return true
-  end
-
 
   def all_burgers
     sql = "
@@ -146,16 +131,14 @@ class Eatory
 
 
   def check_burger_price(id)
-    if burger_instock?(id)
-      sql = "
-      SELECT DISTINCT price
-      FROM deals_eatories_burgers_prices
-      WHERE burger_id = $1 AND eatory_id = $2;
-      "
-      values = [id, @id]
-      price_hash = SqlRunner.run(sql, values)[0]
-      return price_hash['price'].to_i
-    end
+    sql = "
+    SELECT DISTINCT price
+    FROM deals_eatories_burgers_prices
+    WHERE burger_id = $1 AND eatory_id = $2;
+    "
+    values = [id, @id]
+    price_hash = SqlRunner.run(sql, values)[0]
+    return price_hash['price'].to_i
   end
 
 

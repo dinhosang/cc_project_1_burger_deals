@@ -10,22 +10,6 @@ class Burger
     @id = options_hash['id'].to_i if options_hash['id']
     @type = options_hash['type']
     @name = options_hash['name'] if options_hash['name']
-    @price = options_hash['price'] if options_hash['price']
-  end
-
-
-  def price
-    price_pennies = @price
-    price_pennies_array = price_pennies.split('')
-    price_pennies_array.insert(-3, '.')
-    price_pennies_array.unshift('£')
-    price_currency = price_pennies_array.join
-    return price_currency
-  end
-
-
-  def price_int
-    return @price.to_i
   end
 
 
@@ -166,6 +150,28 @@ class Burger
     end
     return nil
   end
+
+### Methods Created at Start that Never Saw Use
+
+##
+# .price is not needed as the eatory is what sets
+# and is aware of the price, the burger object is a
+# generic one. Function is found in eatory to discover
+# price for that burger in that eatory.
+#
+# Below worked as before the burger class had a price
+# property
+#
+# def price
+#   price_pennies = @price
+#   price_pennies_array = price_pennies.split('')
+#   price_pennies_array.insert(-3, '.')
+#   price_pennies_array.unshift('£')
+#   price_currency = price_pennies_array.join
+#   return price_currency
+# end
+##
+
 
 
 end

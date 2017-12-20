@@ -48,6 +48,18 @@ class Day
   end
 
 
+  def Day.find_all_inactive
+    sql = "
+    SELECT days.id, days.day FROM days WHERE days.id NOT IN (SELECT DISTINCT days.id FROM days INNER JOIN
+    deals ON days.id = deals.day_id INNER JOIN
+    deals_eatories_burgers_prices ON deals.id =
+    deals_eatories_burgers_prices.deal_id) ORDER BY days.id ASC;
+    "
+    day_hashes = SqlRunner.run(sql)
+    return mapper_aid(day_hashes)
+  end
+
+
   def Day.mapper_aid(day_hashes)
     days = day_hashes.map do |hash|
       Day.new(hash)

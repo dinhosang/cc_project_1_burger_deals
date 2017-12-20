@@ -5,7 +5,8 @@ require_relative('../models/day')
 
 
 get('/days') do
-  @days = Day.find_all_active
+  @active_days = Day.find_all_active
+  @inactive_days = Day.find_all_inactive
   erb(:"days/index")
 end
 

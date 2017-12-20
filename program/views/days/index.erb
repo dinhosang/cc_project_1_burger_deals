@@ -1,21 +1,46 @@
 <article class="show_object">
   <header>
-    <h2 class="index_objects">List of All Days with Active Deals</h2>
+    <h2 class="index_objects">Days of the Week</h2>
   </header>
-  <article>
-    <% for day in @days %>
-      <section class="object_section">
-        <section>
-          <div>
+  <section id="burgers_eatories_deals">
+    <section class="left">
+      <% if @active_days %>
+        <h3>Days with Active Deals</h3>
+        <hr/>
+        <% for day in @active_days %>
+            <section>
+              <div class="sub_left">
+                <p><%= day.day %></p>
+              </div>
+              <div class="sub_right">
+               <a href="/days/<%= day.id %>">See Deals</a>
+              </div>
+            </section>
+          <hr/>
+        <% end %>
+      <% else %>
+        <h3>No Days with Active Deals</h3>
+        <hr/>
+      <% end %>
+    </section>
+    <section class="right">
+      <% if @inactive_days %>
+        <h3>Days with no Active Deals</h3>
+        <hr/>
+        <% for day in @inactive_days %>
+          <section>
+            <div class="sub_upper">
               <p><%= day.day %></p>
-          </div>
-        </section>
-        <section>
-          <ul>
-            <li> <a href="/days/<%= day.id %>">More Details</a></li>
-          </ul>
-        </section>
-      </section>
-    <% end %>
-  </article>
+            </div>
+            <div class="sub_lower">
+            </div>
+          </section>
+          <hr/>
+        <% end %>
+      <% else %>
+        <h3>All Days have Deals</h3>
+        <hr/>
+      <% end %>
+    </section>
+  </section>
 </article>
