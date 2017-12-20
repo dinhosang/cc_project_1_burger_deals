@@ -21,6 +21,7 @@
   <h3>Burgers Added to Deal:</h3>
   <br/>
   <br/>
+  <hr/>
   <% for burger in @burgers %>
     <% if burger.name != "" %>
       <br/>
@@ -50,3 +51,21 @@
   <hr/>
 </header>
  <% end %>
+ <br/>
+ <br/>
+ <form class="return_button" action="/eatories/<%= @eatory.id %>/deals/edit" method="get">
+   <div class="empty_container">
+   </div>
+   <button type="submit" name="button">Return to Modify Active Deals</button>
+   <div class="empty_container">
+   </div>
+ </form>
+ <br/>
+ <br/>
+ <form class="return_button" action="/eatories/<%= @eatory.id %>" method="get">
+   <div class="empty_container">
+   </div>
+   <button type="submit" name="button">Return to View Eatory Details</button>
+   <div class="empty_container">
+   </div>
+ </form>

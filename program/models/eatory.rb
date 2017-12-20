@@ -318,6 +318,22 @@ class Eatory
   end
 
 
+  def remove_several_deals(options)
+    keys = options.keys
+    removed_deals = []
+    for key in keys
+      potential_id = key.to_i
+      if potential_id != 0 && options[key] != ""
+        deal = Deal.find(potential_id)
+        remove_deal(deal)
+        removed_deals.push(deal)
+      end
+    end
+    return removed_deals if removed_deals != []
+    return false
+  end
+
+
   def Eatory.find(id)
     sql = "
     SELECT * FROM eatories

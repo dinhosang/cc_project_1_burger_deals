@@ -1,0 +1,56 @@
+<% if @deals %>
+  <header class="new_object_header">
+    <br/>
+    <h2><%= @eatory.name %></h2>
+    <br/>
+    <hr/>
+    <br/>
+    <h2>Deals Successfully Removed From Active List</h2>
+    <br/>
+    <hr/>
+  </header>
+  <br/>
+  <br/>
+  <section class="deals_removed">
+    <% for deal in @deals %>
+      <h2><%= deal.label %></h2>
+      <p>Saving Type: <%= deal.value_string %></p>
+      <p>Day Available: <%= deal.day %></p>
+    <% end %>
+  </section>
+  <br/>
+  <br/>
+  <hr/>
+<% else %>
+  <header class="new_object_header">
+    <br/>
+    <h2><%= @eatory.name %></h2>
+    <br/>
+    <hr/>
+    <br/>
+    <h2>No Deals Removed From Active List</h2>
+    <br/>
+    <p>No deals were included in the selection</p>
+    <br/>
+    <br/>
+    <hr/>
+  </header>
+<% end %>
+<br/>
+<br/>
+<form class="return_button" action="/eatories/<%= @eatory.id %>/deals/edit" method="get">
+  <div class="empty_container">
+  </div>
+  <button type="submit" name="button">Return to Add/Remove Active Deals</button>
+  <div class="empty_container">
+  </div>
+</form>
+<br/>
+<br/>
+<form class="return_button" action="/eatories/<%= @eatory.id %>" method="get">
+  <div class="empty_container">
+  </div>
+  <button type="submit" name="button">Return to View Eatory Details</button>
+  <div class="empty_container">
+  </div>
+</form>

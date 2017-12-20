@@ -526,6 +526,12 @@ input[type="radio"]:checked ~ .reveal-if-active {
   overflow: visible;
 }
 
+.deals_removed {
+  text-align: center;
+  width: 95%;
+  margin: 0 auto;
+}
+
 footer {
   margin: 0.25vh 0vw;
   height: 5vh;

@@ -70,9 +70,7 @@ end
 
 post('/eatories/:id/deals/update') do
   @eatory = Eatory.find(params['id'].to_i)
-  old_deals = @eatory.find_deals
   @changes = @eatory.add_deal(params)
-  @current_deals = @eatory.find_deals
   if @changes
     deal_id_string = @changes.keys.first
     deal_id = deal_id_string.to_i
@@ -83,7 +81,9 @@ post('/eatories/:id/deals/update') do
 end
 
 
-get('/eatories/:id/deals/delete') do
+post('/eatories/:id/deals/delete') do
+  @eatory = Eatory.find(params['id'].to_i)
+  @deals = @eatory.remove_several_deals(params)
   erb(:"eatories/deals/delete")
 end
 
