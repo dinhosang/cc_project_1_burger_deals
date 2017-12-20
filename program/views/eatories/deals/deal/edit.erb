@@ -1,0 +1,113 @@
+<article class="show_object_object">
+  <header class="edit_object_header">
+    <h2><%= @eatory.name %></h2>
+  </header>
+  <hr/>
+  <form class="edit_object_object" action="/eatories/<%= @eatory.id %>/deals/<%= @deal.id %>/update" method="post">
+    <h2>Add Burgers to Deal:</h2>
+    <br/>
+    <h2><%= @deal.label %></h2>
+    <p>Saving Type: <%= @deal.value_string %></p>
+    <p>Day Available: <%= @deal.day %></p>
+    <br/>
+    <br/>
+    <section class="stocked_burgers">
+      <h2>Burger Options</h2>
+      <br/>
+      <hr/>
+      <br/>
+      <% if @inactive_burgers %>
+        <% for burger in @inactive_burgers %>
+          <div class="deal_option">
+            <input type="checkbox" name="<%= burger.id %>" value="<%= burger.id %>" id="checkbox_burger_<%= burger.id %>" autocomplete="off">
+            <label for="checkbox_burger_<%= burger.id %>">
+              <% if burger.name != "" && burger.name != nil %>
+                Name: <%=burger.name%><br/>Type: <%= burger.type %><br/>Price: <%= @eatory.show_burger_price_currency(burger.id) %>
+              <% else %>
+                Type: <%= burger.type %> <br/>
+                Price: <%= @eatory.show_burger_price_currency(burger.id) %>
+              <% end %>
+            </label>
+            <hr/>
+            <br/>
+          </div>
+        <% end %>
+      <% else %>
+        <p>No Burgers to Choose From</p>
+        <p>All Burgers in Eatory are Part of This Deal</p>
+      <% end %>
+    </section>
+    <br/>
+    <br/>
+    <section class="delete_object">
+      <div class="empty_container">
+      </div>
+      <button type="submit" name="">Add Burgers to Deal</button>
+      <div class="empty_container">
+      </div>
+    </section>
+  </form>
+  <br/>
+  <hr/>
+  <hr/>
+  <br/>
+  <form class="edit_object_object" action="/eatories/<%= @eatory.id %>/deals/<%= @deal.id %>/delete" method="post">
+    <h2>Remove Burgers from Deal:</h2>
+    <br/>
+    <h2><%= @deal.label %></h2>
+    <p>Saving Type: <%= @deal.value_string %></p>
+    <p>Day Available: <%= @deal.day %></p>
+    <br/>
+    <hr/>
+    <br/>
+    <section class="stocked_burgers">
+      <h2>Burger Options</h2>
+      <br/>
+      <hr/>
+      <br/>
+      <% if @active_burgers %>
+        <% for burger in @active_burgers %>
+          <input type="checkbox" name="<%= burger.id %>" value="<%= burger.id %>" id="checkbox_burger_<%= burger.id %>" autocomplete="off">
+          <label for="checkbox_burger_<%= burger.id %>">
+            <% if burger.name != "" && burger.name != nil %>
+              Name: <%=burger.name%><br/>Type: <%= burger.type %><br/>Price: <%= @eatory.show_burger_price_currency(burger.id) %>
+            <% else %>
+              Type: <%= burger.type %> <br/>
+              Price: <%= @eatory.show_burger_price_currency(burger.id) %>
+            <% end %>
+          </label>
+          <hr/>
+          <br/>
+        <% end %>
+      <% else %>
+        <p>No Burgers to Remove</p>
+        <br/>
+        <p>No Burgers Currenty Linked to Deal</p>
+      <% end %>
+    </section>
+    <br/>
+    <br/>
+    <section class="delete_object">
+      <div class="empty_container">
+      </div>
+      <button type="submit" name="">Remove Burgers from Deal</button>
+      <div class="empty_container">
+      </div>
+    </section>
+    <br/>
+  </form>
+  <hr/>
+  <hr/>
+  <br/>
+  <br/>
+  <br/>
+  <form class="delete_object" action="/eatories/<%= @eatory.id %>" method="get">
+    <section class="return_button">
+      <div class="empty_container">
+      </div>
+      <button type="submit" name="">Return to Eatory <br/> Main View</button>
+      <div class="empty_container">
+      </div>
+    </section>
+  </form>
+</article>

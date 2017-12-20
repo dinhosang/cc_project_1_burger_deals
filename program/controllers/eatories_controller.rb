@@ -98,6 +98,45 @@ get('/eatories/:eatory_id/deals/:deal_id') do
 end
 
 
+get('/eatories/:eatory_id/deals/:deal_id/edit') do
+  @eatory = Eatory.find(params['eatory_id'].to_i)
+  @deal = Deal.find(params['deal_id'].to_i)
+  @active_burgers = @eatory.find_burgers_by_deal(@deal.id)
+  @inactive_burgers = @eatory.find_burgers_not_on_chosen_deal(@deal.id)
+  erb(:"eatories/deals/deal/edit")
+end
+
+
+post('/eatories/:eatory_id/deals/:deal_id/update') do
+  @changes = false
+  keys = params.keys
+  key_ints = keys.map {|key| key.to_i}
+  keys_single_int = key_ints.join().to_i
+  @eatory = Eatory.find(params['eatory_id'].to_i)
+  @deal = Deal.find(params['deal_id'].to_i)
+  if keys_single_int != 0
+    @changes = true
+    @new_burgers = @eatory.add_burgers_to_deal(params)
+  end
+  erb(:"eatories/deals/deal/update")
+end
+
+
+post('/eatories/:eatory_id/deals/:deal_id/delete') do
+  @changes = false
+  keys = params.keys
+  key_ints = keys.map {|key| key.to_i}
+  keys_single_int = key_ints.join().to_i
+  @eatory = Eatory.find(params['eatory_id'].to_i)
+  @deal = Deal.find(params['deal_id'].to_i)
+  if keys_single_int != 0
+    @changes = true
+    @removed_burgers = @eatory.remove_burgers_from_deal(params)
+  end
+  erb(:"eatories/deals/deal/delete")
+end
+
+
 get('/eatories/:id/burgers/edit') do
   @eatory = Eatory.find(params['id'].to_i)
   @unstocked_burgers = @eatory.find_all_burgers_not_sold

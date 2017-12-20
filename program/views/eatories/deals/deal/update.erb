@@ -1,0 +1,86 @@
+<article class="show_object_object">
+  <% if !@changes %>
+    <header>
+      <div class="upper">
+        <h2><%= @eatory.name %></h2>
+      </div>
+      <br/>
+      <hr/>
+      <br/>
+      <div class="middle">
+        <h2>Deal Name: <%= @deal.label %></h2>
+        <p>Saving Type: <%= @deal.value_string %></p>
+        <p>Day Available: <%= @deal.day %></p>
+      </div>
+    </header>
+    <br/>
+    <hr/>
+    <br/>
+    <div class="lower">
+      <h2>No Burgers Added to Deal</h2>
+        <br/>
+      <p>None Were Selected</p>
+    </div>
+  <% else %>
+    <header>
+      <div class="upper">
+        <h2><%= @eatory.name %></h2>
+      </div>
+      <hr/>
+      <div class="middle">
+        <h2>Deal Name: <%= @deal.label %></h2>
+        <p>Saving Type: <%= @deal.value_string %></p>
+        <p>Day Available: <%= @deal.day %></p>
+      </div>
+    </header>
+    <hr/>
+    <hr/>
+    <section class="stocked_burgers">
+      <% if @new_burgers.count > 1 %>
+        <h2>Newly Included Burgers</h2>
+      <% else %>
+        <h2>Newly Included Burger</h2>
+      <% end %>
+      <br/>
+      <hr/>
+      <br/>
+      <% for burger in @new_burgers %>
+        <section class="object">
+          <% if burger.name != "" %>
+            <p>"<%= burger.name %>"</p>
+            <p><%= burger.type %></p>
+          <% else %>
+            <p><%= burger.type %></p>
+          <% end %>
+          <p>Burger Price: <%= @eatory.show_burger_price_currency(burger.id) %></p>
+          <br/>
+          <hr/>
+        </section>
+      <% end %>
+    </section>
+  <% end %>
+  <br/>
+  <hr/>
+  <br/>
+  <form class="delete_object" action="/eatories/<%= @eatory.id %>/deals/<%= @deal.id %>/edit" method="get">
+    <section class="return_button">
+      <div class="empty_container">
+      </div>
+      <button type="submit" name="">Return to Add/Remove Burgers from Deal</button>
+      <div class="empty_container">
+      </div>
+    </section>
+  </form>
+  <br/>
+  <hr/>
+  <br/>
+  <form class="delete_object" action="/eatories/<%= @eatory.id %>" method="get">
+    <section class="return_button">
+      <div class="empty_container">
+      </div>
+      <button type="submit" name="">Return to Eatory Main View</button>
+      <div class="empty_container">
+      </div>
+    </section>
+  </form>
+</article>

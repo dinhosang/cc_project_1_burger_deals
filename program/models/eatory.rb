@@ -266,6 +266,22 @@ class Eatory
   end
 
 
+  def find_burgers_not_on_chosen_deal(deal_id)
+    sql = "
+    SELECT DISTINCT b.id, b.name, b.type FROM
+    deals_eatories_burgers_prices act FULL JOIN burgers b
+    ON b.id = act.burger_id WHERE act.eatory_id = $1
+    AND b.id NOT IN (SELECT DISTINCT b.id
+    FROM deals_eatories_burgers_prices act
+    FULL JOIN burgers b ON b.id = act.burger_id
+    WHERE act.eatory_id = $1 AND act.deal_id = $2);
+    "
+    values = [@id, deal_id]
+    burger_hashes = SqlRunner.run(sql, values)
+    return Burger.mapper_aid(burger_hashes)
+  end
+
+
   def detail_all_deals
     all_details = []
     deals = find_deals
@@ -294,17 +310,52 @@ class Eatory
   end
 
 
-
-  def remove_burger_from_deal(deal, burger)
+### modified since testing
+  def remove_burgers_from_deal(options)
     sql = "
     DELETE FROM deals_eatories_burgers_prices
     WHERE deal_id = $1
     AND burger_id = $2
     AND eatory_id = $3;
     "
-    values = [deal.id, burger.id, @id]
-    SqlRunner.run(sql, values)
+    keys = options.keys
+    deal_id = options['deal_id'].to_i
+    removed_deal_burgers = []
+    for key in keys
+      burger_id = key.to_i
+      if burger_id != 0
+        values = [deal_id, burger_id, @id]
+        SqlRunner.run(sql, values)
+        burger = Burger.find(burger_id)
+        removed_deal_burgers.push(burger)
+      end
+    end
+    return removed_deal_burgers
   end
+
+
+  def add_burgers_to_deal(options)
+    sql = "
+    INSERT INTO deals_eatories_burgers_prices
+    (deal_id, burger_id, eatory_id, price)
+    VALUES ($1, $2, $3, $4);
+    "
+    keys = options.keys
+    deal_id = options['deal_id'].to_i
+    new_deal_burgers = []
+    for key in keys
+      burger_id = key.to_i
+      if burger_id != 0
+        price = check_burger_price(burger_id)
+        values = [deal_id, burger_id, @id, price]
+        SqlRunner.run(sql, values)
+        burger = Burger.find(burger_id)
+        new_deal_burgers.push(burger)
+      end
+    end
+    return new_deal_burgers
+  end
+
 
 
   def remove_deal(deal)
@@ -409,6 +460,7 @@ class Eatory
     eatory_hashes = SqlRunner.run(sql)
     return mapper_aid(eatory_hashes)
   end
+
 
 
   def Eatory.show_only_newly_added_stock(old_stock, current_stock)
