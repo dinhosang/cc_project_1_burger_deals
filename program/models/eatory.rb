@@ -121,6 +121,17 @@ class Eatory
   end
 
 
+  def find_all_inactive_deals
+    sql = "
+    SELECT * FROM deals WHERE deals.id NOT IN
+    (SELECT DISTINCT d.id FROM deals_eatories_burgers_prices active FULL JOIN deals d ON d.id = active.deal_id WHERE eatory_id = $1 AND d.id IS NOT NULL) ORDER BY type_id ASC;
+    "
+    deal_hashes = SqlRunner.run(sql, [@id])
+    deals_array = Deal.mapper_aid(deal_hashes)
+    return deals_array
+  end
+
+
   def change_price( burger_price_hash )
     burger = burger_price_hash['burger']
     price = burger_price_hash['price'].to_i

@@ -60,6 +60,9 @@ get('/eatories/:id/edit') do
 end
 
 get('/eatories/:id/deals/edit') do
+  @eatory = Eatory.find(params['id'].to_i)
+  @inactive_deals = @eatory.find_all_inactive_deals
+  @active_deals = @eatory.find_deals
   erb(:"eatories/deals/edit")
 end
 
