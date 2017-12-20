@@ -62,16 +62,16 @@ class Eatory
   end
 
 
-  def remove_stock_and_return(burger_ids)
+  def remove_stock_and_return(burger_ids_in_hash)
     sql = "
     DELETE FROM deals_eatories_burgers_prices
     WHERE burger_id = $1 AND eatory_id = $2;
     "
     changes = []
-    keys = burger_ids.keys
+    keys = burger_ids_in_hash.keys
     for key in keys
       if key.to_i != 0
-        burger_id = burger_ids[key].to_i
+        burger_id = burger_ids_in_hash[key].to_i
         values = [burger_id, @id]
         SqlRunner.run(sql, values)
         changes.push(burger_id)

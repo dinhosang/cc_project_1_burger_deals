@@ -38,9 +38,9 @@ burger2.update
 burger3.update
 eatory3.update
 
-eatory1.add_stock([{"burger" => burger1, "price" => '350'}, {"burger" => burger3, 'price' => '500'}])
+eatory1.add_stock({"#{burger1.id}" => '350', "#{burger3.id}" => '500'})
 
-eatory1.add_deal(deal1, [burger2, burger3])
+eatory1.add_deal({'deal_id' => deal1.id, "#{burger2.id}" => '1', "#{burger3.id}" => '1'})
 
 eatory1.change_price({"burger" => burger1, "price" => '250'})
 
@@ -48,11 +48,11 @@ burgers_in_eatory1 = eatory1.all_burgers
 
 monday_deal_at_eatory1 = eatory1.detail_all_deals_by_day(1)
 
-tuesday_deal = Deal.active_deals_by_day(2)
+tuesday_deal = Deal.find_all_active_by_day(2)
 
 binding.pry
 
-removing = eatory1.remove_stock([burger2, burger3])
+removing = eatory1.remove_stock_and_return({"#{burger2.id}" => "#{burger2.id}", "#{burger3.id}" => "#{burger3.id}"})
 
 binding.pry
 
