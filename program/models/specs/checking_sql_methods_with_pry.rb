@@ -44,9 +44,7 @@ eatory1.add_deal({'deal_id' => deal1.id, "#{burger2.id}" => '1', "#{burger3.id}"
 
 eatory1.change_price({"burger" => burger1, "price" => '250'})
 
-burgers_in_eatory1 = eatory1.all_burgers
-
-monday_deal_at_eatory1 = eatory1.detail_all_deals_by_day(1)
+burgers_in_eatory1 = eatory1.find_all_burgers
 
 tuesday_deal = Deal.find_all_active_by_day(2)
 

@@ -21,8 +21,8 @@ class Deal
 
 
   def value_string
-    return "Cheapest item is free" if @type_id == 1
-    return "#{@value} off order"
+    return "Cheapest Item is Free" if @type_id == 1
+    return "#{@value} Off Order"
   end
 
 
@@ -61,13 +61,6 @@ class Deal
   end
 
 
-  def Deal.find_type(id)
-    sql = "SELECT type FROM deal_types WHERE id = $1;"
-    type_hash = SqlRunner.run(sql, [id]).first
-    return type_hash['type']
-  end
-
-
   def Deal.find(id)
     sql = "
     SELECT * FROM deals
@@ -88,10 +81,28 @@ class Deal
   end
 
 
+  def Deal.find_type(id)
+    sql = "SELECT type FROM deal_types WHERE id = $1;"
+    type_hash = SqlRunner.run(sql, [id]).first
+    return type_hash['type']
+  end
+
+
   def Deal.find_all_deal_types
     sql = "SELECT * FROM deal_types"
     deal_types_hashes = SqlRunner.run(sql)
     return deal_types_hashes
+  end
+
+
+  def Deal.find_by_burger(id)
+  sql = "
+  SELECT DISTINCT deals.id, deals.type_id, deals.label, deals.value, deals.day_id
+  FROM deals INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.deal_id = deals.id
+  WHERE deals_eatories_burgers_prices.burger_id = $1 ORDER BY deals.type_id ASC;
+  "
+  deal_hashes = SqlRunner.run(sql, [id])
+  return mapper_aid(deal_hashes)
   end
 
 
@@ -117,35 +128,12 @@ class Deal
   end
 
 
-  def Deal.find_by_burger(id)
-  sql = "
-  SELECT DISTINCT deals.id, deals.type_id, deals.label, deals.value, deals.day_id
-  FROM deals INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.deal_id = deals.id
-  WHERE deals_eatories_burgers_prices.burger_id = $1 ORDER BY deals.type_id ASC;
-  "
-  deal_hashes = SqlRunner.run(sql, [id])
-  return mapper_aid(deal_hashes)
-  end
-
-
   def Deal.find_all_active
     sql = "
     SELECT DISTINCT d.* FROM deals d INNER JOIN
     deals_eatories_burgers_prices active ON
     active.deal_id = d.id WHERE active.deal_id
     IS NOT NULL ORDER BY d.type_id ASC;
-    "
-    deal_hashes = SqlRunner.run(sql)
-    return mapper_aid(deal_hashes)
-  end
-
-
-  def Deal.find_all_inactive
-    sql = "
-    SELECT d.* FROM deals d WHERE NOT EXISTS
-    (SELECT *
-    FROM deals_eatories_burgers_prices active
-    WHERE active.deal_id = d.id) ORDER BY d.type_id ASC;
     "
     deal_hashes = SqlRunner.run(sql)
     return mapper_aid(deal_hashes)
@@ -159,6 +147,18 @@ class Deal
     WHERE deals.day_id = $1 ORDER BY deals.type_id ASC;
     "
     deal_hashes = SqlRunner.run(sql, [day_id])
+    return mapper_aid(deal_hashes)
+  end
+
+
+  def Deal.find_all_inactive
+    sql = "
+    SELECT d.* FROM deals d WHERE NOT EXISTS
+    (SELECT *
+    FROM deals_eatories_burgers_prices active
+    WHERE active.deal_id = d.id) ORDER BY d.type_id ASC;
+    "
+    deal_hashes = SqlRunner.run(sql)
     return mapper_aid(deal_hashes)
   end
 
@@ -270,4 +270,5 @@ class Deal
 #
 
 ###
+
 end

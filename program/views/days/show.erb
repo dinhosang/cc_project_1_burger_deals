@@ -1,4 +1,6 @@
+<br/>
 <h2 class="index_objects">List of All <%= @day.day %> Deals</h2>
+<br/>
 <article>
   <% for deal in @deals %>
     <section class="object_section">
@@ -16,4 +18,9 @@
       </section>
     </section>
   <% end %>
+  <br/>
+  <br/>
+  <form class="delete_object" action="/days" method="get">
+    <button type="submit" name="">Return to Days of the Week</button>
+  </form>
 </article>

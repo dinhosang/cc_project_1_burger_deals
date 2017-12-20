@@ -13,6 +13,10 @@
       <form class="" action="/burgers/<%= @burger.id %>/edit" method="get">
         <button type="submit" name="button">Modify Details</button>
       </form>
+      <br/>
+      <form class="" action="/burgers" method="get">
+        <button type="submit" name="button">Return to Burger Listing</button>
+      </form>
     </div>
   </header>
   <section id="burgers_eatories_deals">
@@ -28,15 +32,15 @@
             <p>Day Available: <%= deal.day %></p>
             </div>
             <div class="sub_right">
-              <a href="/burgers/<%= @burger.id %>/deals/<%= deal.id %>">Details</a>
+              <a href="/burgers/<%= @burger.id %>/deals/<%= deal.id %>">More Details</a>
             </div>
           </section>
           <hr/>
         <% end %>
-        <% else %>
+      <% else %>
         <h3>No Active Deals</h3>
         <hr/>
-        <% end %>
+      <% end %>
       </section>
     <section class="right">
       <% if @eatories %>
@@ -54,9 +58,11 @@
                 No
               <% end %>
             </p>
+            <br/>
+            <p>Price: <%= eatory.show_burger_price_currency(@burger.id) %></p>
             </div>
             <div class="sub_lower">
-              <a href="/burgers/<%= @burger.id %>/eatories/<%= eatory.id %>">Details</a>
+              <a href="/burgers/<%= @burger.id %>/eatories/<%= eatory.id %>">More Details</a>
             </div>
           </section>
           <hr/>

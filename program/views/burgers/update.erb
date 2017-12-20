@@ -1,10 +1,10 @@
 <% if @changes == false %>
   <header class="new_object_header">
-    <h2>No New Details Entered</h2>
+    <h2>No Changes Made</h2>
     <br/>
     <hr/>
     <h3>Burger Details</h3>
-    <% if @old_burger.name != "" %>
+    <% if @old_burger.name != "" && @old_burger.name != nil %>
       <br/>
       <p>Name: <%= @old_burger.name %></p>
       <p>Type: <%= @old_burger.type %></p>
@@ -17,6 +17,32 @@
     <hr/>
     <br/>
   </header>
+<% elsif @changes == 'name' %>
+  <header class="new_object_header">
+    <h2>Burger Name Removed</h2>
+    <br/>
+  </header>
+    <hr/>
+    <section class="new_object">
+      <br/>
+      <h3>New Burger Details</h3>
+      <hr/>
+      <p>Type: <%= @new_burger.type %></p>
+      <br/>
+      <hr/>
+    </section>
+    <br/>
+    <br/>
+    <br/>
+    <section class="new_object">
+      <h3>Old Burger Details</h3>
+      <hr/>
+      <br/>
+      <p>Name: <%= @old_burger.name %></p>
+      <p>Type: <%= @old_burger.type %></p>
+      <br/>
+      <hr/>
+    </section>
 <% else %>
   <header class="new_object_header">
     <h2>New Burger Details Successfully Saved</h2>
@@ -58,10 +84,20 @@
   <hr/>
   </section>
 <% end %>
+<form class="return_button" action="/burgers/<%= @new_burger.id %>/edit" method="get">
+  <div class="empty_container">
+  </div>
+  <button type="submit" name="button">Return to Modify Burger</button>
+  <div class="empty_container">
+  </div>
+</form>
+<br/>
+<hr/>
+<br/>
 <form class="return_button" action="/burgers/<%= @new_burger.id %>" method="get">
   <div class="empty_container">
   </div>
-  <button type="submit" name="button">Return to Burger Details</button>
+  <button type="submit" name="">Return to <% if @new_burger.name != "" %><%= @new_burger.name %><% else %><%= @new_burger.type %><% end %> Page</button>
   <div class="empty_container">
   </div>
 </form>

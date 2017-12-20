@@ -62,8 +62,23 @@
 <br/>
 <hr/>
 <br/>
+<form class="delete_object" action="/burgers/<%= @burger.id %>" method="post">
+  <h2>Remove Burger Name</h2>
+  <br/>
+  <button type="submit" name="remove_name">Remove Name</button>
+</form>
+<br/>
+<hr/>
+<br/>
 <form class="delete_object" action="/burgers/<%= @burger.id %>/delete" method="post">
   <h2>Delete Burger</h2>
   <br/>
   <button type="submit" name="">Delete Burger</button>
+</form>
+<br/>
+<hr/>
+<br/>
+<br/>
+<form class="delete_object" action="/burgers/<%= @burger.id %>" method="get">
+  <button type="submit" name="">Return to <% if @burger.name != "" %><%= @burger.name %><% else %><%= @burger.type %><% end %> Page</button>
 </form>

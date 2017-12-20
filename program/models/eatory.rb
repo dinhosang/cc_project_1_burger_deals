@@ -81,8 +81,7 @@ class Eatory
   end
 
 
-
-  def all_burgers
+  def find_all_burgers
     sql = "
     SELECT DISTINCT b.*, active.eatory_id FROM deals_eatories_burgers_prices active FULL JOIN burgers b
     ON b.id = active.burger_id
@@ -106,17 +105,6 @@ class Eatory
   end
 
 
-  def find_all_inactive_deals
-    sql = "
-    SELECT * FROM deals WHERE deals.id NOT IN
-    (SELECT DISTINCT d.id FROM deals_eatories_burgers_prices active FULL JOIN deals d ON d.id = active.deal_id WHERE eatory_id = $1 AND d.id IS NOT NULL) ORDER BY type_id ASC;
-    "
-    deal_hashes = SqlRunner.run(sql, [@id])
-    deals_array = Deal.mapper_aid(deal_hashes)
-    return deals_array
-  end
-
-
   def change_price( burger_price_hash )
     burger = burger_price_hash['burger']
     price = burger_price_hash['price'].to_i
@@ -127,7 +115,6 @@ class Eatory
     values = [price, burger.id, @id]
     SqlRunner.run(sql, values)
   end
-
 
 
   def check_burger_price(id)
@@ -194,6 +181,19 @@ class Eatory
     deal_hashes = SqlRunner.run(sql, [@id])
     deals = Deal.mapper_aid(deal_hashes)
     return deals
+  end
+
+
+  def find_all_inactive_deals
+    sql = "
+    SELECT * FROM deals WHERE deals.id NOT IN
+    (SELECT DISTINCT d.id FROM deals_eatories_burgers_prices active
+    FULL JOIN deals d ON d.id = active.deal_id
+    WHERE eatory_id = $1 AND d.id IS NOT NULL) ORDER BY type_id ASC;
+    "
+    deal_hashes = SqlRunner.run(sql, [@id])
+    deals_array = Deal.mapper_aid(deal_hashes)
+    return deals_array
   end
 
 
@@ -265,34 +265,6 @@ class Eatory
   end
 
 
-  def detail_all_deals
-    all_details = []
-    deals = find_deals
-    if deals
-      for deal in deals
-        burgers = find_burgers_by_deal(deal.id)
-        all_details.push({'deal' => deal, 'burgers' => burgers})
-      end
-      return all_details
-    end
-    return deals
-  end
-
-
-  def detail_all_deals_by_day(day_id)
-    all_details = []
-    deals = find_deals_by_day(day_id)
-    if deals
-      for deal in deals
-        burgers = find_burgers_by_deal(deal.id)
-        all_details.push({'deal' => deal, 'burgers' => burgers})
-      end
-      return all_details
-    end
-    return deals
-  end
-
-
 ### modified since testing
   def remove_burgers_from_deal(options)
     sql = "
@@ -338,7 +310,6 @@ class Eatory
     end
     return new_deal_burgers
   end
-
 
 
   def remove_deal(deal)
@@ -443,7 +414,6 @@ class Eatory
     eatory_hashes = SqlRunner.run(sql)
     return mapper_aid(eatory_hashes)
   end
-
 
 
   def Eatory.show_only_newly_added_stock(old_stock, current_stock)

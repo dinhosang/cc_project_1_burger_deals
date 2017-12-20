@@ -15,7 +15,7 @@
     </datalist>
     <br/>
     <label for="burger_type">Burger Type: </label>
-    <input type="text" list="types" name="type" value="" id="burger_type" autocomplete="off"/>
+    <input type="text" list="types" name="type" value="" id="burger_type" autocomplete="off" required/>
     <datalist class="" id="types">
       <% for type in @burger_types %>
         <option value="<%= type %>"><%= type %></option>

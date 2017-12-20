@@ -10,22 +10,23 @@ get('/burgers') do
   erb(:"burgers/index")
 end
 
-post('/burgers') do
-  name = params['name'] if params['name'] != ""
-  type = params['type']
-  if params['name'] == "" && params['type'] == ""
-    @changes = false
-  else
-    @burger = Burger.new({'name' => name, 'type' => type})
-    @burger.save
-  end
-  erb(:"burgers/create")
-end
 
 get('/burgers/new') do
   @burger_types = Burger.find_all_types
   @burger_names = Burger.find_all_names
   erb(:"burgers/new")
+end
+
+
+post('/burgers') do
+  @changes = true
+  if params['name'] == "" && params['type'] == ""
+    @changes = false
+  else
+    @burger = Burger.new(params)
+    @burger.save
+  end
+  erb(:"burgers/create")
 end
 
 
@@ -49,10 +50,25 @@ post('/burgers/:id') do
   @changes = false
   @old_burger = Burger.find(params['id'])
   @new_burger = Burger.find(params['id'])
+
   no_type = params['type'] == "" || params['type'] == nil
   no_name = params['name'] == "" || params['name'] == nil
 
-  if !no_name
+  if params.keys.include?('remove_name')
+    if @old_burger.name != nil
+      @changes = 'name'
+      @new_burger.name = nil
+    end
+  elsif !no_name && !no_type
+    if params['name'] != @old_burger.name
+      @new_burger.name = params['name']
+      @changes = true
+    end
+    if params['type'] != @old_burger.type
+      @new_burger.type = params['type']
+      @changes = true
+    end
+  elsif !no_name
     if params['name'] != @old_burger.name
       @new_burger.name = params['name']
       @changes = true
@@ -62,14 +78,7 @@ post('/burgers/:id') do
       @new_burger.type = params['type']
       @changes = true
     end
-  else
-    if params['name'] != @old_burger.name && params['type'] != @old_burger.type
-      @new_burger.name = params['name']
-      @new_burger.type = params['type']
-      @changes = true
-    end
   end
-
   @new_burger.update if @changes
   erb(:"burgers/update")
 end

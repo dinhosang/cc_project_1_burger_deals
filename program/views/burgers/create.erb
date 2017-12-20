@@ -2,9 +2,6 @@
   <header class="new_object_header">
     <h2>No New Burger Saved - No Details Entered</h2>
     <hr/>
-    <form class="" action="/burgers/new" method="get">
-      <button type="submit" name="button">Return to Create New Burger</button>
-    </form>
   </header>
 <% else %>
   <header class="new_object_header">
@@ -27,8 +24,18 @@
     <br/>
   <% end %>
   <hr/>
-  <form class="" action="/burgers/new" method="get">
-    <button type="submit" name="button">Return to Create New Burger</button>
-  </form>
   </section>
 <% end %>
+<br/>
+<hr/>
+<br/>
+<form class="" action="/burgers/new" method="get">
+  <button type="submit" name="button">Return to Create New Burger</button>
+</form>
+<br/>
+<hr/>
+<br/>
+<form class="" action="/burgers" method="get">
+  <button type="submit" name="button">Return to Burger Listing</button>
+</form>
+</section>

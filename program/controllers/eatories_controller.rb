@@ -26,7 +26,7 @@ get('/eatories/:id') do
   id = params['id'].to_i
   @eatory = Eatory.find(id)
   @deals = @eatory.find_deals
-  @burgers = @eatory.all_burgers
+  @burgers = @eatory.find_all_burgers
   erb(:"eatories/show")
 end
 
@@ -61,7 +61,7 @@ end
 
 get('/eatories/:id/deals/edit') do
   @eatory = Eatory.find(params['id'].to_i)
-  @stock = @eatory.all_burgers
+  @stock = @eatory.find_all_burgers
   @inactive_deals = @eatory.find_all_inactive_deals
   @active_deals = @eatory.find_deals
   erb(:"eatories/deals/edit")
@@ -140,16 +140,16 @@ end
 get('/eatories/:id/burgers/edit') do
   @eatory = Eatory.find(params['id'].to_i)
   @unstocked_burgers = @eatory.find_all_burgers_not_sold
-  @stocked_burgers = @eatory.all_burgers
+  @stocked_burgers = @eatory.find_all_burgers
   erb(:"eatories/burgers/edit")
 end
 
 
 post('/eatories/:id/burgers/update') do
   @eatory = Eatory.find(params['id'].to_i)
-  old_stock = @eatory.all_burgers
+  old_stock = @eatory.find_all_burgers
   @eatory.add_stock(params)
-  @current_stock = @eatory.all_burgers
+  @current_stock = @eatory.find_all_burgers
   if old_stock != nil && @current_stock != nil
     @changes = Eatory.show_only_newly_added_stock(old_stock, @current_stock)
   elsif @current_stock != nil
