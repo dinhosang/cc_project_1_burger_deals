@@ -55,7 +55,7 @@
   <section class="stocked_burgers">
     <% if @stocked_burgers %>
       <% for burger in @stocked_burgers %>
-        <input type="checkbox" name="<%= burger.id %>" value="<%= burger.id %>" id="checkbox_burger_<% burger.id %>" autocomplete="off">
+        <input type="checkbox" name="<%= burger.id %>" value="<%= burger.id %>" id="checkbox_burger_<%= burger.id %>" autocomplete="off">
         <label for="checkbox_burger_<%= burger.id %>">
           <% if burger.name != "" && burger.name != nil %>
             Name: <%=burger.name%><br/>Type: <%= burger.type %>

@@ -1,0 +1,52 @@
+<% if @changes %>
+  <header class="new_object_header">
+    <h2><%= @eatory.name %></h2>
+    <br/>
+    <hr/>
+    <h2>New Deal Successfully Added</h2>
+    <br/>
+  </header>
+<hr/>
+<section class="new_object">
+  <br/>
+  <h3>New Deal Details:</h3>
+  <br/>
+  <p><%= @deal.label %></p>
+  <p>Saving Type: <%= @deal.value_string %></p>
+  <p>Day Available: <%= @deal.day %></p>
+  <br/>
+  <hr/>
+  <br/>
+  <br/>
+  <h3>Burgers Added to Deal:</h3>
+  <br/>
+  <br/>
+  <% for burger in @burgers %>
+    <% if burger.name != "" %>
+      <br/>
+      <p>Burger Name: <%= burger.name %></p>
+      <p>Burger Type: <%= burger.type %></p>
+      <br/>
+    <% else %>
+      <br/>
+      <p>Burger Type: <%= burger.type %></p>
+      <br/>
+    <% end %>
+  <hr/>
+  <% end %>
+</section>
+<% else %>
+<header class="new_object_header">
+  <h2><%= @eatory.name %></h2>
+  <br/>
+  <hr/>
+  <br/>
+  <h2>No Deal Added</h2>
+  <br/>
+  <hr/>
+  <br/>
+  <p> No burgers were included in selection</p>
+  <br/>
+  <hr/>
+</header>
+ <% end %>

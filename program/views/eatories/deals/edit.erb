@@ -5,16 +5,39 @@
 <form class="edit_object_object" action="/eatories/<%= @eatory.id %>/deals/update" method="post">
   <h2>Add Deals to Eatory Active List:</h2>
   <br/>
+  <p>(only burgers for the chosen deal should be checked)</p>
+  <br/>
   <br/>
   <section class="stocked_burgers">
     <% if @inactive_deals %>
       <% for deal in @inactive_deals %>
-        <input type="checkbox" name="<%= deal.id %>" value="<%= deal.id %>" id="checkbox_deal_<%= deal.id %>" autocomplete="off">
-        <label for="checkbox_deal_<%= deal.id %>">
-          <h2><%= deal.label %></h2>
-          <p>Saving Type: <%= deal.value_string %></p>
-          <p>Day Available: <%= deal.day %></p>
-        </label>
+        <div class="deal_option">
+          <input type="radio" name="deal_id" value="<%= deal.id %>" id="radio_deal_<%= deal.id %>" autocomplete="off" required>
+          <label for="radio_deal_<%= deal.id %>">
+            <h2><%= deal.label %></h2>
+            <p>Saving Type: <%= deal.value_string %></p>
+            <p>Day Available: <%= deal.day %></p>
+          </label>
+          <br/>
+          <div class="reveal-if-active">
+            <h3>Burgers to Add to Deal (min: 1)</h3>
+            <br/>
+            <hr/>
+            <br/>
+            <% for burger in @stock %>
+              <input type="checkbox" name="<%= burger.id %>" value="<%= burger.id %>" id="checkbox_burger_<%= burger.id %>" autocomplete="off">
+              <label for="checkbox_burger_<%= burger.id %>">
+                <% if burger.name != "" && burger.name != nil %>
+                  Name: <%=burger.name%><br/>Type: <%= burger.type %>
+                <% else %>
+                  Type: <%= burger.type %>
+                <% end %>
+              </label>
+              <br/>
+              <br/>
+            <% end %>
+          </div>
+        </div>
         <hr/>
         <br/>
       <% end %>

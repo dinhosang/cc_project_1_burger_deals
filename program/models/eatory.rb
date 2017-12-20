@@ -169,19 +169,32 @@ class Eatory
   end
 
 
-  def add_deal(deal, burgers_array)
+  def add_deal(options)
     sql = "
     INSERT INTO deals_eatories_burgers_prices
     (deal_id, burger_id, eatory_id, price)
     VALUES ($1, $2, $3, $4);
     "
-    for burger in burgers_array
-      if burger_instock?(burger.id)
-        price = check_burger_price(burger.id)
-        values = [deal.id, burger.id, @id, price]
+    keys = options.keys
+    deal_id = options['deal_id'].to_i
+    new_deals_burgers = {options['deal_id'] => []}
+    for key in keys
+      if key == 'deal_id'
+        next
+      end
+      burger_id = key.to_i
+      if burger_id != 0 && options[key] != ""
+        price = check_burger_price(burger_id)
+        values = [deal_id, burger_id, @id, price]
         SqlRunner.run(sql, values)
+        burger = Burger.find(burger_id)
+        new_deals_burgers[options['deal_id']].push(burger)
       end
     end
+    if new_deals_burgers[options['deal_id']] != []
+      return new_deals_burgers
+    end
+    return false
   end
 
 

@@ -14,6 +14,7 @@ body {
   height: 8vh;
 }
 
+
 .header_space_holder {
   height: 8.8vh;
   border-style: hidden;
@@ -502,6 +503,28 @@ input:hover::-moz-placeholder {
   height: 50%;
 }
 
+.reveal-if-active {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transform: scale(0.8);
+  transition: 0.2s;
+  input[type="radio"]:checked ~ & {
+  opacity: 1;
+  max-height: 100%;
+  max-width: 95%;
+  margin: 0 auto;
+  overflow: visible;
+  /*padding: 10px 20px;*/
+  transform: scale(1);
+}
+}
+
+input[type="radio"]:checked ~ .reveal-if-active {
+  opacity: 1;
+  max-height: 100%;
+  overflow: visible;
+}
 
 footer {
   margin: 0.25vh 0vw;
