@@ -133,6 +133,31 @@ post('/eatories/:id/burgers/delete') do
   erb(:"eatories/burgers/delete")
 end
 
+
+get('/eatories/:eatory_id/burgers/:burger_id/edit') do
+  @burger = Burger.find(params['burger_id'].to_i)
+  @eatory = Eatory.find(params['eatory_id'].to_i)
+  erb(:"eatories/burgers/burger/edit")
+end
+
+
+post('/eatories/:eatory_id/burgers/:burger_id/update') do
+  @burger = Burger.find(params['burger_id'].to_i)
+  @eatory = Eatory.find(params['eatory_id'].to_i)
+  @old_price_int = @eatory.check_burger_price(@burger.id)
+  @new_price_int = params['price'].to_i
+  @changes = false
+  binding.pry
+  if @old_price_int != @new_price_int
+    @changes = true
+    @old_price = @eatory.show_burger_price_currency(@burger.id)
+    @eatory.change_price({'burger' => @burger, 'price' => params['price']})
+    @new_price = @eatory.show_burger_price_currency(@burger.id)
+  end
+  erb(:"eatories/burgers/burger/update")
+end
+
+
 get('/eatories/:eatory_id/burgers/:burger_id') do
   eatory_id = params['eatory_id'].to_i
   burger_id = params['burger_id'].to_i
