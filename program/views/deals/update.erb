@@ -3,7 +3,37 @@
     <h2>No New Details Entered</h2>
     <br/>
     <hr/>
+  </header>
+  <section class="new_object">
     <h3>Deal Details</h3>
+    <br/>
+    <p>Deal Label: <%= @old_deal.label %></p>
+    <br/>
+    <p>Deal Type: <%= @old_deal.type %></p>
+    <br/>
+    <% if @old_deal.value != "" && @old_deal.value != nil %>
+      <p>Deal Value: <%= @old_deal.value %></p>
+    <% else %>
+      <p>Deal Value: n/a</p>
+    <% end %>
+    <br/>
+    <p>Active Day: <%= @old_deal.day %></p>
+    <hr/>
+    <br/>
+  </section>
+<% elsif @correct == false %>
+  <header class="new_object_header">
+    <h2>New Details Not Saved</h2>
+    <br/>
+    <hr/>
+    <br/>
+    <p>Chosen deal type and deal value did not match.</p>
+    <br/>
+    <hr/>
+    <br/>
+  </header>
+  <section class="new_object">
+    <h3>Current Deal Details</h3>
     <p>Deal Label: <%= @old_deal.label %></p>
     <p>Deal Type: <%= @old_deal.type %></p>
     <% if @old_deal.value != "" && @old_deal.value != nil %>
@@ -14,7 +44,7 @@
     <p>Active Day: <%= @old_deal.day %></p>
     <hr/>
     <br/>
-  </header>
+  </section>
 <% else %>
   <header class="new_object_header">
     <h2>New Deal Details Successfully Saved</h2>
@@ -54,10 +84,19 @@
 <% end %>
 <br/>
 <br/>
+<form class="return_button" action="/deals/<%= @new_deal.id %>/edit" method="get">
+  <div class="empty_container">
+  </div>
+  <button type="submit" name="button">Return to Modify Deal Details</button>
+  <div class="empty_container">
+  </div>
+</form>
+<br/>
+<br/>
 <form class="return_button" action="/deals/<%= @new_deal.id %>" method="get">
   <div class="empty_container">
   </div>
-  <button type="submit" name="button">More Details</button>
+  <button type="submit" name="button">View Deal Details</button>
   <div class="empty_container">
   </div>
 </form>

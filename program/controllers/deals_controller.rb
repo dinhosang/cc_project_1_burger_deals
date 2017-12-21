@@ -11,8 +11,14 @@ end
 
 
 post('/deals') do
-  @deal = Deal.new('type_id' => params['type_id'], 'value' => params['value'], 'day_id' => params['day_id'], 'label' => params['label'])
-  @deal.save
+  @deal = Deal.new(
+    'type_id' => params['type_id'],
+    'value' => params['value'],
+    'day_id' => params['day_id'],
+    'label' => params['label']
+  )
+  @correct = Deal.check_correct_type_value(params)
+  @deal.save if @correct
   erb(:"deals/create")
 end
 
@@ -49,36 +55,13 @@ end
 post('/deals/:id') do
   id = params['id'].to_i
   type_id = params['type_id'].to_i
-  @changes = false
   @old_deal = Deal.find(id)
   @new_deal = Deal.find(id)
 
-  if params['label'] != ""
-    if params['label'] != @old_deal.label
-      @new_deal.label = params['label']
-      @changes = true
-    end
-  end
+  @correct = Deal.check_correct_type_value(params)
 
-  if params['value'] != ""
-    if params['value'] != @old_deal.value
-      @new_deal.value = params['value']
-      @changes = true
-    end
-  end
-
-  if params['day_id'] != ""
-    if params['day_id'] != @old_deal.day_id
-      @new_deal.day_id = params['day_id'].to_i
-      @changes = true
-    end
-  end
-
-  @new_deal.type_id = type_id
-  @new_deal.type = Deal.find_type(type_id)
-
-  if @new_deal.type != @old_deal.type
-    @changes = true
+  if @correct
+    @changes = @new_deal.check_and_edit_details(@old_deal, params)
   end
 
   @new_deal.update if @changes

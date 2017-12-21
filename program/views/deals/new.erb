@@ -18,7 +18,7 @@
     <br/>
     <p>Deal Type:</p>
     <% for type in @deal_type_hashes %>
-    <label for="deal_type_<% type['id'] %>"><%= type['type'] %></label>
+    <label for="deal_type_<%= type['id'] %>"><%= type['type'] %></label>
     <input type="radio" list="types" name="type_id" value="<%= type['id'] %>" id="deal_type_<%= type['id'] %>" required/>
     <% end %>
     <br/>

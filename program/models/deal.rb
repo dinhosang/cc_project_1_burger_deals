@@ -61,6 +61,43 @@ class Deal
   end
 
 
+  def check_and_edit_details(old_deal, params)
+
+    changes = false
+
+    if params['label'] != ""
+      if params['label'] != old_deal.label
+        @label = params['label']
+        changes = true
+      end
+    end
+
+    if params['value'] != ""
+      if params['value'] != old_deal.value
+        changes = true
+        if params['value'] != "cheapest"
+          @value = params['value']
+        end
+      end
+    end
+
+    if params['day_id'] != ""
+      if params['day_id'] != old_deal.day_id
+        @day_id = params['day_id'].to_i
+        changes = true
+      end
+    end
+
+    @type_id = type_id
+    @type = Deal.find_type(type_id)
+
+    if @type != old_deal.type
+      changes = true
+    end
+    return changes
+  end
+
+
   def Deal.find(id)
     sql = "
     SELECT * FROM deals
@@ -160,6 +197,20 @@ class Deal
     "
     deal_hashes = SqlRunner.run(sql)
     return mapper_aid(deal_hashes)
+  end
+
+
+  def Deal.check_correct_type_value(options)
+    if options['value'] == 'cheapest' && options['type_id'] != '1'
+      return false
+    elsif options['value'] != 'cheapest' && options['type_id'] == '1'
+      return false
+    elsif options['value'].include?('/') && options['type_id'] != '2'
+      return false
+    elsif !options['value'].include?('/') && options['type_id'] == '2'
+      return false
+    end
+    return true
   end
 
 
