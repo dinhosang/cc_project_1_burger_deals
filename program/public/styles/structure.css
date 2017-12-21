@@ -244,6 +244,12 @@ article {
   text-align: center;
 }
 
+.show_object #burgers_eatories_deals .left,
+.show_object #burgers_eatories_deals .right {
+  max-height: 71vh;
+  overflow: scroll;
+}
+
 .show_object #burgers_eatories_deals .left section {
   display: flex;
   min-height: 8vh;
@@ -459,11 +465,11 @@ input:hover::-moz-placeholder {
 
 ::-webkit-scrollbar {
   -webkit-appearance: none;
-  width: 1.5%;
+  width: 1%;
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 4px;
+  border-radius: 2px;
   background-color: rgba(0,0,0,.5);
   -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }

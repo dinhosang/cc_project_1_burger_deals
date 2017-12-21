@@ -79,6 +79,10 @@
               <% else %>
                 <h4><%= burger.type %></h4>
               <% end %>
+              <br/>
+              <p>Price: <%= @eatory.show_burger_price_currency(burger.id) %></p>
+            <br/>
+            <hr/>
             <br/>
             <p>Deals Available:
               <% if @eatory.find_deals_by_burger(burger.id) != nil %>
@@ -95,7 +99,10 @@
               <a href="/eatories/<%= @eatory.id %>/burgers/<%= burger.id %>/edit">Modify Price</a>
             </div>
           </section>
+          <br/>
           <hr/>
+          <hr/>
+          <br/>
         <% end %>
       <% else %>
       <header>

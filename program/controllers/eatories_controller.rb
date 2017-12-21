@@ -186,7 +186,6 @@ post('/eatories/:eatory_id/burgers/:burger_id/update') do
   @old_price_int = @eatory.check_burger_price(@burger.id)
   @new_price_int = params['price'].to_i
   @changes = false
-  binding.pry
   if @old_price_int != @new_price_int
     @changes = true
     @old_price = @eatory.show_burger_price_currency(@burger.id)

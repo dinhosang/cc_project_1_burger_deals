@@ -31,11 +31,21 @@
   </section>
 <% end %>
 <br/>
+<hr/>
+<br/>
+<form class="return_button" action="/eatories/<%= @new_eatory.id %>/edit" method="get">
+  <div class="empty_container">
+  </div>
+  <button type="submit" name="button">Return to Modify Eatory</button>
+  <div class="empty_container">
+  </div>
+</form>
+<br/>
 <br/>
 <form class="return_button" action="/eatories/<%= @new_eatory.id %>" method="get">
   <div class="empty_container">
   </div>
-  <button type="submit" name="button">More Details</button>
+  <button type="submit" name="button">Return to Eatory Page</button>
   <div class="empty_container">
   </div>
 </form>
