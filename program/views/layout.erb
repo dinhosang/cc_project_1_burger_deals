@@ -7,49 +7,63 @@
     <link rel="stylesheet" type="text/css" href="/styles/structure.css">
   </head>
   <body>
-    <header id="layout">
-      <div class="banner">
-        <a href="/">Home</a>
+    <section class="interactable_area">
+      <header id="fixed_header_layout">
+        <div class="banner">
+          <a href="/">Home</a>
+        </div>
+        <div class="nav_bar_wrapper">
+          <nav class="layout_nav_bar">
+
+            <ul class="dropdown">
+              <li class="list">
+                  <a class="category" name="days" href="/days">Days</a>
+                  <ul class="dropdown_content">
+                    <li><a href="/days">Search Deals <br/> By Day</a></li>
+                  </ul>
+            </ul>
+
+            <ul class="dropdown">
+              <li class="list">
+                  <a class="category" name="deals" href="/deals">Deals</a>
+                  <ul class="dropdown_content">
+                    <li><a href="/deals">List All Deals</a></li>
+                    <li><a href="/deals/new">Create New <br/> Deal</a></li>
+                  </ul>
+              </li>
+            </ul>
+
+            <ul class="dropdown">
+              <li class="list">
+                  <a name="eateries" class="category" href="/eateries">Eateries</a>
+                  <ul class="dropdown_content">
+                    <li><a href="/eateries">List All <br/> Eateries</a></li>
+                    <li><a href="/eateries/new">Create New Eatery</a></li>
+                  </ul>
+              </li>
+            </ul>
+
+            <ul class="dropdown">
+              <li class="list">
+                  <a name="burgers" class="category" href="/burgers">Burgers</a>
+                  <ul class="dropdown_content">
+                    <li><a href="/burgers" tabindex="0">List All <br/> Burgers</a></li>
+                    <li><a href="/burgers/new" tabindex="0">Create New Burgers</a></li>
+                  </ul>
+              </li>
+            </ul>
+
+          </nav>
+        </div>
+      </header>
+      <div class="header_space_holder">
       </div>
-      <nav class="nav_bar">
-        <div class="dropdown">
-          <button type="button" name="days" class="dropbtn">Days</button>
-          <div class="dropdown_content">
-            <a href="/days">Search Deals By Day</a>
-          </div>
-        </div>
-
-        <div class="dropdown">
-          <button type="button" name="deals" class="dropbtn">Deals</button>
-          <div class="dropdown_content">
-            <a href="/deals">List All Deals</a>
-            <a href="/deals/new">Create New Deal</a>
-          </div>
-        </div>
-
-        <div class="dropdown">
-          <button type="button" name="eateries" class="dropbtn">Eateries</button>
-          <div class="dropdown_content">
-            <a href="/eateries">List All Eateries</a>
-            <a href="/eateries/new">Create New Eatery</a>
-          </div>
-        </div>
-
-
-        <div class="dropdown">
-          <button type="button" name="burgers" class="dropbtn">Burgers</button>
-          <div class="dropdown_content">
-            <a href="/burgers">List All Burgers</a>
-            <a href="/burgers/new">Create New Burgers</a>
-          </div>
-        </div>
-      </nav>
-    </header>
-    <div class="header_space_holder">
-    </div>
-    <main>
-      <%= yield %>
-    </main>
-    <footer>adfj</footer>
+      <main>
+        <%= yield %>
+      </main>
+    </section>
+    <footer>
+      <p>Code Clan traCker - that's here</p>
+    </footer>
   </body>
 </html>
