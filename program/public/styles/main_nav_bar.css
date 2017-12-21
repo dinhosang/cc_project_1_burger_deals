@@ -1,0 +1,122 @@
+#fixed_header_layout {
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+  background-color: #FFF;
+  position: fixed;
+  width: 95.3vw;
+  max-width: 650px;
+  height: 10.5vh;
+}
+
+.banner {
+  text-align: center;
+  max-height: 50%;
+  min-height: 5vh;
+  border-style: solid;
+  border-width: 1px;
+}
+
+
+.nav_bar_wrapper {
+  position: relative;
+  height: 5vh;
+  max-height: 50%;
+  width: 95vw;
+  margin: 0 auto;
+  max-width: 648.2px;
+  border: solid 1px;
+}
+
+.layout_nav_bar {
+  position: absolute;
+  z-index: 100;
+  line-height: 5vh;
+  height: 100%;
+  width: 95vw;
+  max-width: 600px;
+}
+
+.dropdown {
+  padding:0;
+  margin:0;
+  list-style:none;
+  width: 25%;
+  overflow:hidden;
+  float:left;
+}
+
+ul.dropdown a {
+    background:#ffffff;
+    text-decoration:none;
+    color:#000000;
+    padding-left: 5px;
+
+}
+
+ul.dropdown li.list {
+    float:left;
+    /*width:250px;*/
+    width:50.25vw;
+    max-width: 250px;
+    margin:-28vh 0.8vw 2vh 0.1vw;
+    background: rgb(255, 255, 255);
+    border-left: solid 0.5px;
+    border-right: solid 0.5px;
+}
+
+#left_most_dropdown {
+  border-left: none;
+}
+
+ul.dropdown li.list a.category {
+    position:relative;
+    z-index:50;
+    display:block;
+    float:left;
+    width:120px;
+    /*margin-top:32767px;*/
+    margin-top:28vh;
+    background:transparent;
+}
+
+ul.dropdown li.list a.category:hover,
+ul.dropdown li.list a.category:focus,
+ul.dropdown li.list a.category:active {
+    margin-right:1px;
+    background: red;
+}
+
+ul.dropdown_content {
+    float:left;
+    padding:50px 0px 0px 0px;
+    margin:0;
+    list-style:none;
+    background: #ffffff;
+    margin:-50px 0px 0px 0px;
+}
+
+ul.dropdown_content li a {
+    float:left;
+    max-width:120px;
+    width:24vw;
+    background:#ffffff;
+    /*clear:left;*/
+    color: black;
+    border-bottom: solid 1px;
+}
+
+ul.dropdown_content a:hover,
+ul.dropdown_content a:focus,
+ul.dropdown_content a:active {
+    background:#969191;
+    margin-right:1px;
+    color:#fff;
+}
+
+
+
+.header_space_holder {
+  height: 11.8vh;
+  border-style: hidden;
+  background-color: wheat;
+}

@@ -3,153 +3,131 @@ body {
 }
 
 .interactable_area {
-  width: 95.3vw;
+  width: 95.5vw;
   margin: auto;
   font-size: 100%;
   max-width: 650px;
   background-color: rgb(255, 255, 255)
 }
 
-#fixed_header_layout {
-  margin-top: 0.5%;
-  margin-bottom: 0.5%;
-  background-color: #FFF;
-  position: fixed;
-  width: 95.3vw;
-  max-width: 650px;
-  height: 10vh;
-}
-
-.banner {
-  text-align: center;
-  max-height: 50%;
-  min-height: 5vh;
-  border-style: solid;
-  border-width: 1px;
-}
-
-
 a:hover, a:active, a:focus {
-    outline: groove rgb(88, 177, 219) 3px;
-    outline-offset: 0.5px;
-    direction: ltr;
+  outline: groove rgb(88, 177, 219) 3px;
+  outline-offset: 0.5px;
+  direction: ltr;
 }
-
-
-.nav_bar_wrapper {
-  position: relative;
-  height: 5vh;
-  max-height: 50%;
-  width: 95vw;
-  margin: 0 auto;
-  max-width: 648.2px;
-  border: solid 1px;
-}
-
-.layout_nav_bar {
-  position: absolute;
-  z-index: 100;
-  line-height: 5vh;
-  height: 100%;
-  width: 95vw;
-  max-width: 600px;
-}
-
-.dropdown {
-  padding:0;
-  margin:0;
-  list-style:none;
-  width: 25%;
-  overflow:hidden;
-  float:left;
-}
-
-ul.dropdown a {
-    background:#ffffff;
-    text-decoration:none;
-    color:#000000;
-    padding-left: 5px;
-
-}
-
-ul.dropdown li.list {
-    float:left;
-    width:250px;
-    margin:-32767px -125px 0px 0px;
-    background: rgb(255, 255, 255);
-    border-left: solid 0.5px;
-    border-right: solid 0.5px;
-}
-
-ul.dropdown li.list a.category {
-    position:relative;
-    z-index:50;
-    display:block;
-    float:left;
-    width:120px;
-    margin-top:32767px;
-    background:transparent;
-}
-
-ul.dropdown li.list a.category:hover,
-ul.dropdown li.list a.category:focus,
-ul.dropdown li.list a.category:active {
-    margin-right:1px;
-    background: red;
-}
-
-ul.dropdown_content {
-    float:left;
-    padding:50px 0px 0px 0px;
-    margin:0;
-    list-style:none;
-    background: #ffffff;
-    margin:-50px 0px 0px 0px;
-}
-
-ul.dropdown_content li a {
-    float:left;
-    width:120px;
-    background:#ffffff;
-    /*clear:left;*/
-    color: black;
-    border-bottom: solid 1px;
-}
-
-ul.dropdown_content a:hover,
-ul.dropdown_content a:focus,
-ul.dropdown_content a:active {
-    background:#969191;
-    margin-right:1px;
-    color:#fff;
-}
-
-
-
-.header_space_holder {
-  height: 11.5vh;
-  border-style: hidden;
-  background-color: wheat;
-}
-
 
 main {
-  padding: 0.25%;
+  padding: 1% 1.5%;
   margin-top: 0.4vh;
   margin-bottom: 0.4vh;
-  max-height: 79.8vh;
-  min-height: 79vh;
+  max-height: 78.5vh;
   margin: auto;
   border: solid;
   border-width: 1px;
   overflow: scroll;
 }
 
-.index_objects {
-  padding: 0.5%;
+.main_display {
+  padding-top: 1.25vh;
+  padding-bottom: 1.75vh;
+  padding: 1.25vh 0.5vw 0vh 0.5vw;
   text-align: center;
+}
+
+.main_display header {
+  padding: 1vh 0 1vh 0;
+  min-height: 5vh;
+  border: solid 1px;
+  margin-bottom: 20vh;
+}
+
+.main_display h2 {
+  padding: 0.5% 0 0 0;
+  text-align: center;
+  font-size: 150%;
+  width: 50%;
+  margin: 0 auto;
+  text-decoration: underline;
+}
+
+.main_display .left_right_container {
+  margin: 0.25vh auto;
+  display: flex;
+  text-align: center;
+}
+
+.main_display .left_right_container h3,
+.main_display .left_right_container h4 {
+  margin: 1vh;
+  text-decoration: underline;
+}
+
+.main_display .left_right_container p {
+  margin: 1vh;
+}
+
+.main_display .left_right_container .left,
+.main_display .left_right_container .right {
+  overflow: scroll;
+}
+
+.main_display .left_right_container .left {
+  width: 64.75%;
+  margin-top: 1px;
+  margin-right: 0.25%;
+  max-height: 67.6vh;
+  border: solid 1px;
+}
+
+.main_display .left_right_container .right {
+  width: 34.75%;
+
+  margin-left: 0.25%;
+  min-height: 66.9vh;
+  max-height: 67.6vh;
+  border: solid 1px;
+}
+
+.main_display .left_right_container .left section {
+  display: flex;
+  min-height: 8vh;
+}
+
+.main_display .left_right_container .right section {
+  min-height: 5vh;
+}
+
+.main_display .left_right_container .left section .sub_left {
+  height: 100%;
+  width: 75%;
+}
+
+.main_display .left_right_container .left section .sub_right {
+  text-align: center;
+  height: 100%;
+  width: 25%;
+  margin: 1%;
+  border-left: solid 1px;
+
+}
+
+.main_display .left_right_container .right section .sub_upper {
+  height: 50%;
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2%;
   border-bottom: solid 1px;
 }
+
+.main_display .left_right_container .right section .sub_lower {
+  text-align: center;
+  margin: 10% auto;
+}
+
+
+
+
 
 article {
   min-height: 72vh;
@@ -181,16 +159,7 @@ article {
   margin: 1.25vh auto;
 }
 
-.show_object header {
-  min-height: 5vh;
-  padding-top: 1.25vh;
-  padding-bottom: 1.75vh;
-  border: solid 1px;
-  text-align: center;
-}
-.show_object h2 {
-  font-size: 150%;
-}
+.
 
 .show_object_object {
   min-height: 77vh;
@@ -226,7 +195,7 @@ article {
   border-bottom: solid 1px;
 }
 
-.show_object_object #burgers_eateries_deals {
+.show_object_object .left_right_container {
   margin: 1.5% auto;
   min-height: 20vh;
 }
@@ -243,7 +212,7 @@ article {
   border-bottom: solid 1px;
 }
 
-.show_object_object #burgers_eateries_deals .object {
+.show_object_object .left_right_container .object {
   padding-top: 1%;
   padding-bottom: 1%;
   min-height: 5vh;
@@ -255,7 +224,7 @@ article {
   border-bottom: solid 1px;
 }
 
-.show_object_object #burgers_eateries_deals .back_one {
+.show_object_object .left_right_container .back_one {
   min-height: 3vh;
   width: 40%;
   margin: 2% auto;
@@ -263,84 +232,6 @@ article {
   text-align: center;
 }
 
-.show_object #burgers_eateries_deals {
-  margin: 0.25vh auto;
-  display: flex;
-}
-
-.show_object #burgers_eateries_deals h3 {
-  margin: 1vh;
-  text-align: center;
-  text-decoration: underline;
-}
-
-.show_object #burgers_eateries_deals .left h4 {
-  margin: 1vh;
-  text-align: center;
-  text-decoration: underline;
-}
-
-.show_object #burgers_eateries_deals .left p {
-  margin: 1vh;
-  text-align: center;
-}
-
-.show_object #burgers_eateries_deals .left,
-.show_object #burgers_eateries_deals .right {
-  max-height: 71vh;
-  overflow: scroll;
-}
-
-.show_object #burgers_eateries_deals .left section {
-  display: flex;
-  min-height: 8vh;
-}
-
-.show_object #burgers_eateries_deals .right section {
-  min-height: 5vh;
-}
-
-.show_object #burgers_eateries_deals .left section .sub_left {
-  height: 100%;
-  width: 75%;
-}
-
-.show_object #burgers_eateries_deals .left section .sub_right {
-  text-align: center;
-  height: 100%;
-  width: 25%;
-  margin: 1%;
-  border-left: solid 1px;
-
-}
-
-.show_object #burgers_eateries_deals .right section .sub_upper {
-  height: 50%;
-  width: 80%;
-  margin: 0 auto;
-  text-align: center;
-  padding: 2%;
-  border-bottom: solid 1px;
-}
-
-.show_object #burgers_eateries_deals .right section .sub_lower {
-  text-align: center;
-  margin: 10% auto;
-}
-
-.show_object #burgers_eateries_deals .left {
-  width: 64.75%;
-  margin-right: 0.25%;
-  min-height: 67.5vh;
-  border: solid 1px;
-}
-
-.show_object #burgers_eateries_deals .right {
-  width: 34.75%;
-  margin-left: 0.25%;
-  min-height: 67.5vh;
-  border: solid 1px;
-}
 
 .create_burger {
   min-height: 30vh;
@@ -453,23 +344,18 @@ input:hover::-moz-placeholder {
   border-style: groove;
 }
 
-.show_object .index_objects {
-  width: 50%;
-  text-align: center;
-  margin: 0 auto;
-}
 
-.show_object header {
+.main_display header {
   display: flex;
   /*width: 100%;*/
   margin: 0 auto;
 }
 
-.show_object .header_left {
+.main_display .header_left {
   width: 70%;
   border-right: solid 1px;
 }
-.show_object header .header_right{
+.main_display header .header_right{
   width: 30%;
   margin: 0 auto;
   margin-top: 4%;
