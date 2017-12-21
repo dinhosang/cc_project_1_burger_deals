@@ -39,8 +39,8 @@ class Day
     sql = "
     SELECT DISTINCT days.id, days.day FROM days INNER JOIN
     deals ON days.id = deals.day_id INNER JOIN
-    deals_eatories_burgers_prices ON deals.id =
-    deals_eatories_burgers_prices.deal_id
+    active_deals ON deals.id =
+    active_deals.deal_id
     ORDER BY days.id ASC;
     "
     day_hashes = SqlRunner.run(sql)
@@ -52,8 +52,8 @@ class Day
     sql = "
     SELECT days.id, days.day FROM days WHERE days.id NOT IN (SELECT DISTINCT days.id FROM days INNER JOIN
     deals ON days.id = deals.day_id INNER JOIN
-    deals_eatories_burgers_prices ON deals.id =
-    deals_eatories_burgers_prices.deal_id) ORDER BY days.id ASC;
+    active_deals ON deals.id =
+    active_deals.deal_id) ORDER BY days.id ASC;
     "
     day_hashes = SqlRunner.run(sql)
     return mapper_aid(day_hashes)

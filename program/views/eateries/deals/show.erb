@@ -1,7 +1,7 @@
 <article class="show_object_object">
   <header>
     <div class="upper">
-      <h2><%= @eatory.name %></h2>
+      <h2><%= @eatery.name %></h2>
     </div>
     <div class="middle">
       <h2><%= @deal.label %></h2>
@@ -9,7 +9,7 @@
       <p>Day Available: <%= @deal.day %></p>
     </div>
   </header>
-  <section id="burgers_eatories_deals">
+  <section id="burgers_eateries_deals">
     <div class="lower">
       <h2>Burgers</h2>
     </div>
@@ -21,11 +21,11 @@
         <% else %>
           <h2><%= burger.type %></h2>
         <% end %>
-        <p>Burger Price: <%= @eatory.show_burger_price_currency(burger.id) %></p>
+        <p>Burger Price: <%= @eatery.show_burger_price_currency(burger.id) %></p>
       </section>
     <% end %>
     <div class="back_one">
-      <a href="/eatories/<%= @eatory.id %>">Back to <%= @eatory.name %>
+      <a href="/eateries/<%= @eatery.id %>">Back to <%= @eatery.name %>
         listing</a>
     </div>
   </section>

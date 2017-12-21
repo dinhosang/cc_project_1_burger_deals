@@ -1,6 +1,6 @@
 <% if @changes %>
   <header class="new_object_header">
-    <h2><%= @eatory.name %></h2>
+    <h2><%= @eatery.name %></h2>
     <br/>
     <hr/>
     <h2>New Deal Successfully Added</h2>
@@ -38,7 +38,7 @@
 </section>
 <% else %>
 <header class="new_object_header">
-  <h2><%= @eatory.name %></h2>
+  <h2><%= @eatery.name %></h2>
   <br/>
   <hr/>
   <br/>
@@ -53,7 +53,7 @@
  <% end %>
  <br/>
  <br/>
- <form class="return_button" action="/eatories/<%= @eatory.id %>/deals/edit" method="get">
+ <form class="return_button" action="/eateries/<%= @eatery.id %>/deals/edit" method="get">
    <div class="empty_container">
    </div>
    <button type="submit" name="button">Return to Modify Active Deals</button>
@@ -62,10 +62,10 @@
  </form>
  <br/>
  <br/>
- <form class="return_button" action="/eatories/<%= @eatory.id %>" method="get">
+ <form class="return_button" action="/eateries/<%= @eatery.id %>" method="get">
    <div class="empty_container">
    </div>
-   <button type="submit" name="button">Return to View Eatory Details</button>
+   <button type="submit" name="button">Return to View Eatery Details</button>
    <div class="empty_container">
    </div>
  </form>

@@ -1,8 +1,8 @@
 <header class="edit_object_header">
-  <h2><%= @eatory.name %></h2>
+  <h2><%= @eatery.name %></h2>
 </header>
 <hr/>
-<form class="edit_object_object" action="/eatories/<%= @eatory.id %>/burgers/update" method="post">
+<form class="edit_object_object" action="/eateries/<%= @eatery.id %>/burgers/update" method="post">
   <h2>Add Burgers:</h2>
   <br/>
   <h3>Please only enter values for burgers to be added</h3>
@@ -48,7 +48,7 @@
 <br/>
 <hr/>
 <br/>
-<form class="edit_object_object" action="/eatories/<%= @eatory.id %>/burgers/delete" method="post">
+<form class="edit_object_object" action="/eateries/<%= @eatery.id %>/burgers/delete" method="post">
   <h2>Remove Burgers:</h2>
   <br/>
   <br/>
@@ -82,11 +82,11 @@
   <br/>
   <br/>
 </form>
-<form class="return" action="/eatories/<%= @eatory.id %>" method="get">
+<form class="return" action="/eateries/<%= @eatery.id %>" method="get">
   <section class="return_button">
     <div class="empty_container">
     </div>
-    <button type="submit" name="">Return to Eatory <br/> Main View</button>
+    <button type="submit" name="">Return to Eatery <br/> Main View</button>
     <div class="empty_container">
     </div>
   </section>

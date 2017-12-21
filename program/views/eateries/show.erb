@@ -1,15 +1,15 @@
 <article class="show_object">
   <header>
     <div class="header_left">
-      <h2><%= @eatory.name %></h2>
+      <h2><%= @eatery.name %></h2>
     </div>
     <div class="header_right">
-      <form class="" action="/eatories/<%= @eatory.id %>/edit" method="get">
+      <form class="" action="/eateries/<%= @eatery.id %>/edit" method="get">
         <button type="submit" name="button">Modify Details</button>
         </form>
     </div>
   </header>
-  <section id="burgers_eatories_deals">
+  <section id="burgers_eateries_deals">
     <section class="left">
       <% if @deals %>
         <!-- <article class="show_object"> -->
@@ -18,7 +18,7 @@
               <h3>Active Deals</h3>
             </div>
             <div class="header_right">
-              <form class="" action="/eatories/<%= @eatory.id %>/deals/edit" method="get">
+              <form class="" action="/eateries/<%= @eatery.id %>/deals/edit" method="get">
                 <button type="submit" name="button">Modify Active Deals List</button>
               </form>
             </div>
@@ -33,10 +33,10 @@
             <p>Day Available: <%= deal.day %></p>
             </div>
             <div class="sub_right">
-              <a href="/eatories/<%= @eatory.id %>/deals/<%= deal.id %>">Details</a>
+              <a href="/eateries/<%= @eatery.id %>/deals/<%= deal.id %>">Details</a>
               <br/>
               <br/>
-              <a href="/eatories/<%= @eatory.id %>/deals/<%= deal.id %>/edit">Add/Remove Burgers</a>
+              <a href="/eateries/<%= @eatery.id %>/deals/<%= deal.id %>/edit">Add/Remove Burgers</a>
             </div>
           </section>
           <hr/>
@@ -48,7 +48,7 @@
               <h3>No Active Deals</h3>
             </div>
             <div class="header_right">
-              <form class="" action="/eatories/<%= @eatory.id %>/deals/edit" method="get">
+              <form class="" action="/eateries/<%= @eatery.id %>/deals/edit" method="get">
                 <button type="submit" name="button">Modify Active Deals List</button>
               </form>
             </div>
@@ -64,7 +64,7 @@
             <h3>Burgers</h3>
           </div>
           <div class="header_right">
-            <form class="" action="/eatories/<%= @eatory.id %>/burgers/edit" method="get">
+            <form class="" action="/eateries/<%= @eatery.id %>/burgers/edit" method="get">
               <button type="submit" name="button">Modify Stock</button>
             </form>
           </div>
@@ -80,12 +80,12 @@
                 <h4><%= burger.type %></h4>
               <% end %>
               <br/>
-              <p>Price: <%= @eatory.show_burger_price_currency(burger.id) %></p>
+              <p>Price: <%= @eatery.show_burger_price_currency(burger.id) %></p>
             <br/>
             <hr/>
             <br/>
             <p>Deals Available:
-              <% if @eatory.find_deals_by_burger(burger.id) != nil %>
+              <% if @eatery.find_deals_by_burger(burger.id) != nil %>
                 Yes
               <% else %>
                 No
@@ -93,10 +93,10 @@
             </p>
             </div>
             <div class="sub_lower">
-              <a href="/eatories/<%= @eatory.id %>/burgers/<%= burger.id %>">Details</a>
+              <a href="/eateries/<%= @eatery.id %>/burgers/<%= burger.id %>">Details</a>
               <br/>
               <br/>
-              <a href="/eatories/<%= @eatory.id %>/burgers/<%= burger.id %>/edit">Modify Price</a>
+              <a href="/eateries/<%= @eatery.id %>/burgers/<%= burger.id %>/edit">Modify Price</a>
             </div>
           </section>
           <br/>
@@ -110,7 +110,7 @@
           <h3>No Active Burgers</h3>
         </div>
         <div class="header_right">
-          <form class="" action="/eatories/<%= @eatory.id %>/burgers/edit" method="get">
+          <form class="" action="/eateries/<%= @eatery.id %>/burgers/edit" method="get">
             <button type="submit" name="button">Modify Stock</button>
           </form>
         </div>

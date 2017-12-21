@@ -1,5 +1,5 @@
 require('pry-byebug')
-require_relative('eatory')
+require_relative('eatery')
 require_relative('../db/sqlrunner')
 
 
@@ -135,8 +135,8 @@ class Deal
   def Deal.find_by_burger(id)
   sql = "
   SELECT DISTINCT deals.id, deals.type_id, deals.label, deals.value, deals.day_id
-  FROM deals INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.deal_id = deals.id
-  WHERE deals_eatories_burgers_prices.burger_id = $1 ORDER BY deals.type_id ASC;
+  FROM deals INNER JOIN active_deals ON active_deals.deal_id = deals.id
+  WHERE active_deals.burger_id = $1 ORDER BY deals.type_id ASC;
   "
   deal_hashes = SqlRunner.run(sql, [id])
   return mapper_aid(deal_hashes)
@@ -168,7 +168,7 @@ class Deal
   def Deal.find_all_active
     sql = "
     SELECT DISTINCT d.* FROM deals d INNER JOIN
-    deals_eatories_burgers_prices active ON
+    active_deals active ON
     active.deal_id = d.id WHERE active.deal_id
     IS NOT NULL ORDER BY d.type_id ASC;
     "
@@ -180,7 +180,7 @@ class Deal
   def Deal.find_all_active_by_day(day_id)
     sql = "
     SELECT DISTINCT deals.id, deals.type_id, deals.label, deals.value, deals.day_id
-    FROM deals INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.deal_id = deals.id
+    FROM deals INNER JOIN active_deals ON active_deals.deal_id = deals.id
     WHERE deals.day_id = $1 ORDER BY deals.type_id ASC;
     "
     deal_hashes = SqlRunner.run(sql, [day_id])
@@ -192,7 +192,7 @@ class Deal
     sql = "
     SELECT d.* FROM deals d WHERE NOT EXISTS
     (SELECT *
-    FROM deals_eatories_burgers_prices active
+    FROM active_deals active
     WHERE active.deal_id = d.id) ORDER BY d.type_id ASC;
     "
     deal_hashes = SqlRunner.run(sql)

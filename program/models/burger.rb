@@ -102,8 +102,8 @@ class Burger
   def Burger.find_all_active
     sql = "
     SELECT DISTINCT b.* FROM burgers b INNER JOIN
-    deals_eatories_burgers_prices active ON
-    active.burger_id = b.id WHERE active.eatory_id
+    active_deals active ON
+    active.burger_id = b.id WHERE active.eatery_id
     IS NOT NULL ORDER BY b.type;
     "
     burger_hashes = SqlRunner.run(sql)
@@ -115,7 +115,7 @@ class Burger
     sql = "
     SELECT b.* FROM burgers b WHERE NOT EXISTS
     (SELECT NULL
-    FROM deals_eatories_burgers_prices active
+    FROM active_deals active
     WHERE active.burger_id = b.id);
     "
     burger_hashes = SqlRunner.run(sql)
@@ -127,11 +127,11 @@ class Burger
     sql = "
     SELECT DISTINCT burgers.id,
     burgers.type, burgers.name,
-    deals_eatories_burgers_prices.price
+    active_deals.price
     FROM burgers
-    INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.burger_id
+    INNER JOIN active_deals ON active_deals.burger_id
     = burgers.id
-    WHERE deals_eatories_burgers_prices.deal_id
+    WHERE active_deals.deal_id
     = $1;
     "
     burger_hashes = SqlRunner.run(sql, [deal_id])
@@ -154,10 +154,10 @@ class Burger
 ### Methods Created at Start that Never Saw Use
 
 ##
-# .price is not needed as the eatory is what sets
+# .price is not needed as the eatery is what sets
 # and is aware of the price, the burger object is a
-# generic one. Function is found in eatory to discover
-# price for that burger in that eatory.
+# generic one. Function is found in eatery to discover
+# price for that burger in that eatery.
 #
 # Below worked as before the burger class had a price
 # property

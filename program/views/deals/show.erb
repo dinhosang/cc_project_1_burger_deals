@@ -10,7 +10,7 @@
         <button type="submit" name="button">Modify Details</button>
     </div>
   </header>
-  <section id="burgers_eatories_deals">
+  <section id="burgers_eateries_deals">
     <section class="left">
       <% if @burgers %>
         <h3>Burgers</h3>
@@ -37,23 +37,23 @@
       <% end %>
     </section>
     <section class="right">
-      <% if @eatories %>
-        <h3>Eatories With Deal</h3>
+      <% if @eateries %>
+        <h3>Eateries With Deal</h3>
         <hr/>
-        <% for eatory in @eatories %>
+        <% for eatery in @eateries %>
           <section>
             <div class="sub_upper">
-            <h4><%= eatory.name %></h4>
+            <h4><%= eatery.name %></h4>
             <br/>
             </div>
             <div class="sub_lower">
-              <a href="/deals/<%= @deal.id %>/eatories/<%= eatory.id %>">Details</a>
+              <a href="/deals/<%= @deal.id %>/eateries/<%= eatery.id %>">Details</a>
             </div>
           </section>
           <hr/>
         <% end %>
       <% else %>
-        <h3>No Eatories Assigned</h3>
+        <h3>No Eateries Assigned</h3>
         <hr/>
       <% end %>
     </section>

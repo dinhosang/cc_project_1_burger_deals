@@ -1,51 +1,51 @@
 <article class="show_object">
   <header>
-    <h2 class="index_objects">List of All Eatories</h2>
+    <h2 class="index_objects">List of All Eateries</h2>
   </header>
-  <section id="burgers_eatories_deals">
+  <section id="burgers_eateries_deals">
     <section class="left">
-      <% if @eatories %>
-        <h3>Active Eatories</h3>
+      <% if @eateries %>
+        <h3>Active Eateries</h3>
         <hr/>
-          <% for eatory in @eatories %>
+          <% for eatery in @eateries %>
               <section>
                 <div class="sub_left">
-                  <p><%= eatory.name %></p>
+                  <p><%= eatery.name %></p>
                 </div>
                 <div class="sub_right">
-                 <a href="/eatories/<%= eatory.id %>">More Details</a>
+                 <a href="/eateries/<%= eatery.id %>">More Details</a>
                  <br/>
                  <br/>
-                 <a href="/eatories/<%= eatory.id %>/edit">Modify Eatory</a>
+                 <a href="/eateries/<%= eatery.id %>/edit">Modify Eatery</a>
                 </div>
               </section>
             <hr/>
           <% end %>
       <% else %>
-        <h3>No Active Eatories</h3>
+        <h3>No Active Eateries</h3>
         <hr/>
       <% end %>
     </section>
     <section class="right">
-      <% if @inactive_eatories %>
-        <h3>Inactive Eatories</h3>
+      <% if @inactive_eateries %>
+        <h3>Inactive Eateries</h3>
         <hr/>
-        <% for eatory in @inactive_eatories %>
+        <% for eatery in @inactive_eateries %>
           <section>
             <div class="sub_upper">
-              <p><%= eatory.name %></p>
+              <p><%= eatery.name %></p>
             </div>
             <div class="sub_lower">
-              <a href="/eatories/<%= eatory.id %>">More Details</a>
+              <a href="/eateries/<%= eatery.id %>">More Details</a>
               <br/>
               <br/>
-              <a href="/eatories/<%= eatory.id %>/edit">Modify Eatory</a>
+              <a href="/eateries/<%= eatery.id %>/edit">Modify Eatery</a>
             </div>
           </section>
           <hr/>
         <% end %>
       <% else %>
-        <h3>No Inactive Eatories</h3>
+        <h3>No Inactive Eateries</h3>
         <hr/>
       <% end %>
     </section>

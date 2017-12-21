@@ -2,7 +2,7 @@ require_relative('../db/sqlrunner')
 require_relative('burger')
 require_relative('deal')
 
-class Eatory
+class Eatery
 
   attr_reader :id
   attr_accessor :name
@@ -15,7 +15,7 @@ class Eatory
 
   def save
     sql = "
-          INSERT INTO eatories (name)
+          INSERT INTO eateries (name)
           VALUES ($1)
           RETURNING id;
           "
@@ -26,7 +26,7 @@ class Eatory
 
   def update
     sql = "
-          UPDATE eatories
+          UPDATE eateries
           SET name = $1
           WHERE id = $2;
           "
@@ -37,7 +37,7 @@ class Eatory
 
   def delete
     sql = "
-    DELETE FROM eatories
+    DELETE FROM eateries
     WHERE id = $1;
     "
     SqlRunner.run(sql, [@id])
@@ -51,8 +51,8 @@ class Eatory
       if burger_id != 0 && burgers_prices_hash[potential_id] != ""
           price_int = burgers_prices_hash[potential_id].to_i
           sql = "
-          INSERT INTO deals_eatories_burgers_prices
-          (eatory_id, burger_id, price)
+          INSERT INTO active_deals
+          (eatery_id, burger_id, price)
           VALUES ($1, $2, $3)
           "
           values = [@id, burger_id, price_int]
@@ -64,8 +64,8 @@ class Eatory
 
   def remove_stock_and_return(burger_ids_in_hash)
     sql = "
-    DELETE FROM deals_eatories_burgers_prices
-    WHERE burger_id = $1 AND eatory_id = $2;
+    DELETE FROM active_deals
+    WHERE burger_id = $1 AND eatery_id = $2;
     "
     changes = []
     keys = burger_ids_in_hash.keys
@@ -83,9 +83,9 @@ class Eatory
 
   def find_all_burgers
     sql = "
-    SELECT DISTINCT b.*, active.eatory_id FROM deals_eatories_burgers_prices active FULL JOIN burgers b
+    SELECT DISTINCT b.*, active.eatery_id FROM active_deals active FULL JOIN burgers b
     ON b.id = active.burger_id
-    WHERE eatory_id = $1
+    WHERE eatery_id = $1
     ORDER BY id ASC;
     "
     burger_hashes = SqlRunner.run(sql, [@id])
@@ -97,7 +97,7 @@ class Eatory
   def find_all_burgers_not_sold
     sql = "
     SELECT * FROM burgers WHERE burgers.id NOT IN
-    (SELECT DISTINCT b.id FROM deals_eatories_burgers_prices active FULL JOIN burgers b ON b.id = active.burger_id WHERE eatory_id = $1) ORDER BY id ASC;
+    (SELECT DISTINCT b.id FROM active_deals active FULL JOIN burgers b ON b.id = active.burger_id WHERE eatery_id = $1) ORDER BY id ASC;
     "
     burger_hashes = SqlRunner.run(sql, [@id])
     burgers_array = Burger.mapper_aid(burger_hashes)
@@ -109,8 +109,8 @@ class Eatory
     burger = burger_price_hash['burger']
     price = burger_price_hash['price'].to_i
     sql = "
-    UPDATE deals_eatories_burgers_prices
-    SET price = $1 WHERE burger_id = $2 AND eatory_id = $3;
+    UPDATE active_deals
+    SET price = $1 WHERE burger_id = $2 AND eatery_id = $3;
     "
     values = [price, burger.id, @id]
     SqlRunner.run(sql, values)
@@ -120,8 +120,8 @@ class Eatory
   def check_burger_price(id)
     sql = "
     SELECT DISTINCT price
-    FROM deals_eatories_burgers_prices
-    WHERE burger_id = $1 AND eatory_id = $2;
+    FROM active_deals
+    WHERE burger_id = $1 AND eatery_id = $2;
     "
     values = [id, @id]
     price_hash = SqlRunner.run(sql, values)[0]
@@ -141,8 +141,8 @@ class Eatory
 
   def add_deal(options)
     sql = "
-    INSERT INTO deals_eatories_burgers_prices
-    (deal_id, burger_id, eatory_id, price)
+    INSERT INTO active_deals
+    (deal_id, burger_id, eatery_id, price)
     VALUES ($1, $2, $3, $4);
     "
     keys = options.keys
@@ -173,9 +173,9 @@ class Eatory
     SELECT DISTINCT deals.id, deals.label,
     deals.day_id, deals.value, deals.type_id
     FROM deals
-    INNER JOIN deals_eatories_burgers_prices ON
-    deals_eatories_burgers_prices.deal_id = deals.id
-    AND deals_eatories_burgers_prices.eatory_id
+    INNER JOIN active_deals ON
+    active_deals.deal_id = deals.id
+    AND active_deals.eatery_id
     = $1;
     "
     deal_hashes = SqlRunner.run(sql, [@id])
@@ -187,9 +187,9 @@ class Eatory
   def find_all_inactive_deals
     sql = "
     SELECT * FROM deals WHERE deals.id NOT IN
-    (SELECT DISTINCT d.id FROM deals_eatories_burgers_prices active
+    (SELECT DISTINCT d.id FROM active_deals active
     FULL JOIN deals d ON d.id = active.deal_id
-    WHERE eatory_id = $1 AND d.id IS NOT NULL) ORDER BY type_id ASC;
+    WHERE eatery_id = $1 AND d.id IS NOT NULL) ORDER BY type_id ASC;
     "
     deal_hashes = SqlRunner.run(sql, [@id])
     deals_array = Deal.mapper_aid(deal_hashes)
@@ -202,9 +202,9 @@ class Eatory
     SELECT DISTINCT deals.id, deals.label,
     deals.day_id, deals.value, deals.type_id
     FROM deals
-    INNER JOIN deals_eatories_burgers_prices ON
-    deals_eatories_burgers_prices.deal_id = deals.id
-    AND deals_eatories_burgers_prices.eatory_id
+    INNER JOIN active_deals ON
+    active_deals.deal_id = deals.id
+    AND active_deals.eatery_id
     = $1 AND deals.day_id = $2;
     "
     values = [@id, day_id]
@@ -219,10 +219,10 @@ class Eatory
     SELECT DISTINCT deals.id, deals.label,
     deals.day_id, deals.value, deals.type_id
     FROM deals
-    INNER JOIN deals_eatories_burgers_prices ON
-    deals_eatories_burgers_prices.deal_id = deals.id
-    AND deals_eatories_burgers_prices.eatory_id
-    = $1 AND deals_eatories_burgers_prices.burger_id = $2;
+    INNER JOIN active_deals ON
+    active_deals.deal_id = deals.id
+    AND active_deals.eatery_id
+    = $1 AND active_deals.burger_id = $2;
     "
     values = [@id, burger_id]
     deal_hashes = SqlRunner.run(sql, values)
@@ -235,12 +235,12 @@ class Eatory
     sql = "
     SELECT DISTINCT burgers.id,
     burgers.type, burgers.name,
-    deals_eatories_burgers_prices.price
+    active_deals.price
     FROM burgers
-    INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.burger_id
+    INNER JOIN active_deals ON active_deals.burger_id
     = burgers.id
-    AND deals_eatories_burgers_prices.eatory_id = $1
-    AND deals_eatories_burgers_prices.deal_id
+    AND active_deals.eatery_id = $1
+    AND active_deals.deal_id
     = $2;
     "
     values = [@id, deal_id]
@@ -252,12 +252,12 @@ class Eatory
   def find_burgers_not_on_chosen_deal(deal_id)
     sql = "
     SELECT DISTINCT b.id, b.name, b.type FROM
-    deals_eatories_burgers_prices act FULL JOIN burgers b
-    ON b.id = act.burger_id WHERE act.eatory_id = $1
+    active_deals act FULL JOIN burgers b
+    ON b.id = act.burger_id WHERE act.eatery_id = $1
     AND b.id NOT IN (SELECT DISTINCT b.id
-    FROM deals_eatories_burgers_prices act
+    FROM active_deals act
     FULL JOIN burgers b ON b.id = act.burger_id
-    WHERE act.eatory_id = $1 AND act.deal_id = $2);
+    WHERE act.eatery_id = $1 AND act.deal_id = $2);
     "
     values = [@id, deal_id]
     burger_hashes = SqlRunner.run(sql, values)
@@ -268,10 +268,10 @@ class Eatory
 ### modified since testing
   def remove_burgers_from_deal(options)
     sql = "
-    DELETE FROM deals_eatories_burgers_prices
+    DELETE FROM active_deals
     WHERE deal_id = $1
     AND burger_id = $2
-    AND eatory_id = $3;
+    AND eatery_id = $3;
     "
     keys = options.keys
     deal_id = options['deal_id'].to_i
@@ -291,8 +291,8 @@ class Eatory
 
   def add_burgers_to_deal(options)
     sql = "
-    INSERT INTO deals_eatories_burgers_prices
-    (deal_id, burger_id, eatory_id, price)
+    INSERT INTO active_deals
+    (deal_id, burger_id, eatery_id, price)
     VALUES ($1, $2, $3, $4);
     "
     keys = options.keys
@@ -314,9 +314,9 @@ class Eatory
 
   def remove_deal(deal)
     sql = "
-    DELETE FROM deals_eatories_burgers_prices
+    DELETE FROM active_deals
     WHERE deal_id = $1
-    AND eatory_id = $2;
+    AND eatery_id = $2;
     "
     values = [deal.id, @id]
     SqlRunner.run(sql, values)
@@ -339,84 +339,84 @@ class Eatory
   end
 
 
-  def Eatory.find(id)
+  def Eatery.find(id)
     sql = "
-    SELECT * FROM eatories
+    SELECT * FROM eateries
     WHERE id = $1;
     "
-    eatory_hash = SqlRunner.run(sql, [id]).first
-    if eatory_hash != []
-      return Eatory.new(eatory_hash)
+    eatery_hash = SqlRunner.run(sql, [id]).first
+    if eatery_hash != []
+      return Eatery.new(eatery_hash)
     end
     return nil
   end
 
 
-  def Eatory.find_by_burger(id)
+  def Eatery.find_by_burger(id)
     sql = "
-    SELECT DISTINCT eatories.id, eatories.name
-    FROM eatories INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.eatory_id = eatories.id WHERE deals_eatories_burgers_prices.burger_id = $1;
+    SELECT DISTINCT eateries.id, eateries.name
+    FROM eateries INNER JOIN active_deals ON active_deals.eatery_id = eateries.id WHERE active_deals.burger_id = $1;
     "
-    eatory_hashes = SqlRunner.run(sql, [id])
-    return mapper_aid(eatory_hashes)
+    eatery_hashes = SqlRunner.run(sql, [id])
+    return mapper_aid(eatery_hashes)
   end
 
 
-  def Eatory.find_by_deal(id)
+  def Eatery.find_by_deal(id)
     sql = "
-    SELECT DISTINCT eatories.id, eatories.name
-    FROM eatories INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.eatory_id = eatories.id WHERE deals_eatories_burgers_prices.deal_id = $1;
+    SELECT DISTINCT eateries.id, eateries.name
+    FROM eateries INNER JOIN active_deals ON active_deals.eatery_id = eateries.id WHERE active_deals.deal_id = $1;
     "
-    eatory_hashes = SqlRunner.run(sql, [id])
-    return mapper_aid(eatory_hashes)
+    eatery_hashes = SqlRunner.run(sql, [id])
+    return mapper_aid(eatery_hashes)
   end
 
 
-  def Eatory.find_by_burger_deal(options)
+  def Eatery.find_by_burger_deal(options)
     sql = "
-    SELECT eatories.id, eatories.name
-    FROM eatories INNER JOIN deals_eatories_burgers_prices ON deals_eatories_burgers_prices.eatory_id = eatories.id WHERE deals_eatories_burgers_prices.burger_id = $1 AND deals_eatories_burgers_prices.deal_id = $2;
+    SELECT eateries.id, eateries.name
+    FROM eateries INNER JOIN active_deals ON active_deals.eatery_id = eateries.id WHERE active_deals.burger_id = $1 AND active_deals.deal_id = $2;
     "
     burger_id = options['burger'].to_i
     deal_id = options['deal'].to_i
     values = [burger_id, deal_id]
-    eatory_hashes = SqlRunner.run(sql, values)
-    return mapper_aid(eatory_hashes)
+    eatery_hashes = SqlRunner.run(sql, values)
+    return mapper_aid(eatery_hashes)
   end
 
 
-  def Eatory.find_all
-    sql = "SELECT * FROM eatories ORDER BY name ASC;"
-    eatory_hashes = SqlRunner.run(sql)
-    eatories = mapper_aid(eatory_hashes)
-    return eatories
+  def Eatery.find_all
+    sql = "SELECT * FROM eateries ORDER BY name ASC;"
+    eatery_hashes = SqlRunner.run(sql)
+    eateries = mapper_aid(eatery_hashes)
+    return eateries
   end
 
 
-  def Eatory.find_all_active
+  def Eatery.find_all_active
     sql = "
-    SELECT DISTINCT e.* FROM eatories e INNER JOIN
-    deals_eatories_burgers_prices active ON
-    active.eatory_id = e.id WHERE active.burger_id
+    SELECT DISTINCT e.* FROM eateries e INNER JOIN
+    active_deals active ON
+    active.eatery_id = e.id WHERE active.burger_id
     IS NOT NULL ORDER BY e.name ASC;
     "
-    eatory_hashes = SqlRunner.run(sql)
-    return mapper_aid(eatory_hashes)
+    eatery_hashes = SqlRunner.run(sql)
+    return mapper_aid(eatery_hashes)
   end
 
 
-  def Eatory.find_all_inactive
+  def Eatery.find_all_inactive
     sql = "
-    SELECT DISTINCT e.* FROM eatories e WHERE NOT EXISTS
-    (SELECT * FROM deals_eatories_burgers_prices active
-    WHERE active.eatory_id = e.id) ORDER BY e.name ASC;
+    SELECT DISTINCT e.* FROM eateries e WHERE NOT EXISTS
+    (SELECT * FROM active_deals active
+    WHERE active.eatery_id = e.id) ORDER BY e.name ASC;
     "
-    eatory_hashes = SqlRunner.run(sql)
-    return mapper_aid(eatory_hashes)
+    eatery_hashes = SqlRunner.run(sql)
+    return mapper_aid(eatery_hashes)
   end
 
 
-  def Eatory.show_only_newly_added_stock(old_stock, current_stock)
+  def Eatery.show_only_newly_added_stock(old_stock, current_stock)
     changes = []
     if old_stock != nil
       for burger_current in current_stock
@@ -435,14 +435,14 @@ class Eatory
   end
 
 
-  def self.mapper_aid(eatory_hashes)
-    eatories = []
-    eatory_hashes.each do |hash|
-      eatory = Eatory.new(hash)
-      eatories.push(eatory)
+  def self.mapper_aid(eatery_hashes)
+    eateries = []
+    eatery_hashes.each do |hash|
+      eatery = Eatery.new(hash)
+      eateries.push(eatery)
     end
-    if eatories != []
-      return eatories
+    if eateries != []
+      return eateries
     end
     return nil
   end

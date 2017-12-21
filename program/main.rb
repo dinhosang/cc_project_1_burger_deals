@@ -4,7 +4,7 @@ require('date')
 
 require_relative('controllers/deals_controller.rb')
 require_relative('controllers/burgers_controller.rb')
-require_relative('controllers/eatories_controller.rb')
+require_relative('controllers/eateries_controller.rb')
 require_relative('controllers/days_controller.rb')
 
 

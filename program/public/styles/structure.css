@@ -185,7 +185,7 @@ article {
   border-bottom: solid 1px;
 }
 
-.show_object_object #burgers_eatories_deals {
+.show_object_object #burgers_eateries_deals {
   margin: 1.5% auto;
   min-height: 20vh;
 }
@@ -202,7 +202,7 @@ article {
   border-bottom: solid 1px;
 }
 
-.show_object_object #burgers_eatories_deals .object {
+.show_object_object #burgers_eateries_deals .object {
   padding-top: 1%;
   padding-bottom: 1%;
   min-height: 5vh;
@@ -214,7 +214,7 @@ article {
   border-bottom: solid 1px;
 }
 
-.show_object_object #burgers_eatories_deals .back_one {
+.show_object_object #burgers_eateries_deals .back_one {
   min-height: 3vh;
   width: 40%;
   margin: 2% auto;
@@ -222,49 +222,49 @@ article {
   text-align: center;
 }
 
-.show_object #burgers_eatories_deals {
+.show_object #burgers_eateries_deals {
   margin: 0.25vh auto;
   display: flex;
 }
 
-.show_object #burgers_eatories_deals h3 {
+.show_object #burgers_eateries_deals h3 {
   margin: 1vh;
   text-align: center;
   text-decoration: underline;
 }
 
-.show_object #burgers_eatories_deals .left h4 {
+.show_object #burgers_eateries_deals .left h4 {
   margin: 1vh;
   text-align: center;
   text-decoration: underline;
 }
 
-.show_object #burgers_eatories_deals .left p {
+.show_object #burgers_eateries_deals .left p {
   margin: 1vh;
   text-align: center;
 }
 
-.show_object #burgers_eatories_deals .left,
-.show_object #burgers_eatories_deals .right {
+.show_object #burgers_eateries_deals .left,
+.show_object #burgers_eateries_deals .right {
   max-height: 71vh;
   overflow: scroll;
 }
 
-.show_object #burgers_eatories_deals .left section {
+.show_object #burgers_eateries_deals .left section {
   display: flex;
   min-height: 8vh;
 }
 
-.show_object #burgers_eatories_deals .right section {
+.show_object #burgers_eateries_deals .right section {
   min-height: 5vh;
 }
 
-.show_object #burgers_eatories_deals .left section .sub_left {
+.show_object #burgers_eateries_deals .left section .sub_left {
   height: 100%;
   width: 75%;
 }
 
-.show_object #burgers_eatories_deals .left section .sub_right {
+.show_object #burgers_eateries_deals .left section .sub_right {
   text-align: center;
   height: 100%;
   width: 25%;
@@ -273,7 +273,7 @@ article {
 
 }
 
-.show_object #burgers_eatories_deals .right section .sub_upper {
+.show_object #burgers_eateries_deals .right section .sub_upper {
   height: 50%;
   width: 80%;
   margin: 0 auto;
@@ -282,19 +282,19 @@ article {
   border-bottom: solid 1px;
 }
 
-.show_object #burgers_eatories_deals .right section .sub_lower {
+.show_object #burgers_eateries_deals .right section .sub_lower {
   text-align: center;
   margin: 10% auto;
 }
 
-.show_object #burgers_eatories_deals .left {
+.show_object #burgers_eateries_deals .left {
   width: 64.75%;
   margin-right: 0.25%;
   min-height: 67.5vh;
   border: solid 1px;
 }
 
-.show_object #burgers_eatories_deals .right {
+.show_object #burgers_eateries_deals .right {
   width: 34.75%;
   margin-left: 0.25%;
   min-height: 67.5vh;

@@ -14,15 +14,15 @@
       <% end %>
     </div>
   </header>
-  <section id="burgers_eatories_deals">
+  <section id="burgers_eateries_deals">
     <div class="lower">
-      <h2>Eatories</h2>
+      <h2>Eateries</h2>
     </div>
-    <% for eatory in @eatories %>
+    <% for eatery in @eateries %>
       <section class="object">
-        <h2><%= eatory.name %></h2>
+        <h2><%= eatery.name %></h2>
         <br/>
-        <p>Burger Price: <%= eatory.show_burger_price_currency(@burger.id) %></p>
+        <p>Burger Price: <%= eatery.show_burger_price_currency(@burger.id) %></p>
       </section>
     <% end %>
     <div class="back_one">

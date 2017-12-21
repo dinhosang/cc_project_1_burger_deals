@@ -19,7 +19,7 @@
       </form>
     </div>
   </header>
-  <section id="burgers_eatories_deals">
+  <section id="burgers_eateries_deals">
     <section class="left">
       <% if @deals %>
         <h3>Active Deals</h3>
@@ -43,26 +43,26 @@
       <% end %>
       </section>
     <section class="right">
-      <% if @eatories %>
-        <h3>Eatories</h3>
+      <% if @eateries %>
+        <h3>Eateries</h3>
         <hr/>
-        <% for eatory in @eatories %>
+        <% for eatery in @eateries %>
           <section>
             <div class="sub_upper">
-            <h4><%= eatory.name %></h4>
+            <h4><%= eatery.name %></h4>
             <br/>
             <p>Deals Available:
-              <% if eatory.find_deals_by_burger(@burger.id) != nil %>
+              <% if eatery.find_deals_by_burger(@burger.id) != nil %>
                 Yes
               <% else %>
                 No
               <% end %>
             </p>
             <br/>
-            <p>Price: <%= eatory.show_burger_price_currency(@burger.id) %></p>
+            <p>Price: <%= eatery.show_burger_price_currency(@burger.id) %></p>
             </div>
             <div class="sub_lower">
-              <a href="/burgers/<%= @burger.id %>/eatories/<%= eatory.id %>">More Details</a>
+              <a href="/burgers/<%= @burger.id %>/eateries/<%= eatery.id %>">More Details</a>
             </div>
           </section>
           <hr/>

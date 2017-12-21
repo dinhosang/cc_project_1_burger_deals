@@ -1,6 +1,6 @@
 <% if @changes == false %>
   <header class="new_object_header">
-    <h2><%= @eatory.name %></h2>
+    <h2><%= @eatery.name %></h2>
     <br/>
     <hr/>
     <h2>No New Burgers Added</h2>
@@ -9,7 +9,7 @@
   </header>
 <% elsif @changes == nil %>
   <header class="new_object_header">
-    <h2><%= @eatory.name %></h2>
+    <h2><%= @eatery.name %></h2>
     <br/>
     <hr/>
     <h2>No New Burgers Added</h2>
@@ -25,7 +25,7 @@
   </section>
 <% else %>
   <header class="new_object_header">
-    <h2><%= @eatory.name %></h2>
+    <h2><%= @eatery.name %></h2>
     <br/>
     <hr/>
     <h2>New Stock Successfully Added</h2>
@@ -56,18 +56,18 @@
 <br>
 <br>
 <br>
-<form class="return_button" action="/eatories/<%= @eatory.id %>/burgers/edit" method="get">
+<form class="return_button" action="/eateries/<%= @eatery.id %>/burgers/edit" method="get">
   <div class="empty_container">
   </div>
-  <button type="submit" name="button">Return to Modify Eatory Details</button>
+  <button type="submit" name="button">Return to Modify Eatery Details</button>
   <div class="empty_container">
   </div>
 </form>
 <br/>
-<form class="return_button" action="/eatories/<%= @eatory.id %>" method="get">
+<form class="return_button" action="/eateries/<%= @eatery.id %>" method="get">
   <div class="empty_container">
   </div>
-  <button type="submit" name="button">Return to View Eatory Details</button>
+  <button type="submit" name="button">Return to View Eatery Details</button>
   <div class="empty_container">
   </div>
 </form>

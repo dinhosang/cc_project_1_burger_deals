@@ -35,7 +35,7 @@ end
 get('/deals/:id') do
   id = params['id'].to_i
   @deal = Deal.find(id)
-  @eatories = Eatory.find_by_deal(id)
+  @eateries = Eatery.find_by_deal(id)
   @burgers = Burger.find_by_deal(id)
   erb(:"deals/show")
 end
@@ -77,13 +77,13 @@ post('/deals/:id/delete') do
 end
 
 
-get('/deals/:deal_id/eatories/:eatory_id') do
-  eatory_id = params['eatory_id'].to_i
+get('/deals/:deal_id/eateries/:eatery_id') do
+  eatery_id = params['eatery_id'].to_i
   deal_id = params['deal_id'].to_i
-  @eatory = Eatory.find(eatory_id)
+  @eatery = Eatery.find(eatery_id)
   @deal = Deal.find(deal_id)
-  @burgers = @eatory.find_burgers_by_deal(deal_id)
-  erb(:"deals/eatories/show")
+  @burgers = @eatery.find_burgers_by_deal(deal_id)
+  erb(:"deals/eateries/show")
 end
 
 
@@ -92,6 +92,6 @@ get('/deals/:deal_id/burgers/:burger_id') do
   burger_id = params['burger_id'].to_i
   @deal = Deal.find(deal_id)
   @burger = Burger.find(burger_id)
-  @eatories = Eatory.find_by_burger_deal({'burger' => burger_id, 'deal' => deal_id})
+  @eateries = Eatery.find_by_burger_deal({'burger' => burger_id, 'deal' => deal_id})
   erb(:"deals/burgers/show")
 end

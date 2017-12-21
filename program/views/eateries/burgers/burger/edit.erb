@@ -1,6 +1,6 @@
 <header class="edit_object_header">
   <br/>
-  <h2><%= @eatory.name %></h2>
+  <h2><%= @eatery.name %></h2>
   <br/>
   <br/>
   <% if @burger.name != "" && @burger.name != nil %>
@@ -10,17 +10,17 @@
   <% else %>
     <h3>Burger Type: <%= @burger.type %></h3>
   <% end %>
-    <p>Current Price: <%= @eatory.show_burger_price_currency(@burger.id) %></p>
+    <p>Current Price: <%= @eatery.show_burger_price_currency(@burger.id) %></p>
   <br/>
   <hr/>
 </header>
 <hr/>
-<form class="edit_object" action="/eatories/<%= @eatory.id %>/burgers/<%= @burger.id %>/update" method="post">
+<form class="edit_object" action="/eateries/<%= @eatery.id %>/burgers/<%= @burger.id %>/update" method="post">
   <h2> Modify Burger Price:</h2>
   <br/>
   <label for="price_field">New Price in Pence: </label>
   <input type="number" name="price" value="" id="price_field"
-  placeholder="<%= @eatory.show_burger_price_currency(@burger.id) %>"
+  placeholder="<%= @eatery.show_burger_price_currency(@burger.id) %>"
   autocomplete="off" min="0" required />
   <br/>
   <br/>
@@ -38,11 +38,11 @@
 <br/>
 <hr/>
 <br/>
-<form class="delete_object" action="/eatories/<%= @eatory.id %>" method="get">
+<form class="delete_object" action="/eateries/<%= @eatery.id %>" method="get">
   <section class="return_button">
     <div class="empty_container">
     </div>
-    <button type="submit" name="">Return to Eatory's Main View</button>
+    <button type="submit" name="">Return to Eatery's Main View</button>
     <div class="empty_container">
     </div>
   </section>
