@@ -125,6 +125,7 @@ class Eatery
     "
     values = [id, @id]
     price_hash = SqlRunner.run(sql, values)[0]
+
     return price_hash['price'].to_i
   end
 
@@ -148,17 +149,20 @@ class Eatery
     keys = options.keys
     deal_id = options['deal_id'].to_i
     new_deals_burgers = {options['deal_id'] => []}
+
     for key in keys
       if key == 'deal_id'
         next
       end
       burger_id = key.to_i
+
       if burger_id != 0 && options[key] != ""
         price = check_burger_price(burger_id)
         values = [deal_id, burger_id, @id, price]
         SqlRunner.run(sql, values)
         burger = Burger.find(burger_id)
         new_deals_burgers[options['deal_id']].push(burger)
+
       end
     end
     if new_deals_burgers[options['deal_id']] != []

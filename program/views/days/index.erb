@@ -5,41 +5,47 @@
   <section class="left_right_container">
     <section class="left">
       <% if @active_days %>
-        <h3>Days with Active Deals</h3>
-        <hr/>
+        <header class="sub_header">
+          <h3>Days with Active Deals</h3>
+        </header>
+        <br/>
         <% for day in @active_days %>
-            <section>
-              <div class="sub_left">
-                <p><%= day.day %></p>
-              </div>
-              <div class="sub_right">
-               <a href="/days/<%= day.id %>">See Deals</a>
-              </div>
-            </section>
-          <hr/>
+          <section class="object">
+            <div class="sub_left">
+              <p><%= day.day %></p>
+            </div>
+            <div class="sub_right">
+             <a class="button" href="/days/<%= day.id %>">See Deals</a>
+            </div>
+          </section>
+          <br/>
         <% end %>
       <% else %>
+      <header class="sub_header">
         <h3>No Days with Active Deals</h3>
-        <hr/>
+      </header>
+      <br/>
       <% end %>
     </section>
     <section class="right">
       <% if @inactive_days %>
+      <header class="sub_header">
         <h3>Days with no Active Deals</h3>
-        <hr/>
+      </header>
         <% for day in @inactive_days %>
-          <section>
-            <div class="sub_upper">
-              <p><%= day.day %></p>
-            </div>
+          <section class="object">
             <div class="sub_lower">
+              <p><%= day.day %></p>
+              <br/>
             </div>
           </section>
-          <hr/>
+          <br/>
         <% end %>
       <% else %>
+      <header class="sub_header">
         <h3>All Days have Deals</h3>
-        <hr/>
+      </header>
+      <br/>
       <% end %>
     </section>
   </section>

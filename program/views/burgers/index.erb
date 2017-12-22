@@ -5,36 +5,40 @@
   <section class="left_right_container">
     <section class="left">
       <% if @active_burgers %>
+      <header class="sub_header">
         <h3>Burgers Currently Sold</h3>
-        <hr/>
+      </header>
+        <br/>
         <% for burger in @active_burgers %>
-            <section>
-              <div class="sub_left">
-                <% if burger.name != "" %>
-                  <p>"<%= burger.name %>"</p>
-                <% end %>
-                <p><em><%= burger.type %></em></p>
-              </div>
-              <div class="sub_right">
-               <a href="/burgers/<%= burger.id %>">More Details</a>
-               <br/>
-               <br/>
-               <a href="/burgers/<%= burger.id %>/edit">Modify Burger</a>
-              </div>
-            </section>
-          <hr/>
+          <section class="object">
+            <div class="sub_left">
+              <% if burger.name != "" %>
+                <p>"<%= burger.name %>"</p>
+              <% end %>
+              <p><em><%= burger.type %></em></p>
+            </div>
+            <div class="sub_right">
+             <a href="/burgers/<%= burger.id %>" class="button">More Details</a>
+             <br/>
+             <br/>
+             <a class="button" href="/burgers/<%= burger.id %>/edit">Modify Burger</a>
+            </div>
+          </section>
+          <br/>
         <% end %>
       <% else %>
+      <header class="sub_header">
         <h3>No Active Burgers</h3>
-        <hr/>
+      </header>
       <% end %>
     </section>
     <section class="right">
       <% if @inactive_burgers %>
+      <header class="sub_header">
         <h3>Burgers Not Currently Sold</h3>
-        <hr/>
+      </header>
         <% for burger in @inactive_burgers %>
-          <section>
+          <section class="object">
             <div class="sub_upper">
               <% if burger.name != "" %>
                 <p>"<%= burger.name %>"</p>
@@ -42,17 +46,17 @@
               <p><em><%= burger.type %></em></p>
             </div>
             <div class="sub_lower">
-              <a href="/burgers/<%= burger.id %>">More Details</a>
+              <a class="button" href="/burgers/<%= burger.id %>">More Details</a>
             </div>
             <div class="sub_lower">
-              <a href="/burgers/<%= burger.id %>/edit">Modify Burger</a>
+              <a class="button" href="/burgers/<%= burger.id %>/edit">Modify Burger</a>
             </div>
           </section>
-          <hr/>
         <% end %>
       <% else %>
+      <header class="sub_header">
         <h3>No Inactive Burgers</h3>
-        <hr/>
+      </header>
       <% end %>
     </section>
   </section>

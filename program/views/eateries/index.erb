@@ -5,48 +5,52 @@
   <section class="left_right_container">
     <section class="left">
       <% if @eateries %>
+        <header class="sub_header">
         <h3>Active Eateries</h3>
-        <hr/>
+        </header>
+        <br/>
           <% for eatery in @eateries %>
-              <section>
+              <section class="object">
                 <div class="sub_left">
                   <p><%= eatery.name %></p>
                 </div>
                 <div class="sub_right">
-                 <a href="/eateries/<%= eatery.id %>">More Details</a>
+                 <a class="button" href="/eateries/<%= eatery.id %>">More Details</a>
                  <br/>
                  <br/>
-                 <a href="/eateries/<%= eatery.id %>/edit">Modify Eatery</a>
+                 <a class="button" href="/eateries/<%= eatery.id %>/edit">Modify Eatery</a>
                 </div>
               </section>
-            <hr/>
+              <br/>
           <% end %>
       <% else %>
+      <header class="sub_header">
         <h3>No Active Eateries</h3>
-        <hr/>
+      </header>
       <% end %>
     </section>
     <section class="right">
       <% if @inactive_eateries %>
+      <header class="sub_header">
         <h3>Inactive Eateries</h3>
-        <hr/>
+      </header>
         <% for eatery in @inactive_eateries %>
-          <section>
+          <section class="object">
             <div class="sub_upper">
               <p><%= eatery.name %></p>
             </div>
             <div class="sub_lower">
-              <a href="/eateries/<%= eatery.id %>">More Details</a>
+              <a class="button" href="/eateries/<%= eatery.id %>">More Details</a>
               <br/>
               <br/>
-              <a href="/eateries/<%= eatery.id %>/edit">Modify Eatery</a>
+              <a class="button" href="/eateries/<%= eatery.id %>/edit">Modify Eatery</a>
             </div>
           </section>
-          <hr/>
         <% end %>
       <% else %>
+      <header class="sub_header">
         <h3>No Inactive Eateries</h3>
-        <hr/>
+      </header>
       <% end %>
     </section>
   </section>

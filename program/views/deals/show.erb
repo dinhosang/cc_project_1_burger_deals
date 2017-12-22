@@ -6,17 +6,20 @@
       <p>Day Available: <%= @deal.day %></p>
     </div>
     <div class="header_right">
-      <form class="" action="/deals/<%= @deal.id %>/edit" method="get">
-        <button type="submit" name="button">Modify Details</button>
+      <br/>
+      <br/>
+      <a class="button" href="/deals/<%= @deal.id %>/edit">Modify Details</a>
     </div>
   </header>
   <section class="left_right_container">
     <section class="left">
       <% if @burgers %>
+      <header class="sub_header">
         <h3>Burgers</h3>
-        <hr/>
+      </header>
+      <br/>
         <% for burger in @burgers %>
-          <section>
+          <section class="object">
             <div class="sub_left">
               <% if burger.name != "" %>
                 <h4>"<%= burger.name %>"</h4>
@@ -26,35 +29,37 @@
               <% end %>
             </div>
             <div class="sub_right">
-              <a href="/deals/<%= @deal.id %>/burgers/<%= burger.id %>">Details</a>
+              <a class="button" href="/deals/<%= @deal.id %>/burgers/<%= burger.id %>">Details</a>
             </div>
           </section>
-          <hr/>
+          <br/>
         <% end %>
       <% else %>
+      <header class="sub_header">
         <h3>No Burgers Assigned </h3>
-        <hr/>
+      </header>
       <% end %>
     </section>
     <section class="right">
       <% if @eateries %>
+      <header class="sub_header">
         <h3>Eateries With Deal</h3>
-        <hr/>
+      </header>
         <% for eatery in @eateries %>
-          <section>
+          <section class="object">
             <div class="sub_upper">
             <h4><%= eatery.name %></h4>
             <br/>
             </div>
             <div class="sub_lower">
-              <a href="/deals/<%= @deal.id %>/eateries/<%= eatery.id %>">Details</a>
+              <a class="button" href="/deals/<%= @deal.id %>/eateries/<%= eatery.id %>">Details</a>
             </div>
           </section>
-          <hr/>
         <% end %>
       <% else %>
+      <header class="sub_header">
         <h3>No Eateries Assigned</h3>
-        <hr/>
+      </header>
       <% end %>
     </section>
   </section>

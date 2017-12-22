@@ -2,7 +2,7 @@
   <header>
     <div class="header_left">
     <% if @burger.name != "" %>
-      <h2>"<%= @burger.name %>"</h2>
+      <h2 class="index_objects">"<%= @burger.name %>"</h2>
       <br/>
       <p><em><%= @burger.type %></em></p>
     <% else %>
@@ -10,44 +10,45 @@
     <% end %>
     </div>
     <div class="header_right">
-      <form class="" action="/burgers/<%= @burger.id %>/edit" method="get">
-        <button type="submit" name="button">Modify Details</button>
-      </form>
+      <a class="button" href="/burgers/<%= @burger.id %>/edit">Modify Burger Details</a>
       <br/>
-      <form class="" action="/burgers" method="get">
-        <button type="submit" name="button">Return to Burger Listing</button>
-      </form>
+      <br/>
+      <a class="button" href="/burgers">Return to Burgers Listing</a>
     </div>
   </header>
   <section class="left_right_container">
     <section class="left">
       <% if @deals %>
+      <header class="sub_header">
         <h3>Active Deals</h3>
-        <hr/>
+      </header>
+      <br/>
         <% for deal in @deals %>
-          <section>
+          <section class="object">
             <div class="sub_left">
             <h4><%= deal.label %></h4>
             <p>Saving Type: <%= deal.value_string %></p>
             <p>Day Available: <%= deal.day %></p>
             </div>
             <div class="sub_right">
-              <a href="/burgers/<%= @burger.id %>/deals/<%= deal.id %>">More Details</a>
+              <a class="button" href="/burgers/<%= @burger.id %>/deals/<%= deal.id %>">More Details</a>
             </div>
           </section>
-          <hr/>
+          <br/>
         <% end %>
       <% else %>
+      <header class="sub_header">
         <h3>No Active Deals</h3>
-        <hr/>
+      </header>
       <% end %>
       </section>
     <section class="right">
       <% if @eateries %>
+      <header class="sub_header">
         <h3>Eateries</h3>
-        <hr/>
+      </header>
         <% for eatery in @eateries %>
-          <section>
+          <section class="object">
             <div class="sub_upper">
             <h4><%= eatery.name %></h4>
             <br/>
@@ -62,14 +63,14 @@
             <p>Price: <%= eatery.show_burger_price_currency(@burger.id) %></p>
             </div>
             <div class="sub_lower">
-              <a href="/burgers/<%= @burger.id %>/eateries/<%= eatery.id %>">More Details</a>
+              <a class="button" href="/burgers/<%= @burger.id %>/eateries/<%= eatery.id %>">More Details</a>
             </div>
-          </section>
-          <hr/>
+          </section>\
         <% end %>
       <% else %>
+      <header class="sub_header">
         <h3>Not Currently Sold</h3>
-        <hr/>
+      </header>
       <% end %>
     </section>
   </section>

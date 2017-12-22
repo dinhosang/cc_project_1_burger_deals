@@ -19,6 +19,7 @@ deal3 = Deal.new({'type_id' => '2', 'value' => '1/4', 'label' => 'Enjoy 25% off 
 
 burger1.save
 burger2.save
+binding.pry
 burger3.save
 eatery1.save
 eatery2.save
@@ -40,7 +41,7 @@ eatery3.update
 
 eatery1.add_stock({"#{burger1.id}" => '350', "#{burger3.id}" => '500'})
 
-eatery1.add_deal({'deal_id' => deal1.id, "#{burger2.id}" => '1', "#{burger3.id}" => '1'})
+eatery1.add_deal({'deal_id' => deal1.id, "#{burger3.id}" => '1'})
 
 eatery1.change_price({"burger" => burger1, "price" => '250'})
 
@@ -48,7 +49,6 @@ burgers_in_eatery1 = eatery1.find_all_burgers
 
 tuesday_deal = Deal.find_all_active_by_day(2)
 
-binding.pry
 
 removing = eatery1.remove_stock_and_return({"#{burger2.id}" => "#{burger2.id}", "#{burger3.id}" => "#{burger3.id}"})
 

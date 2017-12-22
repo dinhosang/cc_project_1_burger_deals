@@ -22,6 +22,11 @@ post('/burgers') do
   @changes = true
   if params['name'] == "" && params['type'] == ""
     @changes = false
+  end
+  type = params['type']
+  check = type.split(" ")
+  if check == []
+    @changes = false
   else
     @burger = Burger.new(params)
     @burger.save

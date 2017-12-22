@@ -5,35 +5,40 @@
   <section class="left_right_container">
     <section class="left">
       <% if @deals %>
+      <header class="sub_header">
         <h3>Active Deals</h3>
-        <hr/>
+      </header>
+      <br/>
         <% for deal in @deals %>
-            <section>
+            <section class="object">
               <div class="sub_left">
                   <p><%= deal.label %></p>
                   <p>Saving Type: <%= deal.value_string %></p>
                   <p>Day Available: <%= deal.day %></p>
               </div>
               <div class="sub_right">
-               <a href="/deals/<%= deal.id %>">More Details</a>
+               <a class="button" href="/deals/<%= deal.id %>">More Details</a>
                <br/>
                <br/>
-               <a href="/deals/<%= deal.id %>/edit">Modify Deal</a>
+               <a class="button" href="/deals/<%= deal.id %>/edit">Modify Deal</a>
               </div>
             </section>
-          <hr/>
+            <br/>
         <% end %>
       <% else %>
+      <header class="sub_header">
         <h3>No Active Deals</h3>
-        <hr/>
+      </header>
+      <br/>
       <% end %>
     </section>
     <section class="right">
       <% if @inactive_deals %>
+      <header class="sub_header">
         <h3>Inactive Deals</h3>
-        <hr/>
+      </header>
         <% for deal in @inactive_deals %>
-          <section>
+          <section class="object">
             <div class="sub_upper">
             <h4><%= deal.label %></h4>
             <br/>
@@ -42,17 +47,18 @@
             <p>Day Available: <%= deal.day %></p>
             </div>
             <div class="sub_lower">
-              <a href="/deals/<%= deal.id %>">More Details</a>
+              <a class="button" href="/deals/<%= deal.id %>">More Details</a>
               <br/>
               <br/>
-              <a href="/deals/<%= deal.id %>/edit">Modify Deal</a>
+              <a class="button" href="/deals/<%= deal.id %>/edit">Modify Deal</a>
             </div>
           </section>
-          <hr/>
         <% end %>
       <% else %>
+      <header class="sub_header">
         <h3>No Inactive Deals</h3>
-        <hr/>
+      </header>
+      <br/>
       <% end %>
     </section>
   </section>

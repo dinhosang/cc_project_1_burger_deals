@@ -1,26 +1,23 @@
-<br/>
-<h2 class="index_objects">List of All <%= @day.day %> Deals</h2>
-<br/>
-<article>
+<article class="main_display">
+  <header>
+    <h2 class="index_objects">List of All <%= @day.day %> Deals</h2>
+  </header>
+  <br/>
   <% for deal in @deals %>
-    <section class="object_section">
-      <section>
-        <div>
+    <section class="centre_container">
+      <section class="object">
+        <div class="sub_left">
             <p><%= deal.label %></p>
             <p>Saving Type: <%= deal.value_string %></p>
             <p>Day Available: <%= deal.day %></p>
         </div>
-      </section>
-      <section>
-        <ul>
-          <li> <a href="/deals/<%= deal.id %>">More Details</a></li>
-        </ul>
+        <div class="sub_right">
+          <a class="button" href="/deals/<%= deal.id %>">More Details</a>
+        </div>
       </section>
     </section>
   <% end %>
   <br/>
   <br/>
-  <form class="delete_object" action="/days" method="get">
-    <button type="submit" name="">Return to Days of the Week</button>
-  </form>
+  <a class="button" href="/days">Return to Days of the Week</a>
 </article>

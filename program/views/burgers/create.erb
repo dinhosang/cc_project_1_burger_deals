@@ -1,41 +1,37 @@
-<% if @changes == false %>
-  <header class="new_object_header">
-    <h2>No New Burger Saved - No Details Entered</h2>
-    <hr/>
-  </header>
-<% else %>
-  <header class="new_object_header">
-    <h2>New Burger Saved</h2>
-    <hr/>
-  </header>
-  <br/>
-  <br/>
-  <br/>
-  <section class="new_object">
-    <hr/>
-  <% if @burger.name != "" %>
-    <br/>
-    <p>Name: <%= @burger.name %></p>
-    <p>Type: <%= @burger.type %></p>
-    <br/>
+<article class="main_display">
+  <% if @changes == false %>
+    <header>
+      <h2 class="index_objects">No New Burger Saved - No Details Entered</h2>
+    </header>
   <% else %>
+    <header>
+      <h2 class="index_objects">New Burger Saved</h2>
+    </header>
     <br/>
-    <p>Type: <%= @burger.type %></p>
     <br/>
+    <br/>
+    <section class="object">
+    <% if @burger.name != "" %>
+      <br/>
+      <p>Name: <%= @burger.name %></p>
+      <p>Type: <%= @burger.type %></p>
+      <br/>
+    <% else %>
+      <br/>
+      <p>Type: <%= @burger.type %></p>
+      <br/>
+    <% end %>
+    <hr/>
+    </section>
   <% end %>
+  <br/>
   <hr/>
+  <br/>
+  <br/>
+  <a class="button" href="/burgers/new">Return to Create New Burger</a>
+  <br/>
+  <br/>
+  <br/>
+  <a class="button" href="/burgers">Return to Burgers Listing</a>
   </section>
-<% end %>
-<br/>
-<hr/>
-<br/>
-<form class="" action="/burgers/new" method="get">
-  <button type="submit" name="button">Return to Create New Burger</button>
-</form>
-<br/>
-<hr/>
-<br/>
-<form class="" action="/burgers" method="get">
-  <button type="submit" name="button">Return to Burger Listing</button>
-</form>
-</section>
+</article>
