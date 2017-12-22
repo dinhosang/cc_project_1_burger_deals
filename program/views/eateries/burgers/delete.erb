@@ -9,14 +9,14 @@
     <h3>Removed Burger Details</h3>
     <hr/>
     <% for burger in @removed_burgers %>
-      <% if @burger.name != "" %>
+      <% if burger.name != "" %>
         <br/>
-        <p>Name: <%= @burger.name %></p>
-        <p>Type: <%= @burger.type %></p>
+        <p>Name: <%= burger.name %></p>
+        <p>Type: <%= burger.type %></p>
         <br/>
       <% else %>
         <br/>
-        <p>Type: <%= @burger.type %></p>
+        <p>Type: <%= burger.type %></p>
         <br/>
       <% end %>
       <hr/>
