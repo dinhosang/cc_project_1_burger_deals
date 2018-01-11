@@ -9,20 +9,26 @@
       </header>
       <br/>
       <article>
-        <% for deal in @deals %>
-          <section class="object">
-            <section class="sub_left">
-              <div>
-                  <p><%= deal.label %></p>
-                  <p>Saving Type: <%= deal.value_string %></p>
-                  <p>Day Available: <%= deal.day %></p>
-              </div>
+        <% if @deals %>
+          <% for deal in @deals %>
+            <section class="object">
+              <section class="sub_left">
+                <div>
+                    <p><%= deal.label %></p>
+                    <p>Saving Type: <%= deal.value_string %></p>
+                    <p>Day Available: <%= deal.day %></p>
+                </div>
+              </section>
+              <section class="sub_right">
+                <br/>
+                  <a class="button" href="/deals/<%= deal.id %>">More Details</a>
+              </section>
             </section>
-            <section class="sub_right">
-              <br/>
-                <a class="button" href="/deals/<%= deal.id %>">More Details</a>
-            </section>
-          </section>
+          <% end %>
+        <% else %>
+          <header class="sub_header">
+            <h3>No Active Deals</h3>
+          </header>
         <% end %>
       </article>
     </section>
